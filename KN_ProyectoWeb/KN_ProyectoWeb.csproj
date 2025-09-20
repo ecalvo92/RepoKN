@@ -129,6 +129,21 @@
   <ItemGroup>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="StaticFiles\css\boxicons.css" />
+    <Content Include="StaticFiles\css\core.css" />
+    <Content Include="StaticFiles\css\demo.css" />
+    <Content Include="StaticFiles\css\page-auth.css" />
+    <Content Include="StaticFiles\css\perfect-scrollbar.css" />
+    <Content Include="StaticFiles\css\theme-default.css" />
+    <Content Include="StaticFiles\fonts\boxicons.svg" />
+    <Content Include="StaticFiles\js\bootstrap.js" />
+    <Content Include="StaticFiles\js\config.js" />
+    <Content Include="StaticFiles\js\helpers.js" />
+    <Content Include="StaticFiles\js\jquery.js" />
+    <Content Include="StaticFiles\js\main.js" />
+    <Content Include="StaticFiles\js\menu.js" />
+    <Content Include="StaticFiles\js\perfect-scrollbar.js" />
+    <Content Include="StaticFiles\js\popper.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -149,6 +164,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="StaticFiles\fonts\boxicons.eot" />
+    <Content Include="StaticFiles\fonts\boxicons.ttf" />
+    <Content Include="StaticFiles\fonts\boxicons.woff" />
+    <Content Include="StaticFiles\fonts\boxicons.woff2" />
+    <Content Include="Views\Home\Registro.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
