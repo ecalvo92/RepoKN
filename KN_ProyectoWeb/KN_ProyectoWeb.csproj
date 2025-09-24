@@ -136,6 +136,7 @@
     <Content Include="StaticFiles\css\perfect-scrollbar.css" />
     <Content Include="StaticFiles\css\theme-default.css" />
     <Content Include="StaticFiles\fonts\boxicons.svg" />
+    <Content Include="StaticFiles\img\1.png" />
     <Content Include="StaticFiles\js\bootstrap.js" />
     <Content Include="StaticFiles\js\config.js" />
     <Content Include="StaticFiles\js\helpers.js" />
