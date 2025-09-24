@@ -9,9 +9,9 @@
                 <div class="app-brand justify-content-center">
                     <a href="index.html" class="app-brand-link gap-2">
                         <img src="~/StaticFiles/img/logo.png">                        
-                        <span class="app-brand-text demo text-body fw-bolder">Proyecto Web KN</span>
+                        <span class="app-brand-text demo text-body fw-bolder">Inciar Sesión</span>
                     </a>
-                </div>                
+                </div>              
 
                 <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
                     <div class="mb-3">
@@ -21,7 +21,7 @@
                     <div class="mb-3 form-password-toggle">
                         <div class="d-flex justify-content-between">
                             <label class="form-label" for="password">Contraseña</label>
-                            <a href="">
+                            <a href="@Url.Action("RecuperarAcceso","Home")">
                                 <small>Olvidó su contraseña?</small>
                             </a>
                         </div>

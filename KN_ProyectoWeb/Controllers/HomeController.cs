@@ -14,6 +14,11 @@ namespace KN_ProyectoWeb.Controllers
             return View();
         }
 
+        public ActionResult RecuperarAcceso()
+        {
+            return View();
+        }
+
         public ActionResult Principal()
         {
             return View();
