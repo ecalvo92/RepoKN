@@ -41,8 +41,31 @@ GO
 SET IDENTITY_INSERT [dbo].[tbPerfil] OFF
 GO
 
-ALTER TABLE [dbo].[tbUsuario]  WITH CHECK ADD  CONSTRAINT [FK_tbUsuario_tbPerfil] FOREIGN KEY([ConsecutivoUsuario])
+SET IDENTITY_INSERT [dbo].[tbUsuario] ON 
+GO
+INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [ConsecutivoPerfil]) VALUES (1, N'304590415', N'Eduardo', N'ecalvo90415@ufide.ac.cr', N'90415', 1, 2)
+GO
+INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [ConsecutivoPerfil]) VALUES (2, N'304590416', N'Eduardo', N'ecalvo90416@ufide.ac.cr', N'90416', 1, 2)
+GO
+SET IDENTITY_INSERT [dbo].[tbUsuario] OFF
+GO
+
+ALTER TABLE [dbo].[tbUsuario]  WITH CHECK ADD  CONSTRAINT [FK_tbUsuario_tbPerfil] FOREIGN KEY([ConsecutivoPerfil])
 REFERENCES [dbo].[tbPerfil] ([ConsecutivoPerfil])
 GO
 ALTER TABLE [dbo].[tbUsuario] CHECK CONSTRAINT [FK_tbUsuario_tbPerfil]
+GO
+
+CREATE PROCEDURE [dbo].[CrearUsuarios]
+    @Identificacion     VARCHAR(15), 
+    @Nombre             VARCHAR(255), 
+    @CorreoElectronico  VARCHAR(100), 
+    @Contrasenna        VARCHAR(10)
+AS
+BEGIN
+	
+    INSERT INTO dbo.tbUsuario (Identificacion,Nombre,CorreoElectronico,Contrasenna,Estado,ConsecutivoPerfil)
+    VALUES (@Identificacion, @Nombre, @CorreoElectronico, @Contrasenna, 1, 2)
+
+END
 GO
