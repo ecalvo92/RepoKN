@@ -1,4 +1,6 @@
-﻿@{
+﻿@model KN_ProyectoWeb.Models.Usuario
+
+@{
     Layout = "~/Views/Shared/_LayoutExterno.cshtml";
 }
 
@@ -13,13 +15,15 @@
                     </a>
                 </div>
                 
-                <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+                @using(Html.BeginForm("RecuperarAcceso", "Home"))
+                {
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo Electrónico</label>
-                        <input type="email" class="form-control" id="email" name="email" />
+                        @Html.TextBoxFor(x => x.CorreoElectronico, new { @class = "form-control", @type = "email" })
                     </div>
-                    <button class="btn btn-primary d-grid w-100">Procesar</button>
-                </form>
+                    <button class="btn btn-primary d-grid w-100" type="submit">Procesar</button>
+                }
+
                 <div class="text-center">
                     <a href="@Url.Action("Index","Home")" class="d-flex align-items-center justify-content-center">
                         Regresar al inicio

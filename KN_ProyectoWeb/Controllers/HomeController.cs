@@ -34,7 +34,7 @@ namespace KN_ProyectoWeb.Controllers
         [HttpPost]
         public ActionResult Registro(Usuario usuario)
         {
-            /*Progra para ir a guardar el usuario en la BD*/
+
 
             return View();
         }
