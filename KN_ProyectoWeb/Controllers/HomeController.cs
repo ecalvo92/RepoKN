@@ -48,12 +48,18 @@ namespace KN_ProyectoWeb.Controllers
                 //};
 
                 //context.tbUsuario.Add(nuevoUsuario);
-                //context.SaveChanges();
+                //var resultado = context.SaveChanges();
 
-                context.CrearUsuarios(usuario.Identificacion, usuario.Nombre, usuario.CorreoElectronico, usuario.Contrasenna);
-            }
+                var resultado = context.CrearUsuarios(usuario.Identificacion, usuario.Nombre, usuario.CorreoElectronico, usuario.Contrasenna);
 
-            return View();
+                if (resultado > 0)
+                {
+                    return RedirectToAction("Index", "home");
+                }
+
+                ViewBag.Mensaje = "La información no se ha podido registrar";
+                return View();
+            }            
         }
 
         #endregion
