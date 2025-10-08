@@ -50,5 +50,18 @@ namespace KN_ProyectoWeb.EF
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CrearUsuarios", identificacionParameter, nombreParameter, correoElectronicoParameter, contrasennaParameter);
         }
+    
+        public virtual ObjectResult<ValidarUsuarios_Result> ValidarUsuarios(string correoElectronico, string contrasenna)
+        {
+            var correoElectronicoParameter = correoElectronico != null ?
+                new ObjectParameter("CorreoElectronico", correoElectronico) :
+                new ObjectParameter("CorreoElectronico", typeof(string));
+    
+            var contrasennaParameter = contrasenna != null ?
+                new ObjectParameter("Contrasenna", contrasenna) :
+                new ObjectParameter("Contrasenna", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ValidarUsuarios_Result>("ValidarUsuarios", correoElectronicoParameter, contrasennaParameter);
+        }
     }
 }

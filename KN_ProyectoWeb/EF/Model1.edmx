@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BD_KNModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="BD_KNModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tbPerfil">
           <Key>
             <PropertyRef Name="ConsecutivoPerfil" />
@@ -42,6 +42,10 @@
           <Parameter Name="CorreoElectronico" Type="varchar" Mode="In" />
           <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="ValidarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CorreoElectronico" Type="varchar" Mode="In" />
+          <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="BD_KNModelStoreContainer">
           <EntitySet Name="tbPerfil" EntityType="Self.tbPerfil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbUsuario" EntityType="Self.tbUsuario" Schema="dbo" store:Type="Tables" />
@@ -50,7 +54,8 @@
             <End Role="tbUsuario" EntitySet="tbUsuario" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BD_KNModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -100,7 +105,20 @@
             <Parameter Name="CorreoElectronico" Mode="In" Type="String" />
             <Parameter Name="Contrasenna" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="ValidarUsuarios" ReturnType="Collection(BD_KNModel.ValidarUsuarios_Result)">
+            <Parameter Name="CorreoElectronico" Mode="In" Type="String" />
+            <Parameter Name="Contrasenna" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="ValidarUsuarios_Result">
+          <Property Type="Int32" Name="ConsecutivoUsuario" Nullable="false" />
+          <Property Type="String" Name="Identificacion" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="CorreoElectronico" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Contrasenna" Nullable="false" MaxLength="10" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+          <Property Type="Int32" Name="ConsecutivoPerfil" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -129,6 +147,19 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="CrearUsuarios" FunctionName="BD_KNModel.Store.CrearUsuarios" />
+          <FunctionImportMapping FunctionImportName="ValidarUsuarios" FunctionName="BD_KNModel.Store.ValidarUsuarios">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_KNModel.ValidarUsuarios_Result">
+                <ScalarProperty Name="ConsecutivoUsuario" ColumnName="ConsecutivoUsuario" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
+                <ScalarProperty Name="Contrasenna" ColumnName="Contrasenna" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="ConsecutivoPerfil" ColumnName="ConsecutivoPerfil" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

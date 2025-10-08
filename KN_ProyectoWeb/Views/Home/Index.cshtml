@@ -10,16 +10,23 @@
             <div class="card-body">
                 <div class="app-brand justify-content-center">
                     <a href="index.html" class="app-brand-link gap-2">
-                        <img src="~/StaticFiles/img/logo.png">                        
+                        <img src="~/StaticFiles/img/logo.png">
                         <span class="app-brand-text demo text-body fw-bolder">Inciar Sesión</span>
                     </a>
-                </div>              
+                </div>
 
-                @using(Html.BeginForm("Index", "Home"))
-                {                     
+                @if (ViewBag.Mensaje != null)
+                {
+                    <div class="alert alert-primary text-center">
+                        @ViewBag.Mensaje
+                    </div>
+                }
+
+                @using (Html.BeginForm("Index", "Home"))
+                {
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo Electrónico</label>
-                        @Html.TextBoxFor(x => x.CorreoElectronico, new { @class="form-control", @type="email" })
+                        @Html.TextBoxFor(x => x.CorreoElectronico, new { @class = "form-control", @type = "email" })
                     </div>
 
                     <div class="mb-3 form-password-toggle">
@@ -30,7 +37,7 @@
                             </a>
                         </div>
                         <div class="input-group input-group-merge">
-                            @Html.TextBoxFor(x => x.Contrasenna, new { @class = "form-control", @type= "password" })
+                            @Html.TextBoxFor(x => x.Contrasenna, new { @class = "form-control", @type = "password" })
                             <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                         </div>
                     </div>

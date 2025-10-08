@@ -1,5 +1,6 @@
 ﻿using KN_ProyectoWeb.EF;
 using KN_ProyectoWeb.Models;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace KN_ProyectoWeb.Controllers
@@ -17,9 +18,22 @@ namespace KN_ProyectoWeb.Controllers
         [HttpPost]
         public ActionResult Index(Usuario usuario)
         {
-            /*Progra para validar si usuario.CorreoElectronico y usuario.Contrasenna*/
+            using (var context = new BD_KNEntities())
+            {
+                var resultado = context.tbUsuario.Where(x => x.CorreoElectronico == usuario.CorreoElectronico
+                                                                   && x.Contrasenna == usuario.Contrasenna
+                                                                   && x.Estado == true).FirstOrDefault();
 
-            return RedirectToAction("Principal", "Home");
+                //var resultado = context.ValidarUsuarios(usuario.CorreoElectronico, usuario.Contrasenna).FirstOrDefault();
+
+                if (resultado != null)
+                {
+                    return RedirectToAction("Principal", "Home");
+                }
+
+                ViewBag.Mensaje = "La información no se ha podido autenticar";
+                return View();
+            }
         }
 
         #endregion
@@ -37,25 +51,33 @@ namespace KN_ProyectoWeb.Controllers
         {
             using (var context = new BD_KNEntities())
             {
-                //var nuevoUsuario = new tbUsuario
-                //{
-                //    Identificacion = usuario.Identificacion,
-                //    Nombre = usuario.Nombre,
-                //    CorreoElectronico = usuario.CorreoElectronico,
-                //    Contrasenna = usuario.Contrasenna,
-                //    ConsecutivoPerfil = 2,
-                //    Estado = true
-                //};
+                //Se valida si el usuario ya existe
+                var resultadoConsulta = context.tbUsuario.Where(x => x.Identificacion == usuario.Identificacion
+                                                          || x.CorreoElectronico == usuario.CorreoElectronico).FirstOrDefault();
 
-                //context.tbUsuario.Add(nuevoUsuario);
-                //var resultado = context.SaveChanges();
-
-                var resultado = context.CrearUsuarios(usuario.Identificacion, usuario.Nombre, usuario.CorreoElectronico, usuario.Contrasenna);
-
-                if (resultado > 0)
+                //Si no existe se manda a crear
+                if (resultadoConsulta == null)
                 {
-                    return RedirectToAction("Index", "home");
-                }
+                    var nuevoUsuario = new tbUsuario
+                    {
+                        Identificacion = usuario.Identificacion,
+                        Nombre = usuario.Nombre,
+                        CorreoElectronico = usuario.CorreoElectronico,
+                        Contrasenna = usuario.Contrasenna,
+                        ConsecutivoPerfil = 2,
+                        Estado = true
+                    };
+
+                    context.tbUsuario.Add(nuevoUsuario);
+                    var resultadoInsercion = context.SaveChanges();
+
+                    //var resultado = context.CrearUsuarios(usuario.Identificacion, usuario.Nombre, usuario.CorreoElectronico, usuario.Contrasenna);
+
+                    if (resultadoInsercion > 0)
+                    {
+                        return RedirectToAction("Index", "home");
+                    }
+                }               
 
                 ViewBag.Mensaje = "La información no se ha podido registrar";
                 return View();
