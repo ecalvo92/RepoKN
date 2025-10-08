@@ -26,11 +26,11 @@
                 {
                     <div class="mb-3">
                         <label for="username" class="form-label">Identificación</label>
-                        @Html.TextBoxFor(x => x.Identificacion, new { @class = "form-control" })
+                        @Html.TextBoxFor(x => x.Identificacion, new { @class = "form-control", @onkeyup = "ConsultarNombre();" })
                     </div>
                     <div class="mb-3">
                         <label for="username" class="form-label">Nombre</label>
-                        @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control" })
+                        @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control", @readOnly = "true" })
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo Electrónico</label>
@@ -57,3 +57,5 @@
         </div>
     </div>
 </div>
+
+<script src="~/StaticFiles/js/Registro.js"></script>
