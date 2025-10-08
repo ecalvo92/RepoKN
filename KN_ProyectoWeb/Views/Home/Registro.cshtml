@@ -22,7 +22,7 @@
                     </div>               
                 }
 
-                @using (Html.BeginForm("Registro", "Home"))
+                @using (Html.BeginForm("Registro", "Home", FormMethod.Post, new { @id="FormRegistro" }))
                 {
                     <div class="mb-3">
                         <label for="username" class="form-label">Identificación</label>
@@ -34,14 +34,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo Electrónico</label>
-                        @Html.TextBoxFor(x => x.CorreoElectronico, new { @class = "form-control", @type = "email" })
+                        @Html.TextBoxFor(x => x.CorreoElectronico, new { @class = "form-control" })
                     </div>
                     <div class="mb-3 form-password-toggle">
                         <label class="form-label" for="password">Contraseña</label>
-                        <div class="input-group input-group-merge">
-                            @Html.TextBoxFor(x => x.Contrasenna, new { @class = "form-control", @type = "password" })
-                            <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                        </div>
+                        @Html.TextBoxFor(x => x.Contrasenna, new { @class = "form-control", @type = "password" })
                     </div>
 
                     <button class="btn btn-primary d-grid w-100" type="submit">Procesar</button>

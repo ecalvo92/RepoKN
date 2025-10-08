@@ -184,6 +184,7 @@
     <Content Include="StaticFiles\js\bootstrap.js" />
     <Content Include="StaticFiles\js\config.js" />
     <Content Include="StaticFiles\js\helpers.js" />
+    <Content Include="StaticFiles\js\IniciarSesion.js" />
     <Content Include="StaticFiles\js\jquery.js" />
     <Content Include="StaticFiles\js\main.js" />
     <Content Include="StaticFiles\js\menu.js" />
