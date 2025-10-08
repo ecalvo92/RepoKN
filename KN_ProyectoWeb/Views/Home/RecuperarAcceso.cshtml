@@ -14,12 +14,19 @@
                         <span class="app-brand-text demo text-body fw-bolder">Recuperar Acceso</span>
                     </a>
                 </div>
-                
-                @using(Html.BeginForm("RecuperarAcceso", "Home"))
+
+                @if (ViewBag.Mensaje != null)
+                {
+                    <div class="alert alert-primary text-center">
+                        @ViewBag.Mensaje
+                    </div>
+                }
+
+                @using (Html.BeginForm("RecuperarAcceso", "Home", FormMethod.Post, new { @id = "FormRecuperarAcceso" }))
                 {
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo Electrónico</label>
-                        @Html.TextBoxFor(x => x.CorreoElectronico, new { @class = "form-control", @type = "email" })
+                        @Html.TextBoxFor(x => x.CorreoElectronico, new { @class = "form-control" })
                     </div>
                     <button class="btn btn-primary d-grid w-100" type="submit">Procesar</button>
                 }
@@ -33,3 +40,5 @@
         </div>
     </div>
 </div>
+
+<script src="~/StaticFiles/js/RecuperarAcceso.js"></script>

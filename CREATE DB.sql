@@ -47,7 +47,25 @@ INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [Cor
 GO
 INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [ConsecutivoPerfil]) VALUES (2, N'304590416', N'Eduardo', N'ecalvo90416@ufide.ac.cr', N'90416', 1, 2)
 GO
+INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [ConsecutivoPerfil]) VALUES (3, N'304590417', N'Alex Cesar Fajardo', N'ecalvo90417@ufide.ac.cr', N'12313221', 1, 2)
+GO
+INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [ConsecutivoPerfil]) VALUES (4, N'119780659', N'IGNACIO AGUILAR FERNANDEZ', N'iaguilar80659@ufide.ac.cr', N'80659', 1, 2)
+GO
 SET IDENTITY_INSERT [dbo].[tbUsuario] OFF
+GO
+
+/****** Object:  Index [UK_CorreoElectronico]    Script Date: 7/10/2025 20:36:53 ******/
+ALTER TABLE [dbo].[tbUsuario] ADD  CONSTRAINT [UK_CorreoElectronico] UNIQUE NONCLUSTERED 
+(
+	[CorreoElectronico] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+
+/****** Object:  Index [UK_Identificacion]    Script Date: 7/10/2025 20:36:53 ******/
+ALTER TABLE [dbo].[tbUsuario] ADD  CONSTRAINT [UK_Identificacion] UNIQUE NONCLUSTERED 
+(
+	[Identificacion] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
 
 ALTER TABLE [dbo].[tbUsuario]  WITH CHECK ADD  CONSTRAINT [FK_tbUsuario_tbPerfil] FOREIGN KEY([ConsecutivoPerfil])
@@ -64,8 +82,39 @@ CREATE PROCEDURE [dbo].[CrearUsuarios]
 AS
 BEGIN
 	
-    INSERT INTO dbo.tbUsuario (Identificacion,Nombre,CorreoElectronico,Contrasenna,Estado,ConsecutivoPerfil)
-    VALUES (@Identificacion, @Nombre, @CorreoElectronico, @Contrasenna, 1, 2)
+    --Se valida si el usuario ya existe
+    IF NOT EXISTS(  SELECT  1 
+                    FROM    dbo.tbUsuario
+                    WHERE   Identificacion = @Identificacion
+                        OR  CorreoElectronico = @CorreoElectronico)
+    BEGIN
+
+        --Si no existe se manda a crear
+        INSERT INTO dbo.tbUsuario (Identificacion,Nombre,CorreoElectronico,Contrasenna,Estado,ConsecutivoPerfil)
+        VALUES (@Identificacion, @Nombre, @CorreoElectronico, @Contrasenna, 1, 2)
+
+    END
+END
+GO
+
+CREATE PROCEDURE [dbo].[ValidarUsuarios]
+    @CorreoElectronico  VARCHAR(100), 
+    @Contrasenna        VARCHAR(10)
+AS
+BEGIN
+	
+    SELECT  ConsecutivoUsuario,
+            Identificacion,
+            Nombre,
+            CorreoElectronico,
+            Contrasenna,
+            Estado,
+            ConsecutivoPerfil
+    FROM    dbo.tbUsuario
+    WHERE   CorreoElectronico = @CorreoElectronico
+        AND Contrasenna = @Contrasenna
+        AND Estado = 1
 
 END
 GO
+
