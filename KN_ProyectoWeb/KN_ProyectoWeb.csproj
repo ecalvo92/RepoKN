@@ -159,6 +159,7 @@
     </Compile>
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Utilitarios.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="EF\Model1.Context.tt">
