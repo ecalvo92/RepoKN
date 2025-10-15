@@ -4,13 +4,32 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BD_KNModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BD_KNModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbCategoria">
+          <Key>
+            <PropertyRef Name="ConsecutivoCategoria" />
+          </Key>
+          <Property Name="ConsecutivoCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="tbPerfil">
           <Key>
             <PropertyRef Name="ConsecutivoPerfil" />
           </Key>
           <Property Name="ConsecutivoPerfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbProducto">
+          <Key>
+            <PropertyRef Name="ConsecutivoProducto" />
+          </Key>
+          <Property Name="ConsecutivoProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="2000" Nullable="false" />
+          <Property Name="Precio" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ConsecutivoCategoria" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+          <Property Name="Imagen" Type="varchar" MaxLength="250" Nullable="false" />
         </EntityType>
         <EntityType Name="tbUsuario">
           <Key>
@@ -24,6 +43,18 @@
           <Property Name="Estado" Type="bit" Nullable="false" />
           <Property Name="ConsecutivoPerfil" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_tbProducto_tbCategoria">
+          <End Role="tbCategoria" Type="Self.tbCategoria" Multiplicity="1" />
+          <End Role="tbProducto" Type="Self.tbProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCategoria">
+              <PropertyRef Name="ConsecutivoCategoria" />
+            </Principal>
+            <Dependent Role="tbProducto">
+              <PropertyRef Name="ConsecutivoCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbUsuario_tbPerfil">
           <End Role="tbPerfil" Type="Self.tbPerfil" Multiplicity="1" />
           <End Role="tbUsuario" Type="Self.tbUsuario" Multiplicity="*" />
@@ -47,15 +78,20 @@
           <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="BD_KNModelStoreContainer">
+          <EntitySet Name="tbCategoria" EntityType="Self.tbCategoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbPerfil" EntityType="Self.tbPerfil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbProducto" EntityType="Self.tbProducto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbUsuario" EntityType="Self.tbUsuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbProducto_tbCategoria" Association="Self.FK_tbProducto_tbCategoria">
+            <End Role="tbCategoria" EntitySet="tbCategoria" />
+            <End Role="tbProducto" EntitySet="tbProducto" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbUsuario_tbPerfil" Association="Self.FK_tbUsuario_tbPerfil">
             <End Role="tbPerfil" EntitySet="tbPerfil" />
             <End Role="tbUsuario" EntitySet="tbUsuario" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BD_KNModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -109,6 +145,12 @@
             <Parameter Name="CorreoElectronico" Mode="In" Type="String" />
             <Parameter Name="Contrasenna" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="tbCategoria" EntityType="BD_KNModel.tbCategoria" />
+          <EntitySet Name="tbProducto" EntityType="BD_KNModel.tbProducto" />
+          <AssociationSet Name="FK_tbProducto_tbCategoria" Association="BD_KNModel.FK_tbProducto_tbCategoria">
+            <End Role="tbCategoria" EntitySet="tbCategoria" />
+            <End Role="tbProducto" EntitySet="tbProducto" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="ValidarUsuarios_Result">
           <Property Type="Int32" Name="ConsecutivoUsuario" Nullable="false" />
@@ -119,6 +161,39 @@
           <Property Type="Boolean" Name="Estado" Nullable="false" />
           <Property Type="Int32" Name="ConsecutivoPerfil" Nullable="false" />
         </ComplexType>
+        <EntityType Name="tbCategoria">
+          <Key>
+            <PropertyRef Name="ConsecutivoCategoria" />
+          </Key>
+          <Property Name="ConsecutivoCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbProducto" Relationship="BD_KNModel.FK_tbProducto_tbCategoria" FromRole="tbCategoria" ToRole="tbProducto" />
+        </EntityType>
+        <EntityType Name="tbProducto">
+          <Key>
+            <PropertyRef Name="ConsecutivoProducto" />
+          </Key>
+          <Property Name="ConsecutivoProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Precio" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="ConsecutivoCategoria" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <Property Name="Imagen" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbCategoria" Relationship="BD_KNModel.FK_tbProducto_tbCategoria" FromRole="tbProducto" ToRole="tbCategoria" />
+        </EntityType>
+        <Association Name="FK_tbProducto_tbCategoria">
+          <End Type="BD_KNModel.tbCategoria" Role="tbCategoria" Multiplicity="1" />
+          <End Type="BD_KNModel.tbProducto" Role="tbProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCategoria">
+              <PropertyRef Name="ConsecutivoCategoria" />
+            </Principal>
+            <Dependent Role="tbProducto">
+              <PropertyRef Name="ConsecutivoCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -160,6 +235,27 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="tbCategoria">
+            <EntityTypeMapping TypeName="BD_KNModel.tbCategoria">
+              <MappingFragment StoreEntitySet="tbCategoria">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ConsecutivoCategoria" ColumnName="ConsecutivoCategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbProducto">
+            <EntityTypeMapping TypeName="BD_KNModel.tbProducto">
+              <MappingFragment StoreEntitySet="tbProducto">
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="ConsecutivoCategoria" ColumnName="ConsecutivoCategoria" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ConsecutivoProducto" ColumnName="ConsecutivoProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

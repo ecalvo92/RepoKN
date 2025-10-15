@@ -29,6 +29,8 @@ namespace KN_ProyectoWeb.EF
     
         public virtual DbSet<tbPerfil> tbPerfil { get; set; }
         public virtual DbSet<tbUsuario> tbUsuario { get; set; }
+        public virtual DbSet<tbCategoria> tbCategoria { get; set; }
+        public virtual DbSet<tbProducto> tbProducto { get; set; }
     
         public virtual int CrearUsuarios(string identificacion, string nombre, string correoElectronico, string contrasenna)
         {

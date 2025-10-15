@@ -33,6 +33,8 @@ namespace KN_ProyectoWeb.Controllers
 
                 if (resultado != null)
                 {
+                    Session["NombreUsuario"] = resultado.Nombre;
+                    Session["PerfilUsuario"] = resultado.tbPerfil.Nombre;
                     return RedirectToAction("Principal", "Home");
                 }
 
@@ -153,6 +155,13 @@ namespace KN_ProyectoWeb.Controllers
         public ActionResult Principal()
         {
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult CerrarSesion()
+        {
+            Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

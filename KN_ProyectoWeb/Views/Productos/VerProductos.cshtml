@@ -1,0 +1,43 @@
+﻿@model List<KN_ProyectoWeb.EF.tbProducto>
+
+@{
+    Layout = "~/Views/Shared/_LayoutInterno.cshtml";
+}
+
+<div class="col-12">
+    <div class="card overflow-hidden" style="height: 500px">
+        <h5 class="card-header">Productos</h5>
+        <div class="card-body ps ps--active-x ps--active-y">
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Categoría</th>
+                        <th>Estado</th>
+                        <th>Imagen</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ConsecutivoProducto</td>
+                            <td>@item.Nombre</td>
+                            <td>$ @item.Precio.ToString("N2")</td>
+                            <td>@item.tbCategoria.Nombre</td>
+                            <td>@(item.Estado ? "Activo" : "Inactivo")</td>
+                            <td><img src="@item.Imagen" width="200" height="150"></td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+

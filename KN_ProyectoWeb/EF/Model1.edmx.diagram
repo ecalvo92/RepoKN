@@ -8,6 +8,9 @@
         <EntityTypeShape EntityType="BD_KNModel.tbPerfil" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="BD_KNModel.tbUsuario" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="BD_KNModel.FK_tbUsuario_tbPerfil" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BD_KNModel.tbCategoria" Width="1.5" PointX="0.75" PointY="5.375" />
+        <EntityTypeShape EntityType="BD_KNModel.tbProducto" Width="1.5" PointX="3" PointY="5" />
+        <AssociationConnector Association="BD_KNModel.FK_tbProducto_tbCategoria" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
