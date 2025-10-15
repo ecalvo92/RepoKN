@@ -192,6 +192,7 @@
     <Content Include="StaticFiles\js\popper.js" />
     <Content Include="StaticFiles\js\RecuperarAcceso.js" />
     <Content Include="StaticFiles\js\Registro.js" />
+    <Content Include="TemplateRecuperacion.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

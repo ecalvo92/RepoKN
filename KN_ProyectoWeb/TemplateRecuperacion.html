@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Recuperación de acceso</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            font-size: 18px;
+            font-weight: bold;
+            color: #004aad;
+            margin-bottom: 15px;
+        }
+
+        .content {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .footer {
+            font-size: 12px;
+            color: #777;
+            margin-top: 20px;
+        }
+
+        .password {
+            font-weight: bold;
+            color: #0066ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Recuperación de acceso</div>
+        <div class="content">
+            <p>Estimado(a) {{Nombre}},</p>
+            <p>Se ha generado una solicitud de recuperación de acceso a su nombre</p>
+            <p>Su nueva contraseña de acceso es: <span class="password">{{Contrasena}}</span></p>
+            <p>Procure realizar el cambio de su contraseña una vez ingrese al sistema</p>
+            <p>Muchas gracias</p>
+        </div>
+        <div class="footer">
+            &copy; Martes Noche
+        </div>
+    </div>
+</body>
+</html>
