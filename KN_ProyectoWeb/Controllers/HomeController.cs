@@ -9,7 +9,6 @@ using System.Web.UI;
 
 namespace KN_ProyectoWeb.Controllers
 {
-    //[OutputCache(Duration = 0, Location = OutputCacheLocation.None, NoStore = true, VaryByParam = "*")]
     public class HomeController : Controller
     {
         Utilitarios utilitarios = new Utilitarios();
@@ -161,6 +160,7 @@ namespace KN_ProyectoWeb.Controllers
             return View();
         }
 
+        [Seguridad]
         [HttpGet]
         public ActionResult CerrarSesion()
         {

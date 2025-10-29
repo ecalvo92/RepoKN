@@ -7,7 +7,6 @@ using System.Web.Mvc;
 namespace KN_ProyectoWeb.Controllers
 {
     [Seguridad]
-    //[OutputCache(Duration = 0, Location = OutputCacheLocation.None, NoStore = true, VaryByParam = "*")]
     public class UsuarioController : Controller
     {
         [HttpGet]
