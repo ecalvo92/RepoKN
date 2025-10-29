@@ -131,6 +131,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="EF\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -167,6 +168,7 @@
     <Compile Include="Models\Producto.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Seguridad.cs" />
     <Compile Include="Services\Utilitarios.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +203,7 @@
     <Content Include="StaticFiles\js\popper.js" />
     <Content Include="StaticFiles\js\RecuperarAcceso.js" />
     <Content Include="StaticFiles\js\Registro.js" />
+    <Content Include="StaticFiles\js\VerPerfil.js" />
     <Content Include="TemplateRecuperacion.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -236,6 +239,7 @@
     <Content Include="Views\Home\Principal.cshtml" />
     <Content Include="Views\Home\RecuperarAcceso.cshtml" />
     <Content Include="Views\Productos\VerProductos.cshtml" />
+    <Content Include="Views\Usuario\VerPerfil.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

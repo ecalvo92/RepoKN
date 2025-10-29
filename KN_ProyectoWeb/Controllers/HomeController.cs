@@ -5,9 +5,11 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.UI;
 
 namespace KN_ProyectoWeb.Controllers
 {
+    //[OutputCache(Duration = 0, Location = OutputCacheLocation.None, NoStore = true, VaryByParam = "*")]
     public class HomeController : Controller
     {
         Utilitarios utilitarios = new Utilitarios();
@@ -33,6 +35,7 @@ namespace KN_ProyectoWeb.Controllers
 
                 if (resultado != null)
                 {
+                    Session["ConsecutivoUsuario"] = resultado.ConsecutivoUsuario;
                     Session["NombreUsuario"] = resultado.Nombre;
                     Session["PerfilUsuario"] = resultado.tbPerfil.Nombre;
                     return RedirectToAction("Principal", "Home");
@@ -151,6 +154,7 @@ namespace KN_ProyectoWeb.Controllers
 
         #endregion
 
+        [Seguridad]
         [HttpGet]
         public ActionResult Principal()
         {
@@ -161,6 +165,7 @@ namespace KN_ProyectoWeb.Controllers
         public ActionResult CerrarSesion()
         {
             Session.Clear();
+            Session.Abandon();
             return RedirectToAction("Index", "Home");
         }
     }

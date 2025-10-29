@@ -7,6 +7,7 @@
         public string Descripcion { get; set; }
         public decimal Precio { get; set; }
         public int ConsecutivoCategoria { get; set; }
+        public string NombreCategoria { get; set; }
         public bool Estado { get; set; }
         public string Imagen { get; set; }
     }

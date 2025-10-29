@@ -1,0 +1,47 @@
+﻿@model KN_ProyectoWeb.Models.Usuario
+
+<div class="row">
+
+    <div class="col-xl-1">
+    </div>
+
+    <div class="col-xl-10">
+
+        <div class="card mb-4 mt-4">
+            <h5 class="card-header">Información del Perfil</h5>
+
+            @if (ViewBag.Mensaje != null)
+            {
+                <div class="alert alert-primary text-center">
+                    @ViewBag.Mensaje
+                </div>
+            }
+
+            @using (Html.BeginForm("Registro", "Home", FormMethod.Post, new { @id = "FormVerPerfil" }))
+            {
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Identificación</label>
+                        @Html.TextBoxFor(x => x.Identificacion, new { @class = "form-control", @onkeyup = "ConsultarNombre();" })
+                    </div>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Nombre</label>
+                        @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control", @readOnly = "true" })
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Correo Electrónico</label>
+                        @Html.TextBoxFor(x => x.CorreoElectronico, new { @class = "form-control" })
+                    </div>
+                    <div class="mb-3 form-password-toggle">
+                        <label class="form-label" for="password">Perfil</label>
+                        @Html.TextBoxFor(x => x.NombrePerfil, new { @class = "form-control", @readOnly = "true" })
+                    </div>
+                </div>
+            }
+
+            </div>
+
+    </div>
+</div>
+
+<script src="~/StaticFiles/js/VerPerfil.js"></script>
