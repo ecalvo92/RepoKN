@@ -63,5 +63,40 @@ namespace KN_ProyectoWeb.Controllers
                 return View();
             }
         }
+
+
+        [HttpGet]
+        public ActionResult CambiarAcceso()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CambiarAcceso(Usuario usuario)
+        {
+            ViewBag.Mensaje = "La información no se actualizó correctamente";
+
+            using (var context = new BD_KNEntities())
+            {
+                var consecutivo = int.Parse(Session["ConsecutivoUsuario"].ToString());
+
+                //Tomar el objeto de la BD
+                var resultadoConsulta = context.tbUsuario.Where(x => x.ConsecutivoUsuario == consecutivo).FirstOrDefault();
+
+                //Si existe se manda a actualizar
+                if (resultadoConsulta != null)
+                {
+                    //Actualizar los campos del formulario
+                    resultadoConsulta.Contrasenna = usuario.Contrasenna;
+                    var resultadoactualizacion = context.SaveChanges();
+
+                    if (resultadoactualizacion > 0)
+                        ViewBag.Mensaje = "La información se actualizó correctamente";
+                }
+
+                return View();
+            }
+        }
+
     }
 }

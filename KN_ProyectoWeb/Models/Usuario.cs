@@ -1,4 +1,6 @@
-﻿namespace KN_ProyectoWeb.Models
+﻿using System.EnterpriseServices.Internal;
+
+namespace KN_ProyectoWeb.Models
 {
     public class Usuario
     {
@@ -8,5 +10,6 @@
         public string CorreoElectronico { get; set; }
         public string Contrasenna { get; set; }
         public string NombrePerfil { get; set; }
+        public string ContrasennaConfirmar { get; set; }
     }
 }

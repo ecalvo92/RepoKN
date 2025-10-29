@@ -104,7 +104,9 @@ INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [Cor
 GO
 INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [ConsecutivoPerfil]) VALUES (3, N'304590417', N'Alex Cesar Fajardo', N'ecalvo90417@ufide.ac.cr', N'12313221', 1, 2)
 GO
-INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [ConsecutivoPerfil]) VALUES (4, N'119780659', N'IGNACIO AGUILAR FERNANDEZ', N'iaguilar80659@ufide.ac.cr', N'W8O15QK4', 1, 2)
+INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [ConsecutivoPerfil]) VALUES (4, N'119600898', N'VEGA MURILLO JUAN PABLO', N'jvega00898@ufide.ac.cr', N'FideLDA31', 1, 2)
+GO
+INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [ConsecutivoPerfil]) VALUES (1003, N'119780659', N'IGNACIO AGUILAR FERNANDEZ', N'iaguilar80659@ufide.ac.cr', N'FideSapri', 1, 2)
 GO
 SET IDENTITY_INSERT [dbo].[tbUsuario] OFF
 GO
