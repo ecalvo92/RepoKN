@@ -31,5 +31,37 @@ namespace KN_ProyectoWeb.Controllers
                 return View(datos);
             }
         }
+
+        [HttpPost]
+        public ActionResult VerPerfil(Usuario usuario)
+        {
+            ViewBag.Mensaje = "La información no se actualizó correctamente";
+           
+            using (var context = new BD_KNEntities())
+            {
+                var consecutivo = int.Parse(Session["ConsecutivoUsuario"].ToString());
+
+                //Tomar el objeto de la BD
+                var resultadoConsulta = context.tbUsuario.Where(x => x.ConsecutivoUsuario == consecutivo).FirstOrDefault();
+
+                //Si existe se manda a actualizar
+                if (resultadoConsulta != null)
+                {
+                    //Actualizar los campos del formulario
+                    resultadoConsulta.Identificacion = usuario.Identificacion;
+                    resultadoConsulta.Nombre = usuario.Nombre;
+                    resultadoConsulta.CorreoElectronico = usuario.CorreoElectronico;
+                    var resultadoactualizacion = context.SaveChanges();
+
+                    if (resultadoactualizacion > 0)
+                    {
+                        ViewBag.Mensaje = "La información se actualizó correctamente";
+                        Session["NombreUsuario"] = usuario.Nombre;
+                    }
+                }
+
+                return View();
+            }
+        }
     }
 }

@@ -8,8 +8,7 @@
     <div class="col-xl-10">
 
         <div class="card mb-4 mt-4">
-            <h5 class="card-header">Información del Perfil</h5>
-
+            
             @if (ViewBag.Mensaje != null)
             {
                 <div class="alert alert-primary text-center">
@@ -17,7 +16,9 @@
                 </div>
             }
 
-            @using (Html.BeginForm("Registro", "Home", FormMethod.Post, new { @id = "FormVerPerfil" }))
+            <h5 class="card-header">Información del Perfil</h5>
+
+            @using (Html.BeginForm("VerPerfil", "Usuario", FormMethod.Post, new { @id = "FormVerPerfil" }))
             {
                 <div class="card-body">
                     <div class="mb-3">
@@ -36,10 +37,14 @@
                         <label class="form-label" for="password">Perfil</label>
                         @Html.TextBoxFor(x => x.NombrePerfil, new { @class = "form-control", @readOnly = "true" })
                     </div>
+
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-primary d-grid w-25" type="submit">Procesar</button>
+                    </div>
                 </div>
             }
 
-            </div>
+        </div>
 
     </div>
 </div>
