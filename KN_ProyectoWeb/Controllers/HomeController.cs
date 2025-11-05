@@ -37,6 +37,7 @@ namespace KN_ProyectoWeb.Controllers
                     Session["ConsecutivoUsuario"] = resultado.ConsecutivoUsuario;
                     Session["NombreUsuario"] = resultado.Nombre;
                     Session["PerfilUsuario"] = resultado.tbPerfil.Nombre;
+                    Session["ConsecutivoPerfil"] = resultado.ConsecutivoPerfil;
                     return RedirectToAction("Principal", "Home");
                 }
 

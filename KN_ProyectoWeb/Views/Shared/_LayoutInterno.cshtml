@@ -1,6 +1,7 @@
 ﻿@{
     var nombreUsuario = (Session["NombreUsuario"] == null ? "Invitado" : Session["NombreUsuario"].ToString());
     var nombrePerfil = (Session["PerfilUsuario"] == null ? "Pendiente" : Session["PerfilUsuario"].ToString());
+    var consecutivoPerfil = (Session["ConsecutivoPerfil"] == null ? "0" : Session["ConsecutivoPerfil"].ToString());
 }
 
 <!DOCTYPE html>
@@ -16,6 +17,8 @@
     <link rel="stylesheet" href="~/StaticFiles/css/theme-default.css" />
     <link rel="stylesheet" href="~/StaticFiles/css/demo.css" />
     <link rel="stylesheet" href="~/StaticFiles/css/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.bootstrap5.css" />   
+
     <script src="~/StaticFiles/js/helpers.js"></script>
     <script src="~/StaticFiles/js/config.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -42,17 +45,19 @@
 
                 <ul class="menu-inner py-1">
 
-                    <li class="menu-header small text-uppercase">
-                        <span class="menu-header-text">Mantenimientos</span>
-                    </li>
+                    @if (consecutivoPerfil == "1")
+                    {
+                        <li class="menu-header small text-uppercase">
+                            <span class="menu-header-text">Mantenimientos</span>
+                        </li>
 
-                    <li class="menu-item">
-                        <a href="@Url.Action("VerProductos","Productos")" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-collection"></i>
-                            <div data-i18n="Basic">Productos</div>
-                        </a>
-                    </li>
-
+                        <li class="menu-item">
+                            <a href="@Url.Action("VerProductos","Productos")" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-collection"></i>
+                                <div data-i18n="Basic">Productos</div>
+                            </a>
+                        </li>
+                    }
 
 
                 </ul>
@@ -151,7 +156,9 @@
     <script src="~/StaticFiles/js/menu.js"></script>
     <script src="~/StaticFiles/js/main.js"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.bootstrap5.js"></script>  
+    
     <script>
         window.addEventListener("pageshow", function (event) {
             if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {

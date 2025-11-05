@@ -9,7 +9,7 @@
         <h5 class="card-header">Productos</h5>
         <div class="card-body ps ps--active-x ps--active-y">
 
-            <table class="table table-hover">
+            <table id="tProductos" class="table table-hover">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -41,3 +41,15 @@
     </div>
 </div>
 
+<script>
+
+    $(function () {
+
+        new DataTable('#tProductos', {
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/2.3.4/i18n/es-ES.json',
+            },
+        });
+    });
+
+</script>
