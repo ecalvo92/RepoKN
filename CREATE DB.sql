@@ -65,8 +65,6 @@ INSERT [dbo].[tbCategoria] ([ConsecutivoCategoria], [Nombre]) VALUES (2, N'Celul
 GO
 INSERT [dbo].[tbCategoria] ([ConsecutivoCategoria], [Nombre]) VALUES (3, N'Audio y entretenimiento')
 GO
-INSERT [dbo].[tbCategoria] ([ConsecutivoCategoria], [Nombre]) VALUES (4, N'Redes y conectividad')
-GO
 INSERT [dbo].[tbCategoria] ([ConsecutivoCategoria], [Nombre]) VALUES (5, N'Hogar inteligente (Smart Home)')
 GO
 INSERT [dbo].[tbCategoria] ([ConsecutivoCategoria], [Nombre]) VALUES (6, N'Impresoras y consumibles')
@@ -74,8 +72,6 @@ GO
 INSERT [dbo].[tbCategoria] ([ConsecutivoCategoria], [Nombre]) VALUES (7, N'Accesorios y gadgets')
 GO
 INSERT [dbo].[tbCategoria] ([ConsecutivoCategoria], [Nombre]) VALUES (8, N'Tecnología para oficina y punto de venta')
-GO
-INSERT [dbo].[tbCategoria] ([ConsecutivoCategoria], [Nombre]) VALUES (9, N'Robótica y proyectos educativos')
 GO
 SET IDENTITY_INSERT [dbo].[tbCategoria] OFF
 GO
@@ -91,7 +87,7 @@ GO
 
 SET IDENTITY_INSERT [dbo].[tbProducto] ON 
 GO
-INSERT [dbo].[tbProducto] ([ConsecutivoProducto], [Nombre], [Descripcion], [Precio], [ConsecutivoCategoria], [Estado], [Imagen]) VALUES (1, N'Play Station 5', N'La consola de nueva generación de Sony que ofrece gráficos de alta fidelidad, carga ultrarrápida gracias al SSD, y una experiencia de juego inmersiva con el innovador control DualSense. Compatible con títulos exclusivos, juegos en 4K y tecnología de trazado de rayos (Ray Tracing). Ideal para gamers que buscan rendimiento y entretenimiento de última generación.', CAST(525.00 AS Decimal(10, 2)), 3, 1, N'https://i2.wp.com/techstomper.com/wp-content/uploads/2020/06/PS5-Horizontal-e1592741758862.jpg?fit=2398%2C1348&ssl=1')
+INSERT [dbo].[tbProducto] ([ConsecutivoProducto], [Nombre], [Descripcion], [Precio], [ConsecutivoCategoria], [Estado], [Imagen]) VALUES (5, N'EchoDot Nueva Generación', N'Prueba de registro', CAST(125.00 AS Decimal(10, 2)), 5, 1, N'/ImgProductos/5.png')
 GO
 SET IDENTITY_INSERT [dbo].[tbProducto] OFF
 GO
@@ -104,9 +100,9 @@ INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [Cor
 GO
 INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [ConsecutivoPerfil]) VALUES (3, N'304590417', N'Alex Cesar Fajardo', N'ecalvo90417@ufide.ac.cr', N'12313221', 1, 2)
 GO
-INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [ConsecutivoPerfil]) VALUES (4, N'119600898', N'VEGA MURILLO JUAN PABLO', N'jvega00898@ufide.ac.cr', N'FideLDA31', 1, 2)
+INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [ConsecutivoPerfil]) VALUES (4, N'119600898', N'VEGA MURILLO JUAN PABLO', N'jvega00898@ufide.ac.cr', N'00898', 1, 2)
 GO
-INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [ConsecutivoPerfil]) VALUES (1003, N'119780659', N'IGNACIO AGUILAR FERNANDEZ', N'iaguilar80659@ufide.ac.cr', N'FideSapri', 1, 2)
+INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [ConsecutivoPerfil]) VALUES (1003, N'119780659', N'IGNACIO AGUILAR FERNANDEZ', N'iaguilar80659@ufide.ac.cr', N'80659', 1, 1)
 GO
 SET IDENTITY_INSERT [dbo].[tbUsuario] OFF
 GO
