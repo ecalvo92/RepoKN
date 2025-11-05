@@ -1,0 +1,72 @@
+﻿@model KN_ProyectoWeb.Models.Producto
+
+@{
+    Layout = "~/Views/Shared/_LayoutInterno.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-xl-1">
+    </div>
+
+    <div class="col-xl-10">
+
+        <div class="card mb-4 mt-4">
+
+            @if (ViewBag.Mensaje != null)
+            {
+                <div class="alert alert-primary text-center">
+                    @ViewBag.Mensaje
+                </div>
+            }
+
+            <h5 class="card-header">Actualizar Producto</h5>
+
+            @using (Html.BeginForm("ActualizarProductos", "Productos", FormMethod.Post, new { @id = "FormActualizarProducto", @enctype = "multipart/form-data" }))
+            {
+                @Html.HiddenFor(x => x.ConsecutivoProducto)
+
+        <div class="card-body">
+            <div class="row mb-3 align-items-center">
+                <div class="col-md-10">
+                    <label class="form-label">Nombre</label>
+                    @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control" })
+                </div>
+
+                <div class="col-md-2">
+                    <img src="@Model.Imagen" width="110" height="75">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Descripción</label>
+                @Html.TextAreaFor(x => x.Descripcion, new { @class = "form-control", @rows = "4" })
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Precio</label>
+                @Html.TextBoxFor(x => x.Precio, new { @class = "form-control" })
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Categoría</label>
+                @Html.DropDownListFor(x => x.ConsecutivoCategoria, ViewBag.ListaCategorias as List<SelectListItem>, new { @class = "form-control" })
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Imagen</label>
+                <input type="file" class="form-control" id="ImgProducto" name="ImgProducto">
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary d-grid w-25" type="submit">Procesar</button>
+            </div>
+        </div>
+            }
+
+        </div>
+
+    </div>
+</div>
+
+<script src="~/StaticFiles/js/ActualizarProducto.js"></script>

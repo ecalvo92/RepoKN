@@ -85,6 +85,62 @@ namespace KN_ProyectoWeb.Controllers
 
         #endregion
 
+        #region ActualizarProductos
+
+        [HttpGet]
+        public ActionResult ActualizarProductos(int q)
+        {
+            using (var context = new BD_KNEntities())
+            {
+                //Tomar el objeto de la BD
+                var resultado = context.tbProducto.Where(x => x.ConsecutivoProducto == q).ToList();
+
+                //Convertirlo en un objeto Propio
+                var datos = resultado.Select(p => new Producto
+                {
+                    ConsecutivoProducto = p.ConsecutivoProducto,
+                    Nombre = p.Nombre,
+                    Descripcion = p.Descripcion,
+                    Precio = p.Precio,
+                    ConsecutivoCategoria = p.ConsecutivoCategoria,
+                    Imagen = p.Imagen
+                }).FirstOrDefault();
+
+                CargarValoresCategoria();
+                return View(datos);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ActualizarProductos(Producto producto, HttpPostedFileBase ImgProducto)
+        {
+            using (var context = new BD_KNEntities())
+            {
+                //Tomar el objeto de la BD
+                var resultadoConsulta = context.tbProducto.Where(x => x.ConsecutivoProducto == producto.ConsecutivoProducto).FirstOrDefault();
+
+                //Si existe se manda a actualizar
+                if (resultadoConsulta != null)
+                {
+                    //Actualizar los campos del formulario
+                    resultadoConsulta.Nombre = producto.Nombre;
+                    resultadoConsulta.Descripcion = producto.Descripcion;
+                    resultadoConsulta.Precio = producto.Precio;
+                    resultadoConsulta.ConsecutivoCategoria = producto.ConsecutivoCategoria;
+                    var resultadoactualizacion = context.SaveChanges();
+
+                    if (resultadoactualizacion > 0)
+                        return RedirectToAction("VerProductos", "Productos");
+                }
+
+                CargarValoresCategoria();
+                ViewBag.Mensaje = "La información no se ha podido actualizar";
+                return View();
+            }
+        }
+
+        #endregion
+
         private void CargarValoresCategoria()
         {
             using (var context = new BD_KNEntities())

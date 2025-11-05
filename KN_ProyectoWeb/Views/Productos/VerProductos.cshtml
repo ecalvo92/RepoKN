@@ -23,6 +23,7 @@
                         <th>Categoría</th>
                         <th>Estado</th>
                         <th>Imagen</th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,6 +37,9 @@
                             <td>@item.NombreCategoria</td>
                             <td>@(item.Estado ? "Activo" : "Inactivo")</td>
                             <td class="text-center"><img src="@item.Imagen" width="110" height="75"></td>
+                            <td>
+                                <a href="@Url.Action("ActualizarProductos","Productos", new { q = item.ConsecutivoProducto })"> Actualizar </a>
+                            </td>
                         </tr>
                     }
 
