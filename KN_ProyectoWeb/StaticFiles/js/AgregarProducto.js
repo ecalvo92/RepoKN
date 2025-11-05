@@ -58,4 +58,8 @@
         return element.files[0].size <= param;
     }, "El archivo es demasiado grande.");
 
+    $.validator.addMethod("extension", function (value, element, param) {
+        return this.optional(element) || new RegExp("\\.(" + param + ")$", "i").test(value);
+    }, "Formato de archivo no permitido.");
+
 });

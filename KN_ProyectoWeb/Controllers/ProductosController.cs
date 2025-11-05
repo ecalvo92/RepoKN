@@ -1,6 +1,8 @@
 ﻿using KN_ProyectoWeb.EF;
 using KN_ProyectoWeb.Models;
 using KN_ProyectoWeb.Services;
+using System;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -45,6 +47,39 @@ namespace KN_ProyectoWeb.Controllers
         [HttpPost]
         public ActionResult AgregarProductos(Producto producto, HttpPostedFileBase ImgProducto)
         {
+            using (var context = new BD_KNEntities())
+            {
+                var nuevoProducto = new tbProducto
+                {
+                    ConsecutivoProducto = 0,
+                    Nombre = producto.Nombre,
+                    Descripcion = producto.Descripcion,
+                    Precio = producto.Precio,
+                    ConsecutivoCategoria = producto.ConsecutivoCategoria,
+                    Estado = true,
+                    Imagen = string.Empty
+                };
+
+                context.tbProducto.Add(nuevoProducto);
+                var resultadoInsercion = context.SaveChanges();
+
+                if (resultadoInsercion > 0)
+                {
+                    //Guardar la imagen
+                    var ext = Path.GetExtension(ImgProducto.FileName);
+                    var ruta = AppDomain.CurrentDomain.BaseDirectory + "ImgProductos\\" + nuevoProducto.ConsecutivoProducto + ext;
+                    ImgProducto.SaveAs(ruta);
+
+                    //Actualizar la ruta de la imagen
+                    nuevoProducto.Imagen = "/ImgProductos/" + nuevoProducto.ConsecutivoProducto + ext;
+                    context.SaveChanges();
+
+                    return RedirectToAction("VerProductos", "Productos");
+                }
+            }
+
+            CargarValoresCategoria();
+            ViewBag.Mensaje = "La información no se ha podido registrar";
             return View();
         }
 

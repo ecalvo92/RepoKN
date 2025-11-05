@@ -85,7 +85,7 @@ namespace KN_ProyectoWeb.Controllers
 
                     if (resultadoInsercion > 0)
                     {
-                        return RedirectToAction("Index", "home");
+                        return RedirectToAction("Index", "Home");
                     }
                 }
 

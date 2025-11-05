@@ -5,7 +5,7 @@
 }
 
 <div class="col-12">
-    <div class="card overflow-hidden" style="height: 500px">
+    <div class="card overflow-hidden">
 
         <div class="d-flex align-items-center">
             <h5 class="card-header mb-0">Productos</h5>
@@ -14,7 +14,7 @@
 
         <div class="card-body ps ps--active-x ps--active-y">
 
-            <table id="tProductos" class="table table-hover">
+            <table id="tProductos" class="table">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -35,7 +35,7 @@
                             <td>$ @item.Precio.ToString("N2")</td>
                             <td>@item.NombreCategoria</td>
                             <td>@(item.Estado ? "Activo" : "Inactivo")</td>
-                            <td><img src="@item.Imagen" width="200" height="150"></td>
+                            <td class="text-center"><img src="@item.Imagen" width="110" height="75"></td>
                         </tr>
                     }
 

@@ -224,6 +224,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ImgProductos\" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="EF\Model1.edmx">
