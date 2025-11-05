@@ -6,7 +6,12 @@
 
 <div class="col-12">
     <div class="card overflow-hidden" style="height: 500px">
-        <h5 class="card-header">Productos</h5>
+
+        <div class="d-flex align-items-center">
+            <h5 class="card-header mb-0">Productos</h5>
+            <a href="@Url.Action("AgregarProductos","Productos")" class="btn btn-outline-primary">+ Agregar</a>
+        </div>
+
         <div class="card-body ps ps--active-x ps--active-y">
 
             <table id="tProductos" class="table table-hover">
@@ -41,15 +46,4 @@
     </div>
 </div>
 
-<script>
-
-    $(function () {
-
-        new DataTable('#tProductos', {
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/2.3.4/i18n/es-ES.json',
-            },
-        });
-    });
-
-</script>
+<script src="~/StaticFiles/js/VerProductos.js"></script>

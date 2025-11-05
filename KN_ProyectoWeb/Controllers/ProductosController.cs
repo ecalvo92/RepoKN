@@ -2,6 +2,7 @@
 using KN_ProyectoWeb.Models;
 using KN_ProyectoWeb.Services;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace KN_ProyectoWeb.Controllers
@@ -31,5 +32,47 @@ namespace KN_ProyectoWeb.Controllers
                 return View(datos);
             }
         }
+
+        #region AgregarProductos
+
+        [HttpGet]
+        public ActionResult AgregarProductos()
+        {
+            CargarValoresCategoria();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AgregarProductos(Producto producto, HttpPostedFileBase ImgProducto)
+        {
+            return View();
+        }
+
+        #endregion
+
+        private void CargarValoresCategoria()
+        {
+            using (var context = new BD_KNEntities())
+            {
+                //Tomar el objeto de la BD
+                var resultado = context.tbCategoria.ToList();
+
+                //Convertirlo en un objeto SelectListItem
+                var datos = resultado.Select(c => new SelectListItem
+                {
+                    Value = c.ConsecutivoCategoria.ToString(),
+                    Text = c.Nombre
+                }).ToList();
+
+                datos.Insert(0, new SelectListItem
+                {
+                    Value = string.Empty,
+                    Text = "Seleccione"
+                });
+
+                ViewBag.ListaCategorias = datos;
+            }
+        }
+
     }
 }

@@ -192,6 +192,7 @@
     <Content Include="StaticFiles\css\theme-default.css" />
     <Content Include="StaticFiles\fonts\boxicons.svg" />
     <Content Include="StaticFiles\img\1.png" />
+    <Content Include="StaticFiles\js\AgregarProducto.js" />
     <Content Include="StaticFiles\js\bootstrap.js" />
     <Content Include="StaticFiles\js\config.js" />
     <Content Include="StaticFiles\js\helpers.js" />
@@ -205,6 +206,7 @@
     <Content Include="StaticFiles\js\Registro.js" />
     <Content Include="StaticFiles\js\Seguridad.js" />
     <Content Include="StaticFiles\js\VerPerfil.js" />
+    <Content Include="StaticFiles\js\VerProductos.js" />
     <Content Include="TemplateRecuperacion.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -242,6 +244,7 @@
     <Content Include="Views\Productos\VerProductos.cshtml" />
     <Content Include="Views\Usuario\VerPerfil.cshtml" />
     <Content Include="Views\Usuario\CambiarAcceso.cshtml" />
+    <Content Include="Views\Productos\AgregarProductos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

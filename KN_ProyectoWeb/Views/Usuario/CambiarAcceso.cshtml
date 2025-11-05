@@ -1,5 +1,9 @@
 ﻿@model KN_ProyectoWeb.Models.Usuario
 
+@{
+    Layout = "~/Views/Shared/_LayoutInterno.cshtml";
+}
+
 <div class="row">
 
     <div class="col-xl-1">
@@ -27,7 +31,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Confirmar Contraseña</label>
-                        @Html.TextBoxFor(x => x.ContrasennaConfirmar, new { @class = "form-control", @type="password" })
+                        @Html.TextBoxFor(x => x.ContrasennaConfirmar, new { @class = "form-control", @type = "password" })
                     </div>
 
                     <div class="d-flex justify-content-end">
