@@ -38,7 +38,13 @@
                             <td>@(item.Estado ? "Activo" : "Inactivo")</td>
                             <td class="text-center"><img src="@item.Imagen" width="110" height="75"></td>
                             <td>
-                                <a href="@Url.Action("ActualizarProductos","Productos", new { q = item.ConsecutivoProducto })"> Actualizar </a>
+                                <a href="@Url.Action("ActualizarProductos","Productos", new { q = item.ConsecutivoProducto })" style="margin-right:10px;">
+                                    <i class="fa fa-edit" style="font-size:20px;"></i>
+                                </a>
+
+                                <a href="@Url.Action("ActualizarEstadoProducto", "Productos", new { q = item.ConsecutivoProducto })">
+                                    <i class="fa @(item.Estado ? "fa-toggle-on text-success" : "fa-toggle-off text-danger")" style="font-size:22px;"></i>
+                                </a>
                             </td>
                         </tr>
                     }

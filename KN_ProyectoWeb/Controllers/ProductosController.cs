@@ -2,6 +2,8 @@
 using KN_ProyectoWeb.Models;
 using KN_ProyectoWeb.Services;
 using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -15,24 +17,8 @@ namespace KN_ProyectoWeb.Controllers
         [HttpGet]
         public ActionResult VerProductos()
         {
-            using (var context = new BD_KNEntities())
-            {
-                //Tomar el objeto de la BD
-                var resultado = context.tbProducto.Include("tbCategoria").ToList();
-
-                //Convertirlo en un objeto Propio
-                var datos = resultado.Select(p => new Producto
-                {
-                    ConsecutivoProducto = p.ConsecutivoProducto,
-                    Nombre = p.Nombre,
-                    Precio = p.Precio,
-                    NombreCategoria = p.tbCategoria.Nombre,
-                    Estado = p.Estado,
-                    Imagen = p.Imagen
-                }).ToList();
-
-                return View(datos);
-            }
+            var resultado = ConsultarProductos();
+            return View(resultado);
         }
 
         #region AgregarProductos
@@ -127,20 +113,21 @@ namespace KN_ProyectoWeb.Controllers
                     resultadoConsulta.Descripcion = producto.Descripcion;
                     resultadoConsulta.Precio = producto.Precio;
                     resultadoConsulta.ConsecutivoCategoria = producto.ConsecutivoCategoria;
+
+                    context.Entry(resultadoConsulta).State = EntityState.Modified;
                     var resultadoactualizacion = context.SaveChanges();
 
-                    if (resultadoactualizacion > 0)
+                    if (ImgProducto != null)
                     {
-                        if (ImgProducto != null)
-                        {
-                            //Guardar la imagen
-                            var ext = Path.GetExtension(ImgProducto.FileName);
-                            var ruta = AppDomain.CurrentDomain.BaseDirectory + "ImgProductos\\" + producto.ConsecutivoProducto + ext;
-                            ImgProducto.SaveAs(ruta);
-                        }
-
-                        return RedirectToAction("VerProductos", "Productos");
+                        //Guardar la imagen
+                        var ext = Path.GetExtension(ImgProducto.FileName);
+                        var ruta = AppDomain.CurrentDomain.BaseDirectory + "ImgProductos\\" + producto.ConsecutivoProducto + ext;
+                        ImgProducto.SaveAs(ruta);
                     }
+
+                    if (resultadoactualizacion > 0)
+                        return RedirectToAction("VerProductos", "Productos");
+
                 }
 
                 CargarValoresCategoria();
@@ -150,6 +137,35 @@ namespace KN_ProyectoWeb.Controllers
         }
 
         #endregion
+
+        [HttpGet]
+        public ActionResult ActualizarEstadoProducto(int q)
+        {
+            using (var context = new BD_KNEntities())
+            {
+                //Tomar el objeto de la BD
+                var resultadoConsulta = context.tbProducto.Where(x => x.ConsecutivoProducto == q).FirstOrDefault();
+
+                //Si existe se manda a actualizar
+                if (resultadoConsulta != null)
+                {
+                    //Elimino
+                    //context.tbProducto.Remove(resultadoConsulta);
+                    
+                    //Inactivando
+                    resultadoConsulta.Estado = resultadoConsulta.Estado ? false : true;
+
+                    var resultadoactualizacion = context.SaveChanges();
+
+                    if (resultadoactualizacion > 0)
+                        return RedirectToAction("VerProductos", "Productos");
+                }
+
+                var resultado = ConsultarProductos();
+                ViewBag.Mensaje = "La información no se ha podido actualizar";
+                return View("VerProductos", resultado);
+            }
+        }
 
         private void CargarValoresCategoria()
         {
@@ -175,5 +191,26 @@ namespace KN_ProyectoWeb.Controllers
             }
         }
 
+        private List<Producto> ConsultarProductos()
+        {
+            using (var context = new BD_KNEntities())
+            {
+                //Tomar el objeto de la BD
+                var resultado = context.tbProducto.Include("tbCategoria").ToList();
+
+                //Convertirlo en un objeto Propio
+                var datos = resultado.Select(p => new Producto
+                {
+                    ConsecutivoProducto = p.ConsecutivoProducto,
+                    Nombre = p.Nombre,
+                    Precio = p.Precio,
+                    NombreCategoria = p.tbCategoria.Nombre,
+                    Estado = p.Estado,
+                    Imagen = p.Imagen
+                }).ToList();
+
+                return datos;
+            }
+        }
     }
 }
