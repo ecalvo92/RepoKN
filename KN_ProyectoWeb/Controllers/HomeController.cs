@@ -158,6 +158,9 @@ namespace KN_ProyectoWeb.Controllers
         [HttpGet]
         public ActionResult Principal()
         {
+            if (Session["ConsecutivoPerfil"].ToString() == "1")
+                return RedirectToAction("Principal", "Admin");
+
             using (var context = new BD_KNEntities())
             {
                 //Tomar el objeto de la BD
