@@ -32,12 +32,17 @@
 
                     <div class="mb-3">
                         <label class="form-label">Descripción</label>
-                        @Html.TextAreaFor(x => x.Descripcion, new { @class = "form-control", @rows="4" })
+                        @Html.TextAreaFor(x => x.Descripcion, new { @class = "form-control", @rows = "4" })
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Precio</label>
-                        @Html.TextBoxFor(x => x.Precio, new { @class = "form-control"})
+                        @Html.TextBoxFor(x => x.Precio, new { @class = "form-control" })
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Cantidad</label>
+                        @Html.TextBoxFor(x => x.Cantidad, new { @class = "form-control" })
                     </div>
 
                     <div class="mb-3">

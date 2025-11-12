@@ -50,6 +50,11 @@
                     </div>
 
                     <div class="mb-3">
+                        <label class="form-label">Cantidad</label>
+                        @Html.TextBoxFor(x => x.Cantidad, new { @class = "form-control" })
+                    </div>
+
+                    <div class="mb-3">
                         <label class="form-label">Categoría</label>
                         @Html.DropDownListFor(x => x.ConsecutivoCategoria, ViewBag.ListaCategorias as List<SelectListItem>, new { @class = "form-control" })
                     </div>

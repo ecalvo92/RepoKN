@@ -21,6 +21,7 @@ namespace KN_ProyectoWeb.EF
         public int ConsecutivoCategoria { get; set; }
         public bool Estado { get; set; }
         public string Imagen { get; set; }
+        public Nullable<int> Cantidad { get; set; }
     
         public virtual tbCategoria tbCategoria { get; set; }
     }

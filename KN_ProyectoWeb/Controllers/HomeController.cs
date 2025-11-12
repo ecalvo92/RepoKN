@@ -158,7 +158,27 @@ namespace KN_ProyectoWeb.Controllers
         [HttpGet]
         public ActionResult Principal()
         {
-            return View();
+            using (var context = new BD_KNEntities())
+            {
+                //Tomar el objeto de la BD
+                var resultado = context.tbProducto.Include("tbCategoria")
+                    .Where(x => x.Estado == true
+                        && x.Cantidad > 0).ToList();
+
+                //Convertirlo en un objeto Propio
+                var datos = resultado.Select(p => new Producto
+                {
+                    ConsecutivoProducto = p.ConsecutivoProducto,
+                    Nombre = p.Nombre,
+                    Precio = p.Precio,
+                    Cantidad = p.Cantidad,
+                    NombreCategoria = p.tbCategoria.Nombre,
+                    Estado = p.Estado,
+                    Imagen = p.Imagen
+                }).ToList();
+
+                return View(datos);
+            }
         }
 
         [Seguridad]

@@ -30,6 +30,7 @@
           <Property Name="ConsecutivoCategoria" Type="int" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
           <Property Name="Imagen" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Cantidad" Type="int" />
         </EntityType>
         <EntityType Name="tbUsuario">
           <Key>
@@ -181,6 +182,7 @@
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <Property Name="Imagen" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tbCategoria" Relationship="BD_KNModel.FK_tbProducto_tbCategoria" FromRole="tbProducto" ToRole="tbCategoria" />
+          <Property Name="Cantidad" Type="Int32" />
         </EntityType>
         <Association Name="FK_tbProducto_tbCategoria">
           <End Type="BD_KNModel.tbCategoria" Role="tbCategoria" Multiplicity="1" />
@@ -246,6 +248,7 @@
           <EntitySetMapping Name="tbProducto">
             <EntityTypeMapping TypeName="BD_KNModel.tbProducto">
               <MappingFragment StoreEntitySet="tbProducto">
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
                 <ScalarProperty Name="Imagen" ColumnName="Imagen" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="ConsecutivoCategoria" ColumnName="ConsecutivoCategoria" />

@@ -10,5 +10,6 @@
         public string NombreCategoria { get; set; }
         public bool Estado { get; set; }
         public string Imagen { get; set; }
+        public int? Cantidad { get; set; }
     }
 }

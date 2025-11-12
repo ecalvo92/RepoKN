@@ -12,6 +12,10 @@
                 required: true,
                 decimal: true
             },
+            Cantidad: {
+                required: true,
+                number: true
+            },
             ConsecutivoCategoria: {
                 required: true
             },
@@ -31,6 +35,10 @@
             Precio: {
                 required: "* Requerido",
                 decimal: "* Ingrese un número válido"
+            },
+            Cantidad: {
+                required: "* Requerido",
+                number: "* Ingrese un número válido"
             },
             ConsecutivoCategoria: {
                 required: "* Requerido",

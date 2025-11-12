@@ -41,6 +41,7 @@ namespace KN_ProyectoWeb.Controllers
                     Nombre = producto.Nombre,
                     Descripcion = producto.Descripcion,
                     Precio = producto.Precio,
+                    Cantidad = producto.Cantidad,
                     ConsecutivoCategoria = producto.ConsecutivoCategoria,
                     Estado = true,
                     Imagen = string.Empty
@@ -88,6 +89,7 @@ namespace KN_ProyectoWeb.Controllers
                     Nombre = p.Nombre,
                     Descripcion = p.Descripcion,
                     Precio = p.Precio,
+                    Cantidad = p.Cantidad,
                     ConsecutivoCategoria = p.ConsecutivoCategoria,
                     Imagen = p.Imagen
                 }).FirstOrDefault();
@@ -112,6 +114,7 @@ namespace KN_ProyectoWeb.Controllers
                     resultadoConsulta.Nombre = producto.Nombre;
                     resultadoConsulta.Descripcion = producto.Descripcion;
                     resultadoConsulta.Precio = producto.Precio;
+                    resultadoConsulta.Cantidad = producto.Cantidad;
                     resultadoConsulta.ConsecutivoCategoria = producto.ConsecutivoCategoria;
 
                     context.Entry(resultadoConsulta).State = EntityState.Modified;
@@ -206,7 +209,8 @@ namespace KN_ProyectoWeb.Controllers
                     Precio = p.Precio,
                     NombreCategoria = p.tbCategoria.Nombre,
                     Estado = p.Estado,
-                    Imagen = p.Imagen
+                    Imagen = p.Imagen,
+                    Cantidad = p.Cantidad
                 }).ToList();
 
                 return datos;
