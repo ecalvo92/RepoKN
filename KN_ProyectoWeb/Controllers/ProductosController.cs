@@ -130,12 +130,22 @@ namespace KN_ProyectoWeb.Controllers
                     var resultadoactualizacion = context.SaveChanges();
 
                     if (resultadoactualizacion > 0)
+                    {
+                        if (ImgProducto != null)
+                        {
+                            //Guardar la imagen
+                            var ext = Path.GetExtension(ImgProducto.FileName);
+                            var ruta = AppDomain.CurrentDomain.BaseDirectory + "ImgProductos\\" + producto.ConsecutivoProducto + ext;
+                            ImgProducto.SaveAs(ruta);
+                        }
+
                         return RedirectToAction("VerProductos", "Productos");
+                    }
                 }
 
                 CargarValoresCategoria();
                 ViewBag.Mensaje = "La información no se ha podido actualizar";
-                return View();
+                return View(producto);
             }
         }
 
