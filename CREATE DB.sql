@@ -35,6 +35,7 @@ CREATE TABLE [dbo].[tbProducto](
 	[ConsecutivoCategoria] [int] NOT NULL,
 	[Estado] [bit] NOT NULL,
 	[Imagen] [varchar](250) NOT NULL,
+	[Cantidad] [int] NULL,
  CONSTRAINT [PK_tbProducto] PRIMARY KEY CLUSTERED 
 (
 	[ConsecutivoProducto] ASC
@@ -87,7 +88,9 @@ GO
 
 SET IDENTITY_INSERT [dbo].[tbProducto] ON 
 GO
-INSERT [dbo].[tbProducto] ([ConsecutivoProducto], [Nombre], [Descripcion], [Precio], [ConsecutivoCategoria], [Estado], [Imagen]) VALUES (5, N'EchoDot Nueva Generación', N'Prueba de registro', CAST(125.00 AS Decimal(10, 2)), 5, 1, N'/ImgProductos/5.png')
+INSERT [dbo].[tbProducto] ([ConsecutivoProducto], [Nombre], [Descripcion], [Precio], [ConsecutivoCategoria], [Estado], [Imagen], [Cantidad]) VALUES (5, N'EchoDot Nueva Generación', N'Prueba de registro', CAST(65.00 AS Decimal(10, 2)), 5, 0, N'/ImgProductos/5.png', 5)
+GO
+INSERT [dbo].[tbProducto] ([ConsecutivoProducto], [Nombre], [Descripcion], [Precio], [ConsecutivoCategoria], [Estado], [Imagen], [Cantidad]) VALUES (1002, N'Play Station 5', N'Consola de videojuegos', CAST(600.00 AS Decimal(10, 2)), 3, 1, N'/ImgProductos/1002.png', 12)
 GO
 SET IDENTITY_INSERT [dbo].[tbProducto] OFF
 GO

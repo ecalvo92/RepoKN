@@ -130,6 +130,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CarritoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -259,6 +260,7 @@
     <Content Include="Views\Productos\AgregarProductos.cshtml" />
     <Content Include="Views\Productos\ActualizarProductos.cshtml" />
     <Content Include="Views\Admin\Principal.cshtml" />
+    <Content Include="Views\Carrito\VerMiCarrito.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

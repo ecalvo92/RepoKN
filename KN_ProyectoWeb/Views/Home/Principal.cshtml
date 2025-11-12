@@ -17,9 +17,27 @@
                         <h6 class="card-title mb-1">@item.Nombre</h6>
                         <p class="mb-1 text-muted">@item.NombreCategoria</p>
                         <p class="fw-bold mb-2">$ @item.Precio.ToString("N2")</p>
-                        <span class="badge bg-success mb-3">
-                            @item.Cantidad
-                        </span>
+
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <small class="text-muted">Disponibles:</small>
+                            <span class="fw-semibold @(item.Cantidad > 0 ? "text-success" : "text-danger")">
+                                @item.Cantidad
+                            </span>
+                        </div>
+
+                        <div class="mt-auto">
+                            <div class="input-group mb-2">
+                                <input type="number" min="1" max="@item.Cantidad" value="1"
+                                       class="form-control form-control-sm text-center"
+                                       id="cantidad_@item.ConsecutivoProducto" />
+                                <button type="button"
+                                        class="btn btn-outline-primary btn-sm"
+                                        onclick="agregarAlCarrito('@item.ConsecutivoProducto')">
+                                    <i class="fa fa-cart-plus me-1"></i> Agregar
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
