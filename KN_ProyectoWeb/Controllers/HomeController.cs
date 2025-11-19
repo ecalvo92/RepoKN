@@ -185,6 +185,38 @@ namespace KN_ProyectoWeb.Controllers
         }
 
         [Seguridad]
+        [HttpPost]
+        public ActionResult AgregarProductoCarrito(Producto producto)
+        {
+            using (var context = new BD_KNEntities())
+            {
+                var consecutivoUsuario = int.Parse(Session["ConsecutivoUsuario"].ToString());
+                var resultado = context.tbCarrito.Where(x => x.ConsecutivoProducto == producto.ConsecutivoProducto && x.ConsecutivoUsuario == consecutivoUsuario).FirstOrDefault();
+
+                if (resultado == null)
+                {
+                    var nuevoCarrito = new tbCarrito
+                    {
+                        ConsecutivoUsuario = consecutivoUsuario,
+                        ConsecutivoProducto = producto.ConsecutivoProducto,
+                        Cantidad = producto.Cantidad.Value,
+                        Fecha = DateTime.Now
+                    };
+
+                    context.tbCarrito.Add(nuevoCarrito);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    resultado.Cantidad = producto.Cantidad.Value;
+                    context.SaveChanges();
+                }
+
+                return RedirectToAction("Principal","Home");
+            }
+        }
+
+        [Seguridad]
         [HttpGet]
         public ActionResult CerrarSesion()
         {

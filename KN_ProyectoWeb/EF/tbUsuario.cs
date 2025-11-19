@@ -14,6 +14,12 @@ namespace KN_ProyectoWeb.EF
     
     public partial class tbUsuario
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbUsuario()
+        {
+            this.tbCarrito = new HashSet<tbCarrito>();
+        }
+    
         public int ConsecutivoUsuario { get; set; }
         public string Identificacion { get; set; }
         public string Nombre { get; set; }
@@ -23,5 +29,7 @@ namespace KN_ProyectoWeb.EF
         public int ConsecutivoPerfil { get; set; }
     
         public virtual tbPerfil tbPerfil { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbCarrito> tbCarrito { get; set; }
     }
 }
