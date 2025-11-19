@@ -1,8 +1,53 @@
-﻿
+﻿@model List<KN_ProyectoWeb.Models.Carrito>
+
 @{
-    ViewBag.Title = "VerMiCarrito";
     Layout = "~/Views/Shared/_LayoutInterno.cshtml";
 }
 
-<h2>VerMiCarrito</h2>
+<div class="col-12">
+    <div class="card overflow-hidden">
 
+        <div class="d-flex align-items-center">
+            <h5 class="card-header mb-0">Mi carrito</h5>
+        </div>
+
+        <div class="card-body ps ps--active-x ps--active-y">
+
+            <table id="tCarritos" class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>SubTotal</th>
+                        <th>Impuesto</th>
+                        <th>Total</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ConsecutivoProducto</td>
+                            <td>@item.Nombre</td>
+                            <td>$ @item.Precio.ToString("N2")</td>
+                            <td>@item.Cantidad</td>
+                            <td>$ @item.SubTotal.ToString("N2")</td>
+                            <td>$ @item.Impuesto.ToString("N2")</td>
+                            <td>$ @item.Total.ToString("N2")</td>
+                            <td>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<script src="~/StaticFiles/js/VerCarritos.js"></script>

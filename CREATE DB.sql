@@ -7,6 +7,19 @@ GO
 USE [BD_KN]
 GO
 
+CREATE TABLE [dbo].[tbCarrito](
+	[ConsecutivoCarrito] [int] IDENTITY(1,1) NOT NULL,
+	[ConsecutivoUsuario] [int] NOT NULL,
+	[ConsecutivoProducto] [int] NOT NULL,
+	[Fecha] [datetime] NOT NULL,
+	[Cantidad] [int] NOT NULL,
+ CONSTRAINT [PK_tbCarrito] PRIMARY KEY CLUSTERED 
+(
+	[ConsecutivoCarrito] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 CREATE TABLE [dbo].[tbCategoria](
 	[ConsecutivoCategoria] [int] IDENTITY(1,1) NOT NULL,
 	[Nombre] [varchar](100) NOT NULL,
@@ -58,6 +71,17 @@ CREATE TABLE [dbo].[tbUsuario](
 ) ON [PRIMARY]
 GO
 
+SET IDENTITY_INSERT [dbo].[tbCarrito] ON 
+GO
+INSERT [dbo].[tbCarrito] ([ConsecutivoCarrito], [ConsecutivoUsuario], [ConsecutivoProducto], [Fecha], [Cantidad]) VALUES (1, 4, 5, CAST(N'2025-11-18T18:54:23.633' AS DateTime), 2)
+GO
+INSERT [dbo].[tbCarrito] ([ConsecutivoCarrito], [ConsecutivoUsuario], [ConsecutivoProducto], [Fecha], [Cantidad]) VALUES (2, 4, 1002, CAST(N'2025-11-18T18:57:17.583' AS DateTime), 1)
+GO
+INSERT [dbo].[tbCarrito] ([ConsecutivoCarrito], [ConsecutivoUsuario], [ConsecutivoProducto], [Fecha], [Cantidad]) VALUES (3, 1004, 1002, CAST(N'2025-11-18T18:58:59.647' AS DateTime), 2)
+GO
+SET IDENTITY_INSERT [dbo].[tbCarrito] OFF
+GO
+
 SET IDENTITY_INSERT [dbo].[tbCategoria] ON 
 GO
 INSERT [dbo].[tbCategoria] ([ConsecutivoCategoria], [Nombre]) VALUES (1, N'Computadoras y componentes')
@@ -88,7 +112,7 @@ GO
 
 SET IDENTITY_INSERT [dbo].[tbProducto] ON 
 GO
-INSERT [dbo].[tbProducto] ([ConsecutivoProducto], [Nombre], [Descripcion], [Precio], [ConsecutivoCategoria], [Estado], [Imagen], [Cantidad]) VALUES (5, N'EchoDot Nueva Generación', N'Prueba de registro', CAST(65.00 AS Decimal(10, 2)), 5, 0, N'/ImgProductos/5.png', 5)
+INSERT [dbo].[tbProducto] ([ConsecutivoProducto], [Nombre], [Descripcion], [Precio], [ConsecutivoCategoria], [Estado], [Imagen], [Cantidad]) VALUES (5, N'EchoDot Nueva Generación', N'Prueba de registro', CAST(65.00 AS Decimal(10, 2)), 5, 1, N'/ImgProductos/5.png', 5)
 GO
 INSERT [dbo].[tbProducto] ([ConsecutivoProducto], [Nombre], [Descripcion], [Precio], [ConsecutivoCategoria], [Estado], [Imagen], [Cantidad]) VALUES (1002, N'Play Station 5', N'Consola de videojuegos', CAST(600.00 AS Decimal(10, 2)), 3, 1, N'/ImgProductos/1002.png', 12)
 GO
@@ -107,6 +131,8 @@ INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [Cor
 GO
 INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [ConsecutivoPerfil]) VALUES (1003, N'119780659', N'IGNACIO AGUILAR FERNANDEZ', N'iaguilar80659@ufide.ac.cr', N'80659', 1, 1)
 GO
+INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [ConsecutivoPerfil]) VALUES (1004, N'208410551', N'ALVARADO TRIGUEROS JUSTIN', N'jalvarado10551@ufide.ac.cr', N'10551', 1, 2)
+GO
 SET IDENTITY_INSERT [dbo].[tbUsuario] OFF
 GO
 
@@ -120,6 +146,18 @@ ALTER TABLE [dbo].[tbUsuario] ADD  CONSTRAINT [UK_Identificacion] UNIQUE NONCLUS
 (
 	[Identificacion] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[tbCarrito]  WITH CHECK ADD  CONSTRAINT [FK_tbCarrito_tbProducto] FOREIGN KEY([ConsecutivoProducto])
+REFERENCES [dbo].[tbProducto] ([ConsecutivoProducto])
+GO
+ALTER TABLE [dbo].[tbCarrito] CHECK CONSTRAINT [FK_tbCarrito_tbProducto]
+GO
+
+ALTER TABLE [dbo].[tbCarrito]  WITH CHECK ADD  CONSTRAINT [FK_tbCarrito_tbUsuario] FOREIGN KEY([ConsecutivoUsuario])
+REFERENCES [dbo].[tbUsuario] ([ConsecutivoUsuario])
+GO
+ALTER TABLE [dbo].[tbCarrito] CHECK CONSTRAINT [FK_tbCarrito_tbUsuario]
 GO
 
 ALTER TABLE [dbo].[tbProducto]  WITH CHECK ADD  CONSTRAINT [FK_tbProducto_tbCategoria] FOREIGN KEY([ConsecutivoCategoria])

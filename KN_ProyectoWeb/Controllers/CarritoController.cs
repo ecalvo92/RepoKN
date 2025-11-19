@@ -1,4 +1,7 @@
-﻿using KN_ProyectoWeb.Services;
+﻿using KN_ProyectoWeb.EF;
+using KN_ProyectoWeb.Models;
+using KN_ProyectoWeb.Services;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace KN_ProyectoWeb.Controllers
@@ -9,7 +12,27 @@ namespace KN_ProyectoWeb.Controllers
         [HttpGet]
         public ActionResult VerMiCarrito()
         {
-            return View();
+            using (var context = new BD_KNEntities())
+            {
+                var consecutivo = int.Parse(Session["ConsecutivoUsuario"].ToString());
+
+                //Tomar el objeto de la BD
+                var resultado = context.tbCarrito.Include("tbProducto").Where(x => x.ConsecutivoUsuario == consecutivo).ToList();
+
+                //Convertirlo en un objeto Propio
+                var datos = resultado.Select(p => new Carrito
+                {
+                    ConsecutivoProducto = p.ConsecutivoProducto,
+                    Nombre = p.tbProducto.Nombre,
+                    Precio = p.tbProducto.Precio,
+                    Cantidad = p.Cantidad,
+                    SubTotal = p.tbProducto.Precio * p.Cantidad,
+                    Impuesto = ((p.tbProducto.Precio * p.Cantidad) * 0.13M),
+                    Total = ((p.tbProducto.Precio * p.Cantidad) * 1.13M)
+                }).ToList();
+
+                return View(datos);
+            }
         }
     }
 }
