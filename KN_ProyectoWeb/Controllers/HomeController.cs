@@ -162,7 +162,7 @@ namespace KN_ProyectoWeb.Controllers
             if (Session["ConsecutivoPerfil"].ToString() == "1")
                 return RedirectToAction("Principal", "Admin");
 
-            CalcularResumenCarritoActual();
+            utilitarios.CalcularResumenCarritoActual();
 
             var datos = ConsultarDatosVender();
             return View(datos);
@@ -243,20 +243,5 @@ namespace KN_ProyectoWeb.Controllers
             }
         }
 
-        private void CalcularResumenCarritoActual()
-        {
-            using (var context = new BD_KNEntities())
-            {
-                var consecutivo = int.Parse(Session["ConsecutivoUsuario"].ToString());
-
-                //Tomar el objeto de la BD
-                var resultado = context.tbCarrito.Include("tbProducto").Where(x => x.ConsecutivoUsuario == consecutivo).ToList();
-
-                var subTotal = resultado.Sum(x => x.tbProducto.Precio * x.Cantidad);
-
-                Session["Total"] = subTotal * 1.13M;
-                Session["Cantidad"] = resultado.Sum(x => x.Cantidad);
-            }
-        }
     }
 }

@@ -9,6 +9,8 @@ namespace KN_ProyectoWeb.Controllers
     [Seguridad]
     public class CarritoController : Controller
     {
+        Utilitarios utilitarios = new Utilitarios();
+
         [HttpGet]
         public ActionResult VerMiCarrito()
         {
@@ -34,5 +36,28 @@ namespace KN_ProyectoWeb.Controllers
                 return View(datos);
             }
         }
+
+        [HttpGet]
+        public ActionResult RemoverProductoCarrito(int q)
+        {
+            var consecutivo = int.Parse(Session["ConsecutivoUsuario"].ToString());
+
+            using (var context = new BD_KNEntities())
+            {
+                //Tomar el objeto de la BD
+                var resultadoConsulta = context.tbCarrito.Where(x => x.ConsecutivoProducto == q && x.ConsecutivoUsuario == consecutivo).FirstOrDefault();
+
+                //Si existe se manda a actualizar
+                if (resultadoConsulta != null)
+                {
+                    context.tbCarrito.Remove(resultadoConsulta);
+                    context.SaveChanges();
+                    utilitarios.CalcularResumenCarritoActual();
+                }
+
+                return RedirectToAction("VerMiCarrito", "Carrito");
+            }
+        }
+
     }
 }

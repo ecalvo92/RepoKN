@@ -1,8 +1,11 @@
-﻿using System;
+﻿using KN_ProyectoWeb.EF;
+using System;
 using System.Configuration;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography;
+using System.Web;
 
 namespace KN_ProyectoWeb.Services
 {
@@ -55,5 +58,22 @@ namespace KN_ProyectoWeb.Services
                 smtp.Send(mensaje);
             }
         }
+
+        public void CalcularResumenCarritoActual()
+        {
+            using (var context = new BD_KNEntities())
+            {
+                var consecutivo = int.Parse(HttpContext.Current.Session["ConsecutivoUsuario"].ToString());
+
+                //Tomar el objeto de la BD
+                var resultado = context.tbCarrito.Include("tbProducto").Where(x => x.ConsecutivoUsuario == consecutivo).ToList();
+
+                var subTotal = resultado.Sum(x => x.tbProducto.Precio * x.Cantidad);
+
+                HttpContext.Current.Session["Total"] = subTotal * 1.13M;
+                HttpContext.Current.Session["Cantidad"] = resultado.Sum(x => x.Cantidad);
+            }
+        }
+
     }
 }

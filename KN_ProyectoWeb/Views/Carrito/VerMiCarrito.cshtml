@@ -39,6 +39,11 @@
                             <td>$ @item.Impuesto.ToString("N2")</td>
                             <td>$ @item.Total.ToString("N2")</td>
                             <td>
+
+                                <a href="@Url.Action("RemoverProductoCarrito", "Carrito", new { q = item.ConsecutivoProducto })">
+                                    <i class="fa fa-trash" style="font-size:22px;"></i>
+                                </a>
+
                             </td>
                         </tr>
                     }
