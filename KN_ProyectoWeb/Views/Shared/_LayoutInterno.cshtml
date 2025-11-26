@@ -2,6 +2,8 @@
     var nombreUsuario = (Session["NombreUsuario"] == null ? "Invitado" : Session["NombreUsuario"].ToString());
     var nombrePerfil = (Session["PerfilUsuario"] == null ? "Pendiente" : Session["PerfilUsuario"].ToString());
     var consecutivoPerfil = (Session["ConsecutivoPerfil"] == null ? "0" : Session["ConsecutivoPerfil"].ToString());
+    var total = (Session["Total"] == null ? "0.00" : decimal.Parse(Session["Total"].ToString()).ToString("N2"));
+    var cantidad = (Session["Cantidad"] == null ? "0" : Session["Cantidad"].ToString());
 }
 
 <!DOCTYPE html>
@@ -89,11 +91,8 @@
                     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                         <div class="navbar-nav align-items-center">
                             <div class="nav-item d-flex align-items-center">
-                                <i class="bx bx-search fs-4 lh-0"></i>
-                                <input type="text"
-                                       class="form-control border-0 shadow-none"
-                                       placeholder="Buscar..."
-                                       aria-label="Search..." />
+                                <i class="fa fa-tags me-2"></i> @cantidad
+                                <i class="fa fa-shopping-cart ms-2 me-2"></i> $ @total + IVI
                             </div>
                         </div>
 

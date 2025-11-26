@@ -2,6 +2,7 @@
 using KN_ProyectoWeb.Models;
 using KN_ProyectoWeb.Services;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
@@ -161,27 +162,10 @@ namespace KN_ProyectoWeb.Controllers
             if (Session["ConsecutivoPerfil"].ToString() == "1")
                 return RedirectToAction("Principal", "Admin");
 
-            using (var context = new BD_KNEntities())
-            {
-                //Tomar el objeto de la BD
-                var resultado = context.tbProducto.Include("tbCategoria")
-                    .Where(x => x.Estado == true
-                        && x.Cantidad > 0).ToList();
+            CalcularResumenCarritoActual();
 
-                //Convertirlo en un objeto Propio
-                var datos = resultado.Select(p => new Producto
-                {
-                    ConsecutivoProducto = p.ConsecutivoProducto,
-                    Nombre = p.Nombre,
-                    Precio = p.Precio,
-                    Cantidad = p.Cantidad,
-                    NombreCategoria = p.tbCategoria.Nombre,
-                    Estado = p.Estado,
-                    Imagen = p.Imagen
-                }).ToList();
-
-                return View(datos);
-            }
+            var datos = ConsultarDatosVender();
+            return View(datos);
         }
 
         [Seguridad]
@@ -190,6 +174,14 @@ namespace KN_ProyectoWeb.Controllers
         {
             using (var context = new BD_KNEntities())
             {
+                var disponibilidad = context.tbProducto.Where(x => x.ConsecutivoProducto == producto.ConsecutivoProducto).FirstOrDefault();
+
+                if (producto.Cantidad > disponibilidad.Cantidad)
+                {
+                    ViewBag.Mensaje = "No contamos con la cantidad de productos solicitados, productos en inventario: " + disponibilidad.Cantidad;
+                    return View("Principal", ConsultarDatosVender());
+                }
+
                 var consecutivoUsuario = int.Parse(Session["ConsecutivoUsuario"].ToString());
                 var resultado = context.tbCarrito.Where(x => x.ConsecutivoProducto == producto.ConsecutivoProducto && x.ConsecutivoUsuario == consecutivoUsuario).FirstOrDefault();
 
@@ -209,6 +201,7 @@ namespace KN_ProyectoWeb.Controllers
                 else
                 {
                     resultado.Cantidad = producto.Cantidad.Value;
+                    resultado.Fecha = DateTime.Now;
                     context.SaveChanges();
                 }
 
@@ -223,6 +216,47 @@ namespace KN_ProyectoWeb.Controllers
             Session.Clear();
             Session.Abandon();
             return RedirectToAction("Index", "Home");
+        }
+
+        private List<Producto> ConsultarDatosVender()
+        {
+            using (var context = new BD_KNEntities())
+            {
+                //Tomar el objeto de la BD
+                var resultado = context.tbProducto.Include("tbCategoria")
+                    .Where(x => x.Estado == true
+                        && x.Cantidad > 0).ToList();
+
+                //Convertirlo en un objeto Propio
+                var datos = resultado.Select(p => new Producto
+                {
+                    ConsecutivoProducto = p.ConsecutivoProducto,
+                    Nombre = p.Nombre,
+                    Precio = p.Precio,
+                    Cantidad = p.Cantidad,
+                    NombreCategoria = p.tbCategoria.Nombre,
+                    Estado = p.Estado,
+                    Imagen = p.Imagen
+                }).ToList();
+
+                return datos;
+            }
+        }
+
+        private void CalcularResumenCarritoActual()
+        {
+            using (var context = new BD_KNEntities())
+            {
+                var consecutivo = int.Parse(Session["ConsecutivoUsuario"].ToString());
+
+                //Tomar el objeto de la BD
+                var resultado = context.tbCarrito.Include("tbProducto").Where(x => x.ConsecutivoUsuario == consecutivo).ToList();
+
+                var subTotal = resultado.Sum(x => x.tbProducto.Precio * x.Cantidad);
+
+                Session["Total"] = subTotal * 1.13M;
+                Session["Cantidad"] = resultado.Sum(x => x.Cantidad);
+            }
         }
     }
 }

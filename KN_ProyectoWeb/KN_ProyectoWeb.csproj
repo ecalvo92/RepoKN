@@ -219,6 +219,7 @@
     <Content Include="StaticFiles\js\Registro.js" />
     <Content Include="StaticFiles\js\Seguridad.js" />
     <Content Include="StaticFiles\js\VerPerfil.js" />
+    <Content Include="StaticFiles\js\VerCarritos.js" />
     <Content Include="StaticFiles\js\VerProductos.js" />
     <Content Include="TemplateRecuperacion.html" />
     <Content Include="Web.config" />
