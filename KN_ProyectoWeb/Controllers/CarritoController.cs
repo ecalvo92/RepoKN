@@ -72,5 +72,28 @@ namespace KN_ProyectoWeb.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult VerMisCompras()
+        {
+            using (var context = new BD_KNEntities())
+            {
+                var consecutivo = int.Parse(Session["ConsecutivoUsuario"].ToString());
+
+                //Tomar el objeto de la BD
+                var resultado = context.tbFactura.Where(x => x.ConsecutivoUsuario == consecutivo).ToList();
+                return View(resultado);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult VerDetalleCompra(int q)
+        {
+            using (var context = new BD_KNEntities())
+            {
+                //Tomar el objeto de la BD
+                var resultado = context.tbDetalle.Include("tbProducto").Where(x => x.ConsecutivoFactura == q).ToList();
+                return View(resultado);
+            }
+        }
     }
 }

@@ -1,0 +1,51 @@
+﻿@model List<KN_ProyectoWeb.EF.tbDetalle>
+
+@{
+    Layout = "~/Views/Shared/_LayoutInterno.cshtml";
+}
+
+<div class="col-12">
+    <div class="card overflow-hidden">
+
+        <div class="d-flex align-items-center">
+            <h5 class="card-header mb-0">Compra # @Model.FirstOrDefault().ConsecutivoFactura - $ @Model.Sum(x => x.Total)</h5>
+        </div>
+
+        <div class="card-body ps ps--active-x ps--active-y">
+
+            <table id="tDetalleCompras" class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>SubTotal</th>
+                        <th>Impuesto</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ConsecutivoProducto</td>
+                            <td>@item.tbProducto.Nombre</td>
+                            <td>$ @item.PrecioUnitarioPagado.ToString("N2")</td>
+                            <td>@item.CantidadUnidades</td>
+                            <td>$ @item.SubTotal.ToString("N2")</td>
+                            <td>$ @item.Impuesto.ToString("N2")</td>
+                            <td>$ @item.Total.ToString("N2")</td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="~/StaticFiles/js/VerDetalleCompras.js"></script>

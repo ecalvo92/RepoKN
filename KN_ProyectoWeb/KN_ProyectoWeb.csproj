@@ -225,6 +225,8 @@
     <Content Include="StaticFiles\js\RecuperarAcceso.js" />
     <Content Include="StaticFiles\js\Registro.js" />
     <Content Include="StaticFiles\js\Seguridad.js" />
+    <Content Include="StaticFiles\js\VerDetalleCompras.js" />
+    <Content Include="StaticFiles\js\VerCompras.js" />
     <Content Include="StaticFiles\js\VerPerfil.js" />
     <Content Include="StaticFiles\js\VerCarritos.js" />
     <Content Include="StaticFiles\js\Principal.js" />
@@ -271,6 +273,8 @@
     <Content Include="Views\Productos\ActualizarProductos.cshtml" />
     <Content Include="Views\Admin\Principal.cshtml" />
     <Content Include="Views\Carrito\VerMiCarrito.cshtml" />
+    <Content Include="Views\Carrito\VerMisCompras.cshtml" />
+    <Content Include="Views\Carrito\VerDetalleCompra.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

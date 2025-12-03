@@ -1,0 +1,55 @@
+﻿@model List<KN_ProyectoWeb.EF.tbFactura>
+
+@{
+    Layout = "~/Views/Shared/_LayoutInterno.cshtml";
+}
+
+<div class="col-12">
+    <div class="card overflow-hidden">
+
+        <div class="d-flex align-items-center">
+            <h5 class="card-header mb-0">Mis Compras</h5>
+        </div>
+
+        <div class="card-body ps ps--active-x ps--active-y">
+
+            <table id="tCompras" class="table">
+                <thead>
+                    <tr>
+                        <th># Factura</th>
+                        <th>Fecha</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                        <th>Método Pago</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ConsecutivoFactura</td>
+                            <td>@item.Fecha.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+                            <td>@item.CantidadProductos</td>
+                            <td>$ @item.TotalPagado.ToString("N2")</td>
+                            <td>@item.MetodoPago</td>
+                            <td>
+
+                                <a href="@Url.Action("VerDetalleCompra", "Carrito", new { q = item.ConsecutivoFactura })">
+                                    <i class="fa fa-eye" style="font-size:22px;"></i>
+                                </a>
+
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="~/StaticFiles/js/VerCompras.js"></script>
