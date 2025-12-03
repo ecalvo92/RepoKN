@@ -27,11 +27,13 @@ namespace KN_ProyectoWeb.EF
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tbPerfil> tbPerfil { get; set; }
-        public virtual DbSet<tbUsuario> tbUsuario { get; set; }
-        public virtual DbSet<tbCategoria> tbCategoria { get; set; }
-        public virtual DbSet<tbProducto> tbProducto { get; set; }
         public virtual DbSet<tbCarrito> tbCarrito { get; set; }
+        public virtual DbSet<tbCategoria> tbCategoria { get; set; }
+        public virtual DbSet<tbDetalle> tbDetalle { get; set; }
+        public virtual DbSet<tbFactura> tbFactura { get; set; }
+        public virtual DbSet<tbPerfil> tbPerfil { get; set; }
+        public virtual DbSet<tbProducto> tbProducto { get; set; }
+        public virtual DbSet<tbUsuario> tbUsuario { get; set; }
     
         public virtual int CrearUsuarios(string identificacion, string nombre, string correoElectronico, string contrasenna)
         {
@@ -52,6 +54,19 @@ namespace KN_ProyectoWeb.EF
                 new ObjectParameter("Contrasenna", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CrearUsuarios", identificacionParameter, nombreParameter, correoElectronicoParameter, contrasennaParameter);
+        }
+    
+        public virtual int RealizarPago(Nullable<int> consecutivoUsuario, string metodoPago)
+        {
+            var consecutivoUsuarioParameter = consecutivoUsuario.HasValue ?
+                new ObjectParameter("ConsecutivoUsuario", consecutivoUsuario) :
+                new ObjectParameter("ConsecutivoUsuario", typeof(int));
+    
+            var metodoPagoParameter = metodoPago != null ?
+                new ObjectParameter("MetodoPago", metodoPago) :
+                new ObjectParameter("MetodoPago", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RealizarPago", consecutivoUsuarioParameter, metodoPagoParameter);
         }
     
         public virtual ObjectResult<ValidarUsuarios_Result> ValidarUsuarios(string correoElectronico, string contrasenna)

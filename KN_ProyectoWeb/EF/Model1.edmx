@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BD_KNModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="BD_KNModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tbCarrito">
           <Key>
             <PropertyRef Name="ConsecutivoCarrito" />
@@ -21,6 +21,30 @@
           </Key>
           <Property Name="ConsecutivoCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbDetalle">
+          <Key>
+            <PropertyRef Name="ConsecutivoDetalle" />
+          </Key>
+          <Property Name="ConsecutivoDetalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ConsecutivoFactura" Type="int" Nullable="false" />
+          <Property Name="ConsecutivoProducto" Type="int" Nullable="false" />
+          <Property Name="PrecioUnitarioPagado" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="CantidadUnidades" Type="int" Nullable="false" />
+          <Property Name="SubTotal" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Impuesto" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbFactura">
+          <Key>
+            <PropertyRef Name="ConsecutivoFactura" />
+          </Key>
+          <Property Name="ConsecutivoFactura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="ConsecutivoUsuario" Type="int" Nullable="false" />
+          <Property Name="CantidadProductos" Type="int" Nullable="false" />
+          <Property Name="TotalPagado" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="MetodoPago" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="tbPerfil">
           <Key>
@@ -78,6 +102,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbDetalle_tbDetalle">
+          <End Role="tbFactura" Type="Self.tbFactura" Multiplicity="1" />
+          <End Role="tbDetalle" Type="Self.tbDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbFactura">
+              <PropertyRef Name="ConsecutivoFactura" />
+            </Principal>
+            <Dependent Role="tbDetalle">
+              <PropertyRef Name="ConsecutivoFactura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbDetalle_tbProducto">
+          <End Role="tbProducto" Type="Self.tbProducto" Multiplicity="1" />
+          <End Role="tbDetalle" Type="Self.tbDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbProducto">
+              <PropertyRef Name="ConsecutivoProducto" />
+            </Principal>
+            <Dependent Role="tbDetalle">
+              <PropertyRef Name="ConsecutivoProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbFactura_tbUsuario">
+          <End Role="tbUsuario" Type="Self.tbUsuario" Multiplicity="1" />
+          <End Role="tbFactura" Type="Self.tbFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuario">
+              <PropertyRef Name="ConsecutivoUsuario" />
+            </Principal>
+            <Dependent Role="tbFactura">
+              <PropertyRef Name="ConsecutivoUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbProducto_tbCategoria">
           <End Role="tbCategoria" Type="Self.tbCategoria" Multiplicity="1" />
           <End Role="tbProducto" Type="Self.tbProducto" Multiplicity="*" />
@@ -108,6 +168,10 @@
           <Parameter Name="CorreoElectronico" Type="varchar" Mode="In" />
           <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="RealizarPago" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ConsecutivoUsuario" Type="int" Mode="In" />
+          <Parameter Name="MetodoPago" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="ValidarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CorreoElectronico" Type="varchar" Mode="In" />
           <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
@@ -115,6 +179,8 @@
         <EntityContainer Name="BD_KNModelStoreContainer">
           <EntitySet Name="tbCarrito" EntityType="Self.tbCarrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbCategoria" EntityType="Self.tbCategoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbDetalle" EntityType="Self.tbDetalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbFactura" EntityType="Self.tbFactura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbPerfil" EntityType="Self.tbPerfil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbProducto" EntityType="Self.tbProducto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbUsuario" EntityType="Self.tbUsuario" Schema="dbo" store:Type="Tables" />
@@ -126,6 +192,18 @@
             <End Role="tbUsuario" EntitySet="tbUsuario" />
             <End Role="tbCarrito" EntitySet="tbCarrito" />
           </AssociationSet>
+          <AssociationSet Name="FK_tbDetalle_tbDetalle" Association="Self.FK_tbDetalle_tbDetalle">
+            <End Role="tbFactura" EntitySet="tbFactura" />
+            <End Role="tbDetalle" EntitySet="tbDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbDetalle_tbProducto" Association="Self.FK_tbDetalle_tbProducto">
+            <End Role="tbProducto" EntitySet="tbProducto" />
+            <End Role="tbDetalle" EntitySet="tbDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbFactura_tbUsuario" Association="Self.FK_tbFactura_tbUsuario">
+            <End Role="tbUsuario" EntitySet="tbUsuario" />
+            <End Role="tbFactura" EntitySet="tbFactura" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbProducto_tbCategoria" Association="Self.FK_tbProducto_tbCategoria">
             <End Role="tbCategoria" EntitySet="tbCategoria" />
             <End Role="tbProducto" EntitySet="tbProducto" />
@@ -135,10 +213,59 @@
             <End Role="tbUsuario" EntitySet="tbUsuario" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BD_KNModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbCarrito">
+          <Key>
+            <PropertyRef Name="ConsecutivoCarrito" />
+          </Key>
+          <Property Name="ConsecutivoCarrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConsecutivoUsuario" Type="Int32" Nullable="false" />
+          <Property Name="ConsecutivoProducto" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbProducto" Relationship="Self.FK_tbCarrito_tbProducto" FromRole="tbCarrito" ToRole="tbProducto" />
+          <NavigationProperty Name="tbUsuario" Relationship="Self.FK_tbCarrito_tbUsuario" FromRole="tbCarrito" ToRole="tbUsuario" />
+        </EntityType>
+        <EntityType Name="tbCategoria">
+          <Key>
+            <PropertyRef Name="ConsecutivoCategoria" />
+          </Key>
+          <Property Name="ConsecutivoCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbProducto" Relationship="Self.FK_tbProducto_tbCategoria" FromRole="tbCategoria" ToRole="tbProducto" />
+        </EntityType>
+        <EntityType Name="tbDetalle">
+          <Key>
+            <PropertyRef Name="ConsecutivoDetalle" />
+          </Key>
+          <Property Name="ConsecutivoDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConsecutivoFactura" Type="Int32" Nullable="false" />
+          <Property Name="ConsecutivoProducto" Type="Int32" Nullable="false" />
+          <Property Name="PrecioUnitarioPagado" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="CantidadUnidades" Type="Int32" Nullable="false" />
+          <Property Name="SubTotal" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Impuesto" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="tbFactura" Relationship="Self.FK_tbDetalle_tbDetalle" FromRole="tbDetalle" ToRole="tbFactura" />
+          <NavigationProperty Name="tbProducto" Relationship="Self.FK_tbDetalle_tbProducto" FromRole="tbDetalle" ToRole="tbProducto" />
+        </EntityType>
+        <EntityType Name="tbFactura">
+          <Key>
+            <PropertyRef Name="ConsecutivoFactura" />
+          </Key>
+          <Property Name="ConsecutivoFactura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ConsecutivoUsuario" Type="Int32" Nullable="false" />
+          <Property Name="CantidadProductos" Type="Int32" Nullable="false" />
+          <Property Name="TotalPagado" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="MetodoPago" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbDetalle" Relationship="Self.FK_tbDetalle_tbDetalle" FromRole="tbFactura" ToRole="tbDetalle" />
+          <NavigationProperty Name="tbUsuario" Relationship="Self.FK_tbFactura_tbUsuario" FromRole="tbFactura" ToRole="tbUsuario" />
+        </EntityType>
         <EntityType Name="tbPerfil">
           <Key>
             <PropertyRef Name="ConsecutivoPerfil" />
@@ -146,6 +273,22 @@
           <Property Name="ConsecutivoPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="tbUsuario" Relationship="Self.FK_tbUsuario_tbPerfil" FromRole="tbPerfil" ToRole="tbUsuario" />
+        </EntityType>
+        <EntityType Name="tbProducto">
+          <Key>
+            <PropertyRef Name="ConsecutivoProducto" />
+          </Key>
+          <Property Name="ConsecutivoProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Precio" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ConsecutivoCategoria" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <Property Name="Imagen" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" />
+          <NavigationProperty Name="tbCarrito" Relationship="Self.FK_tbCarrito_tbProducto" FromRole="tbProducto" ToRole="tbCarrito" />
+          <NavigationProperty Name="tbCategoria" Relationship="Self.FK_tbProducto_tbCategoria" FromRole="tbProducto" ToRole="tbCategoria" />
+          <NavigationProperty Name="tbDetalle" Relationship="Self.FK_tbDetalle_tbProducto" FromRole="tbProducto" ToRole="tbDetalle" />
         </EntityType>
         <EntityType Name="tbUsuario">
           <Key>
@@ -158,9 +301,82 @@
           <Property Name="Contrasenna" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <Property Name="ConsecutivoPerfil" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbCarrito" Relationship="Self.FK_tbCarrito_tbUsuario" FromRole="tbUsuario" ToRole="tbCarrito" />
+          <NavigationProperty Name="tbFactura" Relationship="Self.FK_tbFactura_tbUsuario" FromRole="tbUsuario" ToRole="tbFactura" />
           <NavigationProperty Name="tbPerfil" Relationship="Self.FK_tbUsuario_tbPerfil" FromRole="tbUsuario" ToRole="tbPerfil" />
-          <NavigationProperty Name="tbCarrito" Relationship="BD_KNModel.FK_tbCarrito_tbUsuario" FromRole="tbUsuario" ToRole="tbCarrito" />
         </EntityType>
+        <Association Name="FK_tbCarrito_tbProducto">
+          <End Role="tbProducto" Type="Self.tbProducto" Multiplicity="1" />
+          <End Role="tbCarrito" Type="Self.tbCarrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbProducto">
+              <PropertyRef Name="ConsecutivoProducto" />
+            </Principal>
+            <Dependent Role="tbCarrito">
+              <PropertyRef Name="ConsecutivoProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCarrito_tbUsuario">
+          <End Role="tbUsuario" Type="Self.tbUsuario" Multiplicity="1" />
+          <End Role="tbCarrito" Type="Self.tbCarrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuario">
+              <PropertyRef Name="ConsecutivoUsuario" />
+            </Principal>
+            <Dependent Role="tbCarrito">
+              <PropertyRef Name="ConsecutivoUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbProducto_tbCategoria">
+          <End Role="tbCategoria" Type="Self.tbCategoria" Multiplicity="1" />
+          <End Role="tbProducto" Type="Self.tbProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCategoria">
+              <PropertyRef Name="ConsecutivoCategoria" />
+            </Principal>
+            <Dependent Role="tbProducto">
+              <PropertyRef Name="ConsecutivoCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbDetalle_tbDetalle">
+          <End Role="tbFactura" Type="Self.tbFactura" Multiplicity="1" />
+          <End Role="tbDetalle" Type="Self.tbDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbFactura">
+              <PropertyRef Name="ConsecutivoFactura" />
+            </Principal>
+            <Dependent Role="tbDetalle">
+              <PropertyRef Name="ConsecutivoFactura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbDetalle_tbProducto">
+          <End Role="tbProducto" Type="Self.tbProducto" Multiplicity="1" />
+          <End Role="tbDetalle" Type="Self.tbDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbProducto">
+              <PropertyRef Name="ConsecutivoProducto" />
+            </Principal>
+            <Dependent Role="tbDetalle">
+              <PropertyRef Name="ConsecutivoProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbFactura_tbUsuario">
+          <End Role="tbUsuario" Type="Self.tbUsuario" Multiplicity="1" />
+          <End Role="tbFactura" Type="Self.tbFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuario">
+              <PropertyRef Name="ConsecutivoUsuario" />
+            </Principal>
+            <Dependent Role="tbFactura">
+              <PropertyRef Name="ConsecutivoUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbUsuario_tbPerfil">
           <End Role="tbPerfil" Type="Self.tbPerfil" Multiplicity="1" />
           <End Role="tbUsuario" Type="Self.tbUsuario" Multiplicity="*" />
@@ -174,8 +390,37 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="BD_KNEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbCarrito" EntityType="Self.tbCarrito" />
+          <EntitySet Name="tbCategoria" EntityType="Self.tbCategoria" />
+          <EntitySet Name="tbDetalle" EntityType="Self.tbDetalle" />
+          <EntitySet Name="tbFactura" EntityType="Self.tbFactura" />
           <EntitySet Name="tbPerfil" EntityType="Self.tbPerfil" />
+          <EntitySet Name="tbProducto" EntityType="Self.tbProducto" />
           <EntitySet Name="tbUsuario" EntityType="Self.tbUsuario" />
+          <AssociationSet Name="FK_tbCarrito_tbProducto" Association="Self.FK_tbCarrito_tbProducto">
+            <End Role="tbProducto" EntitySet="tbProducto" />
+            <End Role="tbCarrito" EntitySet="tbCarrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCarrito_tbUsuario" Association="Self.FK_tbCarrito_tbUsuario">
+            <End Role="tbUsuario" EntitySet="tbUsuario" />
+            <End Role="tbCarrito" EntitySet="tbCarrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbProducto_tbCategoria" Association="Self.FK_tbProducto_tbCategoria">
+            <End Role="tbCategoria" EntitySet="tbCategoria" />
+            <End Role="tbProducto" EntitySet="tbProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbDetalle_tbDetalle" Association="Self.FK_tbDetalle_tbDetalle">
+            <End Role="tbFactura" EntitySet="tbFactura" />
+            <End Role="tbDetalle" EntitySet="tbDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbDetalle_tbProducto" Association="Self.FK_tbDetalle_tbProducto">
+            <End Role="tbProducto" EntitySet="tbProducto" />
+            <End Role="tbDetalle" EntitySet="tbDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbFactura_tbUsuario" Association="Self.FK_tbFactura_tbUsuario">
+            <End Role="tbUsuario" EntitySet="tbUsuario" />
+            <End Role="tbFactura" EntitySet="tbFactura" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbUsuario_tbPerfil" Association="Self.FK_tbUsuario_tbPerfil">
             <End Role="tbPerfil" EntitySet="tbPerfil" />
             <End Role="tbUsuario" EntitySet="tbUsuario" />
@@ -186,25 +431,14 @@
             <Parameter Name="CorreoElectronico" Mode="In" Type="String" />
             <Parameter Name="Contrasenna" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="RealizarPago">
+            <Parameter Name="ConsecutivoUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="MetodoPago" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="ValidarUsuarios" ReturnType="Collection(BD_KNModel.ValidarUsuarios_Result)">
             <Parameter Name="CorreoElectronico" Mode="In" Type="String" />
             <Parameter Name="Contrasenna" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="tbCategoria" EntityType="BD_KNModel.tbCategoria" />
-          <EntitySet Name="tbProducto" EntityType="BD_KNModel.tbProducto" />
-          <AssociationSet Name="FK_tbProducto_tbCategoria" Association="BD_KNModel.FK_tbProducto_tbCategoria">
-            <End Role="tbCategoria" EntitySet="tbCategoria" />
-            <End Role="tbProducto" EntitySet="tbProducto" />
-          </AssociationSet>
-          <EntitySet Name="tbCarrito" EntityType="BD_KNModel.tbCarrito" />
-          <AssociationSet Name="FK_tbCarrito_tbProducto" Association="BD_KNModel.FK_tbCarrito_tbProducto">
-            <End Role="tbProducto" EntitySet="tbProducto" />
-            <End Role="tbCarrito" EntitySet="tbCarrito" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbCarrito_tbUsuario" Association="BD_KNModel.FK_tbCarrito_tbUsuario">
-            <End Role="tbUsuario" EntitySet="tbUsuario" />
-            <End Role="tbCarrito" EntitySet="tbCarrito" />
-          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="ValidarUsuarios_Result">
           <Property Type="Int32" Name="ConsecutivoUsuario" Nullable="false" />
@@ -215,88 +449,76 @@
           <Property Type="Boolean" Name="Estado" Nullable="false" />
           <Property Type="Int32" Name="ConsecutivoPerfil" Nullable="false" />
         </ComplexType>
-        <EntityType Name="tbCategoria">
-          <Key>
-            <PropertyRef Name="ConsecutivoCategoria" />
-          </Key>
-          <Property Name="ConsecutivoCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tbProducto" Relationship="BD_KNModel.FK_tbProducto_tbCategoria" FromRole="tbCategoria" ToRole="tbProducto" />
-        </EntityType>
-        <EntityType Name="tbProducto">
-          <Key>
-            <PropertyRef Name="ConsecutivoProducto" />
-          </Key>
-          <Property Name="ConsecutivoProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="Precio" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-          <Property Name="ConsecutivoCategoria" Type="Int32" Nullable="false" />
-          <Property Name="Estado" Type="Boolean" Nullable="false" />
-          <Property Name="Imagen" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tbCategoria" Relationship="BD_KNModel.FK_tbProducto_tbCategoria" FromRole="tbProducto" ToRole="tbCategoria" />
-          <Property Name="Cantidad" Type="Int32" />
-          <NavigationProperty Name="tbCarrito" Relationship="BD_KNModel.FK_tbCarrito_tbProducto" FromRole="tbProducto" ToRole="tbCarrito" />
-        </EntityType>
-        <Association Name="FK_tbProducto_tbCategoria">
-          <End Type="BD_KNModel.tbCategoria" Role="tbCategoria" Multiplicity="1" />
-          <End Type="BD_KNModel.tbProducto" Role="tbProducto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbCategoria">
-              <PropertyRef Name="ConsecutivoCategoria" />
-            </Principal>
-            <Dependent Role="tbProducto">
-              <PropertyRef Name="ConsecutivoCategoria" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="tbCarrito">
-          <Key>
-            <PropertyRef Name="ConsecutivoCarrito" />
-          </Key>
-          <Property Name="ConsecutivoCarrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ConsecutivoUsuario" Type="Int32" Nullable="false" />
-          <Property Name="ConsecutivoProducto" Type="Int32" Nullable="false" />
-          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Cantidad" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tbProducto" Relationship="BD_KNModel.FK_tbCarrito_tbProducto" FromRole="tbCarrito" ToRole="tbProducto" />
-          <NavigationProperty Name="tbUsuario" Relationship="BD_KNModel.FK_tbCarrito_tbUsuario" FromRole="tbCarrito" ToRole="tbUsuario" />
-        </EntityType>
-        <Association Name="FK_tbCarrito_tbProducto">
-          <End Type="BD_KNModel.tbProducto" Role="tbProducto" Multiplicity="1" />
-          <End Type="BD_KNModel.tbCarrito" Role="tbCarrito" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbProducto">
-              <PropertyRef Name="ConsecutivoProducto" />
-            </Principal>
-            <Dependent Role="tbCarrito">
-              <PropertyRef Name="ConsecutivoProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbCarrito_tbUsuario">
-          <End Type="BD_KNModel.tbUsuario" Role="tbUsuario" Multiplicity="1" />
-          <End Type="BD_KNModel.tbCarrito" Role="tbCarrito" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbUsuario">
-              <PropertyRef Name="ConsecutivoUsuario" />
-            </Principal>
-            <Dependent Role="tbCarrito">
-              <PropertyRef Name="ConsecutivoUsuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="BD_KNModelStoreContainer" CdmEntityContainer="BD_KNEntities">
+          <EntitySetMapping Name="tbCarrito">
+            <EntityTypeMapping TypeName="BD_KNModel.tbCarrito">
+              <MappingFragment StoreEntitySet="tbCarrito">
+                <ScalarProperty Name="ConsecutivoCarrito" ColumnName="ConsecutivoCarrito" />
+                <ScalarProperty Name="ConsecutivoUsuario" ColumnName="ConsecutivoUsuario" />
+                <ScalarProperty Name="ConsecutivoProducto" ColumnName="ConsecutivoProducto" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbCategoria">
+            <EntityTypeMapping TypeName="BD_KNModel.tbCategoria">
+              <MappingFragment StoreEntitySet="tbCategoria">
+                <ScalarProperty Name="ConsecutivoCategoria" ColumnName="ConsecutivoCategoria" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbDetalle">
+            <EntityTypeMapping TypeName="BD_KNModel.tbDetalle">
+              <MappingFragment StoreEntitySet="tbDetalle">
+                <ScalarProperty Name="ConsecutivoDetalle" ColumnName="ConsecutivoDetalle" />
+                <ScalarProperty Name="ConsecutivoFactura" ColumnName="ConsecutivoFactura" />
+                <ScalarProperty Name="ConsecutivoProducto" ColumnName="ConsecutivoProducto" />
+                <ScalarProperty Name="PrecioUnitarioPagado" ColumnName="PrecioUnitarioPagado" />
+                <ScalarProperty Name="CantidadUnidades" ColumnName="CantidadUnidades" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Impuesto" ColumnName="Impuesto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbFactura">
+            <EntityTypeMapping TypeName="BD_KNModel.tbFactura">
+              <MappingFragment StoreEntitySet="tbFactura">
+                <ScalarProperty Name="ConsecutivoFactura" ColumnName="ConsecutivoFactura" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="ConsecutivoUsuario" ColumnName="ConsecutivoUsuario" />
+                <ScalarProperty Name="CantidadProductos" ColumnName="CantidadProductos" />
+                <ScalarProperty Name="TotalPagado" ColumnName="TotalPagado" />
+                <ScalarProperty Name="MetodoPago" ColumnName="MetodoPago" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tbPerfil">
             <EntityTypeMapping TypeName="BD_KNModel.tbPerfil">
               <MappingFragment StoreEntitySet="tbPerfil">
                 <ScalarProperty Name="ConsecutivoPerfil" ColumnName="ConsecutivoPerfil" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbProducto">
+            <EntityTypeMapping TypeName="BD_KNModel.tbProducto">
+              <MappingFragment StoreEntitySet="tbProducto">
+                <ScalarProperty Name="ConsecutivoProducto" ColumnName="ConsecutivoProducto" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="ConsecutivoCategoria" ColumnName="ConsecutivoCategoria" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -314,6 +536,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="CrearUsuarios" FunctionName="BD_KNModel.Store.CrearUsuarios" />
+          <FunctionImportMapping FunctionImportName="RealizarPago" FunctionName="BD_KNModel.Store.RealizarPago" />
           <FunctionImportMapping FunctionImportName="ValidarUsuarios" FunctionName="BD_KNModel.Store.ValidarUsuarios">
             <ResultMapping>
               <ComplexTypeMapping TypeName="BD_KNModel.ValidarUsuarios_Result">
@@ -327,39 +550,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="tbCategoria">
-            <EntityTypeMapping TypeName="BD_KNModel.tbCategoria">
-              <MappingFragment StoreEntitySet="tbCategoria">
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="ConsecutivoCategoria" ColumnName="ConsecutivoCategoria" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbProducto">
-            <EntityTypeMapping TypeName="BD_KNModel.tbProducto">
-              <MappingFragment StoreEntitySet="tbProducto">
-                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
-                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="ConsecutivoCategoria" ColumnName="ConsecutivoCategoria" />
-                <ScalarProperty Name="Precio" ColumnName="Precio" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="ConsecutivoProducto" ColumnName="ConsecutivoProducto" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbCarrito">
-            <EntityTypeMapping TypeName="BD_KNModel.tbCarrito">
-              <MappingFragment StoreEntitySet="tbCarrito">
-                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="ConsecutivoProducto" ColumnName="ConsecutivoProducto" />
-                <ScalarProperty Name="ConsecutivoUsuario" ColumnName="ConsecutivoUsuario" />
-                <ScalarProperty Name="ConsecutivoCarrito" ColumnName="ConsecutivoCarrito" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -90,11 +90,16 @@
 
                     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                         <div class="navbar-nav align-items-center">
-                            <div class="nav-item d-flex align-items-center">
-                                <i class="fa fa-tags me-2"></i> @cantidad
-                                <i class="fa fa-shopping-cart ms-2 me-2"></i> $ @total + IVI
+
+                            @if (consecutivoPerfil != "1")
+                            {
+                                <div class="nav-item d-flex align-items-center">
+                                    <i class="fa fa-tags me-2"></i> @cantidad
+                                    <i class="fa fa-shopping-cart ms-2 me-2"></i> $ @total IVI
+                                </div>
+                            }
+
                             </div>
-                        </div>
 
                         <ul class="navbar-nav flex-row align-items-center ms-auto">
 

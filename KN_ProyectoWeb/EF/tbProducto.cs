@@ -18,6 +18,7 @@ namespace KN_ProyectoWeb.EF
         public tbProducto()
         {
             this.tbCarrito = new HashSet<tbCarrito>();
+            this.tbDetalle = new HashSet<tbDetalle>();
         }
     
         public int ConsecutivoProducto { get; set; }
@@ -29,8 +30,10 @@ namespace KN_ProyectoWeb.EF
         public string Imagen { get; set; }
         public Nullable<int> Cantidad { get; set; }
     
-        public virtual tbCategoria tbCategoria { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbCarrito> tbCarrito { get; set; }
+        public virtual tbCategoria tbCategoria { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbDetalle> tbDetalle { get; set; }
     }
 }

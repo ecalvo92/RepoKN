@@ -12,27 +12,23 @@ namespace KN_ProyectoWeb.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class tbUsuario
+    public partial class tbFactura
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tbUsuario()
+        public tbFactura()
         {
-            this.tbCarrito = new HashSet<tbCarrito>();
-            this.tbFactura = new HashSet<tbFactura>();
+            this.tbDetalle = new HashSet<tbDetalle>();
         }
     
+        public int ConsecutivoFactura { get; set; }
+        public System.DateTime Fecha { get; set; }
         public int ConsecutivoUsuario { get; set; }
-        public string Identificacion { get; set; }
-        public string Nombre { get; set; }
-        public string CorreoElectronico { get; set; }
-        public string Contrasenna { get; set; }
-        public bool Estado { get; set; }
-        public int ConsecutivoPerfil { get; set; }
+        public int CantidadProductos { get; set; }
+        public decimal TotalPagado { get; set; }
+        public string MetodoPago { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbCarrito> tbCarrito { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbFactura> tbFactura { get; set; }
-        public virtual tbPerfil tbPerfil { get; set; }
+        public virtual ICollection<tbDetalle> tbDetalle { get; set; }
+        public virtual tbUsuario tbUsuario { get; set; }
     }
 }

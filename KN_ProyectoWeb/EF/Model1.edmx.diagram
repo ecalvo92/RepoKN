@@ -4,16 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7fe286cdad2b4f8b9ff2d95b65fd1e3b" Name="Diagram1">
-        <EntityTypeShape EntityType="BD_KNModel.tbPerfil" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BD_KNModel.tbUsuario" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+      <Diagram DiagramId="50640f21fc4a4c819c4eed9e079b3ef5" Name="Diagram1">
+        <EntityTypeShape EntityType="BD_KNModel.tbCarrito" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_KNModel.tbCategoria" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_KNModel.tbDetalle" Width="1.5" PointX="7.5" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_KNModel.tbFactura" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_KNModel.tbPerfil" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_KNModel.tbProducto" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_KNModel.tbUsuario" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <AssociationConnector Association="BD_KNModel.FK_tbCarrito_tbProducto" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_KNModel.FK_tbCarrito_tbUsuario" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_KNModel.FK_tbProducto_tbCategoria" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_KNModel.FK_tbDetalle_tbDetalle" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_KNModel.FK_tbDetalle_tbProducto" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_KNModel.FK_tbFactura_tbUsuario" ManuallyRouted="false" />
         <AssociationConnector Association="BD_KNModel.FK_tbUsuario_tbPerfil" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="BD_KNModel.tbCategoria" Width="1.5" PointX="0.75" PointY="5.375" />
-        <EntityTypeShape EntityType="BD_KNModel.tbProducto" Width="1.5" PointX="3" PointY="5" />
-        <AssociationConnector Association="BD_KNModel.FK_tbProducto_tbCategoria" />
-        <EntityTypeShape EntityType="BD_KNModel.tbCarrito" Width="1.5" PointX="6.75" PointY="3.125" />
-        <AssociationConnector Association="BD_KNModel.FK_tbCarrito_tbProducto" />
-        <AssociationConnector Association="BD_KNModel.FK_tbCarrito_tbUsuario" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

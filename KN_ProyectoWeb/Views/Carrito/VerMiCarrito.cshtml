@@ -51,7 +51,51 @@
                 </tbody>
             </table>
 
+            @if (Session["Total"].ToString() != null && Session["Total"].ToString() != "0,00")
+            {
+                <div class="row mt-5">
+
+                    <div class="col-3">
+                        <p class="mt-2" style="font-size:18px">El monto a cancelar es de: $@decimal.Parse(Session["Total"].ToString()).ToString("N2")</p>
+                    </div>
+
+                    <div class="col-9">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            Procesar Pago
+                        </button>
+                    </div>
+                </div>
+            }
+
         </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+
+        @using (Html.BeginForm("RealizarPago", "Carrito", FormMethod.Post, new { @id = "FormRealizarPago" }))
+        {
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Confirmación de Pago</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label class="form-label">Medio Pago</label>
+                        @Html.TextBox("MetodoPago", null, new { @class = "form-control", @rows = "4" })
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Procesar</button>
+                </div>
+            </div>
+        }
+
     </div>
 </div>
 

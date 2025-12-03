@@ -59,5 +59,18 @@ namespace KN_ProyectoWeb.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult RealizarPago(Pago pago)
+        {
+            var consecutivo = int.Parse(Session["ConsecutivoUsuario"].ToString());
+
+            using (var context = new BD_KNEntities())
+            {
+                //Un procedimiento almacenado que realiza el pago
+                context.RealizarPago(consecutivo, pago.MetodoPago);
+                return RedirectToAction("Principal", "Home");
+            }
+        }
+
     }
 }
