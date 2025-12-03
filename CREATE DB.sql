@@ -101,6 +101,13 @@ CREATE TABLE [dbo].[tbUsuario](
 ) ON [PRIMARY]
 GO
 
+SET IDENTITY_INSERT [dbo].[tbCarrito] ON 
+GO
+INSERT [dbo].[tbCarrito] ([ConsecutivoCarrito], [ConsecutivoUsuario], [ConsecutivoProducto], [Fecha], [Cantidad]) VALUES (23, 4, 5, CAST(N'2025-12-02T20:26:49.737' AS DateTime), 1)
+GO
+SET IDENTITY_INSERT [dbo].[tbCarrito] OFF
+GO
+
 SET IDENTITY_INSERT [dbo].[tbCategoria] ON 
 GO
 INSERT [dbo].[tbCategoria] ([ConsecutivoCategoria], [Nombre]) VALUES (1, N'Computadoras y componentes')
@@ -122,20 +129,26 @@ GO
 
 SET IDENTITY_INSERT [dbo].[tbDetalle] ON 
 GO
-INSERT [dbo].[tbDetalle] ([ConsecutivoDetalle], [ConsecutivoFactura], [ConsecutivoProducto], [PrecioUnitarioPagado], [CantidadUnidades], [SubTotal], [Total], [Impuesto]) VALUES (1, 1, 1002, CAST(600.00 AS Decimal(10, 2)), 2, CAST(1200.00 AS Decimal(10, 2)), CAST(1356.00 AS Decimal(10, 2)), CAST(156.00 AS Decimal(10, 2)))
+INSERT [dbo].[tbDetalle] ([ConsecutivoDetalle], [ConsecutivoFactura], [ConsecutivoProducto], [PrecioUnitarioPagado], [CantidadUnidades], [SubTotal], [Total], [Impuesto]) VALUES (4, 3, 5, CAST(65.00 AS Decimal(10, 2)), 1, CAST(65.00 AS Decimal(10, 2)), CAST(73.45 AS Decimal(10, 2)), CAST(8.45 AS Decimal(10, 2)))
 GO
-INSERT [dbo].[tbDetalle] ([ConsecutivoDetalle], [ConsecutivoFactura], [ConsecutivoProducto], [PrecioUnitarioPagado], [CantidadUnidades], [SubTotal], [Total], [Impuesto]) VALUES (2, 2, 5, CAST(65.00 AS Decimal(10, 2)), 2, CAST(130.00 AS Decimal(10, 2)), CAST(146.90 AS Decimal(10, 2)), CAST(16.90 AS Decimal(10, 2)))
+INSERT [dbo].[tbDetalle] ([ConsecutivoDetalle], [ConsecutivoFactura], [ConsecutivoProducto], [PrecioUnitarioPagado], [CantidadUnidades], [SubTotal], [Total], [Impuesto]) VALUES (5, 3, 1002, CAST(600.00 AS Decimal(10, 2)), 1, CAST(600.00 AS Decimal(10, 2)), CAST(678.00 AS Decimal(10, 2)), CAST(78.00 AS Decimal(10, 2)))
 GO
-INSERT [dbo].[tbDetalle] ([ConsecutivoDetalle], [ConsecutivoFactura], [ConsecutivoProducto], [PrecioUnitarioPagado], [CantidadUnidades], [SubTotal], [Total], [Impuesto]) VALUES (3, 2, 1002, CAST(600.00 AS Decimal(10, 2)), 1, CAST(600.00 AS Decimal(10, 2)), CAST(678.00 AS Decimal(10, 2)), CAST(78.00 AS Decimal(10, 2)))
+INSERT [dbo].[tbDetalle] ([ConsecutivoDetalle], [ConsecutivoFactura], [ConsecutivoProducto], [PrecioUnitarioPagado], [CantidadUnidades], [SubTotal], [Total], [Impuesto]) VALUES (6, 4, 1002, CAST(600.00 AS Decimal(10, 2)), 8, CAST(4800.00 AS Decimal(10, 2)), CAST(5424.00 AS Decimal(10, 2)), CAST(624.00 AS Decimal(10, 2)))
+GO
+INSERT [dbo].[tbDetalle] ([ConsecutivoDetalle], [ConsecutivoFactura], [ConsecutivoProducto], [PrecioUnitarioPagado], [CantidadUnidades], [SubTotal], [Total], [Impuesto]) VALUES (7, 5, 5, CAST(65.00 AS Decimal(10, 2)), 1, CAST(65.00 AS Decimal(10, 2)), CAST(73.45 AS Decimal(10, 2)), CAST(8.45 AS Decimal(10, 2)))
+GO
+INSERT [dbo].[tbDetalle] ([ConsecutivoDetalle], [ConsecutivoFactura], [ConsecutivoProducto], [PrecioUnitarioPagado], [CantidadUnidades], [SubTotal], [Total], [Impuesto]) VALUES (8, 5, 1002, CAST(400.00 AS Decimal(10, 2)), 3, CAST(1200.00 AS Decimal(10, 2)), CAST(1356.00 AS Decimal(10, 2)), CAST(156.00 AS Decimal(10, 2)))
 GO
 SET IDENTITY_INSERT [dbo].[tbDetalle] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[tbFactura] ON 
 GO
-INSERT [dbo].[tbFactura] ([ConsecutivoFactura], [Fecha], [ConsecutivoUsuario], [CantidadProductos], [TotalPagado], [MetodoPago]) VALUES (1, CAST(N'2025-11-25T20:55:21.100' AS DateTime), 1004, 2, CAST(1356.00 AS Decimal(10, 2)), N'Sinpe Movil')
+INSERT [dbo].[tbFactura] ([ConsecutivoFactura], [Fecha], [ConsecutivoUsuario], [CantidadProductos], [TotalPagado], [MetodoPago]) VALUES (3, CAST(N'2025-12-02T18:54:12.080' AS DateTime), 1004, 2, CAST(751.45 AS Decimal(10, 2)), N'Pago en efectivo')
 GO
-INSERT [dbo].[tbFactura] ([ConsecutivoFactura], [Fecha], [ConsecutivoUsuario], [CantidadProductos], [TotalPagado], [MetodoPago]) VALUES (2, CAST(N'2025-11-25T20:58:35.353' AS DateTime), 4, 3, CAST(824.90 AS Decimal(10, 2)), N'Tarjeta Regalo')
+INSERT [dbo].[tbFactura] ([ConsecutivoFactura], [Fecha], [ConsecutivoUsuario], [CantidadProductos], [TotalPagado], [MetodoPago]) VALUES (4, CAST(N'2025-12-02T19:24:39.490' AS DateTime), 4, 8, CAST(5424.00 AS Decimal(10, 2)), N'Tarjetazo')
+GO
+INSERT [dbo].[tbFactura] ([ConsecutivoFactura], [Fecha], [ConsecutivoUsuario], [CantidadProductos], [TotalPagado], [MetodoPago]) VALUES (5, CAST(N'2025-12-02T19:27:23.580' AS DateTime), 4, 4, CAST(1429.45 AS Decimal(10, 2)), N'efectivo')
 GO
 SET IDENTITY_INSERT [dbo].[tbFactura] OFF
 GO
@@ -151,20 +164,14 @@ GO
 
 SET IDENTITY_INSERT [dbo].[tbProducto] ON 
 GO
-INSERT [dbo].[tbProducto] ([ConsecutivoProducto], [Nombre], [Descripcion], [Precio], [ConsecutivoCategoria], [Estado], [Imagen], [Cantidad]) VALUES (5, N'EchoDot Nueva Generación', N'Prueba de registro', CAST(65.00 AS Decimal(10, 2)), 5, 1, N'/ImgProductos/5.png', 3)
+INSERT [dbo].[tbProducto] ([ConsecutivoProducto], [Nombre], [Descripcion], [Precio], [ConsecutivoCategoria], [Estado], [Imagen], [Cantidad]) VALUES (5, N'EchoDot Nueva Generación', N'Prueba de registro', CAST(65.00 AS Decimal(10, 2)), 5, 1, N'/ImgProductos/5.png', 1)
 GO
-INSERT [dbo].[tbProducto] ([ConsecutivoProducto], [Nombre], [Descripcion], [Precio], [ConsecutivoCategoria], [Estado], [Imagen], [Cantidad]) VALUES (1002, N'Play Station 5', N'Consola de videojuegos', CAST(600.00 AS Decimal(10, 2)), 3, 1, N'/ImgProductos/1002.png', 9)
+INSERT [dbo].[tbProducto] ([ConsecutivoProducto], [Nombre], [Descripcion], [Precio], [ConsecutivoCategoria], [Estado], [Imagen], [Cantidad]) VALUES (1002, N'Play Station 5', N'Consola de videojuegos', CAST(400.00 AS Decimal(10, 2)), 3, 1, N'/ImgProductos/1002.png', 7)
 GO
 SET IDENTITY_INSERT [dbo].[tbProducto] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[tbUsuario] ON 
-GO
-INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [ConsecutivoPerfil]) VALUES (1, N'304590415', N'Eduardo', N'ecalvo90415@ufide.ac.cr', N'90415', 1, 2)
-GO
-INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [ConsecutivoPerfil]) VALUES (2, N'304590416', N'Eduardo', N'ecalvo90416@ufide.ac.cr', N'90416', 1, 2)
-GO
-INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [ConsecutivoPerfil]) VALUES (3, N'304590417', N'Alex Cesar Fajardo', N'ecalvo90417@ufide.ac.cr', N'12313221', 1, 2)
 GO
 INSERT [dbo].[tbUsuario] ([ConsecutivoUsuario], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [ConsecutivoPerfil]) VALUES (4, N'119600898', N'VEGA MURILLO JUAN PABLO', N'jvega00898@ufide.ac.cr', N'00898', 1, 2)
 GO
@@ -179,6 +186,8 @@ ALTER TABLE [dbo].[tbUsuario] ADD  CONSTRAINT [UK_CorreoElectronico] UNIQUE NONC
 (
 	[CorreoElectronico] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
 GO
 
 ALTER TABLE [dbo].[tbUsuario] ADD  CONSTRAINT [UK_Identificacion] UNIQUE NONCLUSTERED 
