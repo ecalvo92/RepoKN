@@ -4,61 +4,72 @@
     Layout = "~/Views/Shared/_LayoutInterno.cshtml";
 }
 
+<link href="~/StaticFiles/css/principal.css" rel="stylesheet" />
 
 <div class="row">
-    <div class="col-lg-3 col-md-12 col-6 mb-4">
-        <div class="card">
+
+    <!-- Usuarios Activos -->
+    <div class="col-lg-3 col-md-6 col-12 mb-4">
+        <div class="card stat-card border-left-green">
             <div class="card-body">
-                <div class="card-title d-flex align-items-start justify-content-between">
-                    <div class="avatar flex-shrink-0">
-                        <img src="~/StaticFiles/img/chart-success.png" alt="chart success" class="rounded">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div class="stat-icon">
+                        <i class="bx bx-user-check fs-3 text-success"></i>
                     </div>
                 </div>
+
                 <span class="fw-semibold d-block mb-1">Usuarios Activos</span>
-                <h3 class="card-title mb-2">@ViewBag.CantidadUsuariosActivos</h3>
+                <h3 class="fw-bold mb-0">@ViewBag.CantidadUsuariosActivos</h3>
             </div>
         </div>
     </div>
 
-    <div class="col-lg-3 col-md-12 col-6 mb-4">
-        <div class="card">
+    <!-- Usuarios Inactivos -->
+    <div class="col-lg-3 col-md-6 col-12 mb-4">
+        <div class="card stat-card border-left-red">
             <div class="card-body">
-                <div class="card-title d-flex align-items-start justify-content-between">
-                    <div class="avatar flex-shrink-0">
-                        <img src="~/StaticFiles/img/chart-success.png" alt="chart success" class="rounded">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div class="stat-icon">
+                        <i class="bx bx-user-x fs-3 text-danger"></i>
                     </div>
                 </div>
+
                 <span class="fw-semibold d-block mb-1">Usuarios Inactivos</span>
-                <h3 class="card-title mb-2">@ViewBag.CantidadUsuariosInactivos</h3>
+                <h3 class="fw-bold mb-0">@ViewBag.CantidadUsuariosInactivos</h3>
             </div>
         </div>
     </div>
 
-    <div class="col-lg-3 col-md-12 col-6 mb-4">
-        <div class="card">
+    <!-- Productos Activos -->
+    <div class="col-lg-3 col-md-6 col-12 mb-4">
+        <div class="card stat-card border-left-blue">
             <div class="card-body">
-                <div class="card-title d-flex align-items-start justify-content-between">
-                    <div class="avatar flex-shrink-0">
-                        <img src="~/StaticFiles/img/chart-success.png" alt="chart success" class="rounded">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div class="stat-icon">
+                        <i class="bx bx-package fs-3 text-primary"></i>
                     </div>
                 </div>
+
                 <span class="fw-semibold d-block mb-1">Productos Activos</span>
-                <h3 class="card-title mb-2">@ViewBag.CantidadProductosActivos</h3>
+                <h3 class="fw-bold mb-0">@ViewBag.CantidadProductosActivos</h3>
             </div>
         </div>
     </div>
 
-    <div class="col-lg-3 col-md-12 col-6 mb-4">
-        <div class="card">
+    <!-- Productos Inactivos -->
+    <div class="col-lg-3 col-md-6 col-12 mb-4">
+        <div class="card stat-card border-left-yellow">
             <div class="card-body">
-                <div class="card-title d-flex align-items-start justify-content-between">
-                    <div class="avatar flex-shrink-0">
-                        <img src="~/StaticFiles/img/chart-success.png" alt="chart success" class="rounded">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div class="stat-icon">
+                        <i class="bx bx-package fs-3 text-warning"></i>
                     </div>
                 </div>
+
                 <span class="fw-semibold d-block mb-1">Productos Inactivos</span>
-                <h3 class="card-title mb-2">@ViewBag.CantidadProductosInactivos</h3>
+                <h3 class="fw-bold mb-0">@ViewBag.CantidadProductosInactivos</h3>
             </div>
         </div>
     </div>
+
 </div>

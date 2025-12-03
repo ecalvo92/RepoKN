@@ -1,0 +1,53 @@
+﻿@model List<KN_ProyectoWeb.EF.tbUsuario>
+
+@{
+    Layout = "~/Views/Shared/_LayoutInterno.cshtml";
+}
+
+<div class="col-12">
+    <div class="card overflow-hidden">
+
+        <div class="d-flex align-items-center">
+            <h5 class="card-header mb-0">Usuarios</h5>
+        </div>
+
+        <div class="card-body ps ps--active-x ps--active-y">
+
+            <table id="tUsuarios" class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Identificación</th>
+                        <th>Nombre</th>
+                        <th>Correo Electrónico</th>
+                        <th>Estado</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ConsecutivoUsuario</td>
+                            <td>@item.Identificacion</td>
+                            <td>@item.Nombre</td>
+                            <td>@item.CorreoElectronico</td>
+                            <td>@(item.Estado ? "Activo" : "Inactivo")</td>
+                            <td>
+                                
+                                <a href="@Url.Action("ActualizarEstadoUsuario", "Usuario", new { q = item.ConsecutivoUsuario })">
+                                    <i class="fa @(item.Estado ? "fa-toggle-on text-success" : "fa-toggle-off text-danger")" style="font-size:22px;"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<script src="~/StaticFiles/js/VerUsuarios.js"></script>

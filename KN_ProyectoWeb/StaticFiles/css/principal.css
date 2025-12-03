@@ -1,0 +1,35 @@
+.stat-card {
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+.stat-icon {
+    width: 55px;
+    height: 55px;
+    background: rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+}
+
+.border-left-green {
+    border-left: 6px solid #28a745;
+}
+
+.border-left-red {
+    border-left: 6px solid #dc3545;
+}
+
+.border-left-blue {
+    border-left: 6px solid #0d6efd;
+}
+
+.border-left-yellow {
+    border-left: 6px solid #ffc107;
+}

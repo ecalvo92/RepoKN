@@ -1,6 +1,7 @@
 ﻿using KN_ProyectoWeb.EF;
 using KN_ProyectoWeb.Models;
 using KN_ProyectoWeb.Services;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -95,6 +96,56 @@ namespace KN_ProyectoWeb.Controllers
                 }
 
                 return View();
+            }
+        }
+
+
+        [HttpGet]
+        public ActionResult VerUsuarios()
+        {
+            using (var context = new BD_KNEntities())
+            {
+                //Tomar el objeto de la BD
+                var resultado = ConsultarUsuarios();
+                return View(resultado);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ActualizarEstadoUsuario(int q)
+        {
+            using (var context = new BD_KNEntities())
+            {
+                //Tomar el objeto de la BD
+                var resultadoConsulta = context.tbUsuario.Where(x => x.ConsecutivoUsuario == q).FirstOrDefault();
+
+                //Si existe se manda a actualizar
+                if (resultadoConsulta != null)
+                {
+                    //Elimino
+                    //context.tbProducto.Remove(resultadoConsulta);
+
+                    //Inactivando
+                    resultadoConsulta.Estado = resultadoConsulta.Estado ? false : true;
+
+                    var resultadoactualizacion = context.SaveChanges();
+
+                    if (resultadoactualizacion > 0)
+                        return RedirectToAction("VerUsuarios", "Usuario");
+                }
+
+                var resultado = ConsultarUsuarios();
+                ViewBag.Mensaje = "La información no se ha podido actualizar";
+                return View("VerUsuarios", resultado);
+            }
+        }
+
+        private List<tbUsuario> ConsultarUsuarios()
+        {
+            using (var context = new BD_KNEntities())
+            {
+                var datos = context.tbUsuario.Where(x => x.ConsecutivoPerfil == 2).ToList();
+                return datos;
             }
         }
 

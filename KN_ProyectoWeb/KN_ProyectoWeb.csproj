@@ -195,6 +195,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="StaticFiles\css\boxicons.css" />
+    <Content Include="StaticFiles\css\principal.css" />
     <Content Include="StaticFiles\css\core.css" />
     <Content Include="StaticFiles\css\demo.css" />
     <Content Include="StaticFiles\css\page-auth.css" />
@@ -230,6 +231,7 @@
     <Content Include="StaticFiles\js\VerPerfil.js" />
     <Content Include="StaticFiles\js\VerCarritos.js" />
     <Content Include="StaticFiles\js\Principal.js" />
+    <Content Include="StaticFiles\js\VerUsuarios.js" />
     <Content Include="StaticFiles\js\VerProductos.js" />
     <Content Include="TemplateRecuperacion.html" />
     <Content Include="Web.config" />
@@ -275,6 +277,7 @@
     <Content Include="Views\Carrito\VerMiCarrito.cshtml" />
     <Content Include="Views\Carrito\VerMisCompras.cshtml" />
     <Content Include="Views\Carrito\VerDetalleCompra.cshtml" />
+    <Content Include="Views\Usuario\VerUsuarios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
