@@ -1,4 +1,5 @@
-﻿
+﻿@model KN_ProyectoWeb.Models.Admin
+
 @{
     ViewBag.Title = "Principal";
     Layout = "~/Views/Shared/_LayoutInterno.cshtml";
@@ -72,4 +73,88 @@
         </div>
     </div>
 
+</div>
+
+
+<div class="row">
+    <div class="col-6">
+
+        <div class="card overflow-hidden">
+
+            <div class="d-flex align-items-center">
+                <h5 class="card-header mb-0">Clientes Frecuentes</h5>
+            </div>
+
+            <div class="card-body ps ps--active-x ps--active-y">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre Cliente</th>
+                            <th>Cantidad Visitas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.listaUsuariosFrecuentes)
+                        {
+                            <tr>
+                                <td>@item.NombreCliente</td>
+                                <td>@item.CantidadVisitas</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-6">
+
+        <div class="card overflow-hidden">
+
+            <div class="d-flex align-items-center">
+                <h5 class="card-header mb-0">Productos Vendidos</h5>
+            </div>
+
+            <div class="card-body ps ps--active-x ps--active-y">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre Producto</th>
+                            <th>Cantidad Ventas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.listaProductosMasVendidos)
+                        {
+                            <tr>
+                                <td>@item.NombreProducto</td>
+                                <td>@item.CantidadVendida</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12">
+
+
+
+
+
+    </div>
 </div>
