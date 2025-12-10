@@ -71,5 +71,16 @@ namespace KN_ProyectoWeb.Controllers
                 return View(admin);
             }
         }
+
+        [HttpGet]
+        public ActionResult ConsultaGrafico()
+        {
+            using (var context = new BD_KNEntities())
+            {
+                var ventas = context.ConsultarVentas().ToList();
+                return Json(ventas, JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 }

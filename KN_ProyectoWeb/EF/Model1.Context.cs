@@ -35,6 +35,11 @@ namespace KN_ProyectoWeb.EF
         public virtual DbSet<tbProducto> tbProducto { get; set; }
         public virtual DbSet<tbUsuario> tbUsuario { get; set; }
     
+        public virtual ObjectResult<ConsultarVentas_Result> ConsultarVentas()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarVentas_Result>("ConsultarVentas");
+        }
+    
         public virtual int CrearUsuarios(string identificacion, string nombre, string correoElectronico, string contrasenna)
         {
             var identificacionParameter = identificacion != null ?

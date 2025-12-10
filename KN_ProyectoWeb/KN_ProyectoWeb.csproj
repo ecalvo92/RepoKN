@@ -131,6 +131,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="EF\ConsultarVentas_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -195,6 +198,7 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="StaticFiles\css\apex-charts.css" />
     <Content Include="StaticFiles\css\boxicons.css" />
     <Content Include="StaticFiles\css\principal.css" />
     <Content Include="StaticFiles\css\core.css" />
@@ -215,8 +219,10 @@
     <Content Include="StaticFiles\img\wallet.png" />
     <Content Include="StaticFiles\js\ActualizarProducto.js" />
     <Content Include="StaticFiles\js\AgregarProducto.js" />
+    <Content Include="StaticFiles\js\apexcharts.js" />
     <Content Include="StaticFiles\js\bootstrap.js" />
     <Content Include="StaticFiles\js\config.js" />
+    <Content Include="StaticFiles\js\dashboards-analytics.js" />
     <Content Include="StaticFiles\js\helpers.js" />
     <Content Include="StaticFiles\js\IniciarSesion.js" />
     <Content Include="StaticFiles\js\jquery.js" />

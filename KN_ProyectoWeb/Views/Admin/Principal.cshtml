@@ -6,6 +6,8 @@
 }
 
 <link href="~/StaticFiles/css/principal.css" rel="stylesheet" />
+<link href="~/StaticFiles/css/apex-charts.css" rel="stylesheet" />
+
 
 <div class="row">
 
@@ -148,13 +150,27 @@
     </div>
 </div>
 
-
-<div class="row">
+<div class="row mt-4">
     <div class="col-12">
 
 
+        <!-- Expense Overview -->
+        <div class="card h-100">
+            <div class="card-body px-0">
+                <div class="tab-content p-0">
+                    <div class="tab-pane fade show active" id="navs-tabs-line-card-income" role="tabpanel">
 
+                        <div id="incomeChart"></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ Expense Overview -->
 
 
     </div>
 </div>
+
+<script src="~/StaticFiles/js/apexcharts.js"></script>
+<script src="~/StaticFiles/js/dashboards-analytics.js"></script>

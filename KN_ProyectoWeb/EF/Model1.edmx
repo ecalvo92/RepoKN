@@ -162,6 +162,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="ConsultarVentas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="CrearUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Identificacion" Type="varchar" Mode="In" />
           <Parameter Name="Nombre" Type="varchar" Mode="In" />
@@ -425,6 +426,7 @@
             <End Role="tbPerfil" EntitySet="tbPerfil" />
             <End Role="tbUsuario" EntitySet="tbUsuario" />
           </AssociationSet>
+          <FunctionImport Name="ConsultarVentas" ReturnType="Collection(BD_KNModel.ConsultarVentas_Result)" />
           <FunctionImport Name="CrearUsuarios">
             <Parameter Name="Identificacion" Mode="In" Type="String" />
             <Parameter Name="Nombre" Mode="In" Type="String" />
@@ -440,6 +442,10 @@
             <Parameter Name="Contrasenna" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="ConsultarVentas_Result">
+          <Property Type="Decimal" Name="CantidadEconomica" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="String" Name="NombreMes" Nullable="true" MaxLength="4000" />
+        </ComplexType>
         <ComplexType Name="ValidarUsuarios_Result">
           <Property Type="Int32" Name="ConsecutivoUsuario" Nullable="false" />
           <Property Type="String" Name="Identificacion" Nullable="false" MaxLength="15" />
@@ -535,6 +541,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ConsultarVentas" FunctionName="BD_KNModel.Store.ConsultarVentas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_KNModel.ConsultarVentas_Result">
+                <ScalarProperty Name="CantidadEconomica" ColumnName="CantidadEconomica" />
+                <ScalarProperty Name="NombreMes" ColumnName="NombreMes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="CrearUsuarios" FunctionName="BD_KNModel.Store.CrearUsuarios" />
           <FunctionImportMapping FunctionImportName="RealizarPago" FunctionName="BD_KNModel.Store.RealizarPago" />
           <FunctionImportMapping FunctionImportName="ValidarUsuarios" FunctionName="BD_KNModel.Store.ValidarUsuarios">
