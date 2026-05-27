@@ -20,7 +20,17 @@ namespace KN_WEB.Controllers
             return View();
         }
 
-        
+
+        public ActionResult Registro()
+        {
+            return View();
+        }
+
+
+        public ActionResult RecuperarAcceso()
+        {
+            return View();
+        }
 
     }
 }
