@@ -32,5 +32,10 @@ namespace KN_WEB.Controllers
             return View();
         }
 
+        public ActionResult Principal()
+        {
+            return View();
+        }
+
     }
 }
