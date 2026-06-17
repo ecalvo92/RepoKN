@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="KN_BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="KN_BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tbError">
           <Key>
             <PropertyRef Name="Consecutivo" />
@@ -26,6 +26,10 @@
           <Property Name="Contrasenna" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
+        <Function Name="spIniciarSesion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CorreoElectronico" Type="varchar" Mode="In" />
+          <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="spRegistrarError" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Mensaje" Type="varchar(max)" Mode="In" />
           <Parameter Name="FechaHora" Type="datetime" Mode="In" />
@@ -42,10 +46,21 @@
           <EntitySet Name="tbError" EntityType="Self.tbError" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbUsuario" EntityType="Self.tbUsuario" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="KN_BDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbError">
+          <Key>
+            <PropertyRef Name="Consecutivo" />
+          </Key>
+          <Property Name="Consecutivo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mensaje" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaHora" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Lugar" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ConsecutivoUsuario" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="tbUsuario">
           <Key>
             <PropertyRef Name="Consecutivo" />
@@ -58,37 +73,49 @@
           <Property Name="Estado" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityContainer Name="KN_BDEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbError" EntityType="Self.tbError" />
           <EntitySet Name="tbUsuario" EntityType="Self.tbUsuario" />
-          <FunctionImport Name="spRegistrarUsuario">
-            <Parameter Name="Identificacion" Mode="In" Type="String" />
-            <Parameter Name="Nombre" Mode="In" Type="String" />
+          <FunctionImport Name="spIniciarSesion" ReturnType="Collection(KN_BDModel.spIniciarSesion_Result)">
             <Parameter Name="CorreoElectronico" Mode="In" Type="String" />
             <Parameter Name="Contrasenna" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="tbError" EntityType="KN_BDModel.tbError" />
           <FunctionImport Name="spRegistrarError">
             <Parameter Name="Mensaje" Mode="In" Type="String" />
             <Parameter Name="FechaHora" Mode="In" Type="DateTime" />
             <Parameter Name="Lugar" Mode="In" Type="String" />
             <Parameter Name="ConsecutivoUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="spRegistrarUsuario">
+            <Parameter Name="Identificacion" Mode="In" Type="String" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="CorreoElectronico" Mode="In" Type="String" />
+            <Parameter Name="Contrasenna" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
-        <EntityType Name="tbError">
-          <Key>
-            <PropertyRef Name="Consecutivo" />
-          </Key>
-          <Property Name="Consecutivo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Mensaje" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="FechaHora" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Lugar" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ConsecutivoUsuario" Type="Int32" Nullable="false" />
-        </EntityType>
+        <ComplexType Name="spIniciarSesion_Result">
+          <Property Type="Int32" Name="Consecutivo" Nullable="false" />
+          <Property Type="String" Name="Identificacion" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="250" />
+          <Property Type="String" Name="CorreoElectronico" Nullable="false" MaxLength="100" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="KN_BDModelStoreContainer" CdmEntityContainer="KN_BDEntities">
+          <EntitySetMapping Name="tbError">
+            <EntityTypeMapping TypeName="KN_BDModel.tbError">
+              <MappingFragment StoreEntitySet="tbError">
+                <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
+                <ScalarProperty Name="Mensaje" ColumnName="Mensaje" />
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+                <ScalarProperty Name="Lugar" ColumnName="Lugar" />
+                <ScalarProperty Name="ConsecutivoUsuario" ColumnName="ConsecutivoUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tbUsuario">
             <EntityTypeMapping TypeName="KN_BDModel.tbUsuario">
               <MappingFragment StoreEntitySet="tbUsuario">
@@ -101,19 +128,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="spRegistrarUsuario" FunctionName="KN_BDModel.Store.spRegistrarUsuario" />
-          <EntitySetMapping Name="tbError">
-            <EntityTypeMapping TypeName="KN_BDModel.tbError">
-              <MappingFragment StoreEntitySet="tbError">
-                <ScalarProperty Name="ConsecutivoUsuario" ColumnName="ConsecutivoUsuario" />
-                <ScalarProperty Name="Lugar" ColumnName="Lugar" />
-                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
-                <ScalarProperty Name="Mensaje" ColumnName="Mensaje" />
+          <FunctionImportMapping FunctionImportName="spIniciarSesion" FunctionName="KN_BDModel.Store.spIniciarSesion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KN_BDModel.spIniciarSesion_Result">
                 <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spRegistrarError" FunctionName="KN_BDModel.Store.spRegistrarError" />
+          <FunctionImportMapping FunctionImportName="spRegistrarUsuario" FunctionName="KN_BDModel.Store.spRegistrarUsuario" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

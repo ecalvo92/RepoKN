@@ -27,19 +27,11 @@ namespace KN_WEB.EF
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tbUsuario> tbUsuario { get; set; }
         public virtual DbSet<tbError> tbError { get; set; }
+        public virtual DbSet<tbUsuario> tbUsuario { get; set; }
     
-        public virtual int spRegistrarUsuario(string identificacion, string nombre, string correoElectronico, string contrasenna)
+        public virtual ObjectResult<spIniciarSesion_Result> spIniciarSesion(string correoElectronico, string contrasenna)
         {
-            var identificacionParameter = identificacion != null ?
-                new ObjectParameter("Identificacion", identificacion) :
-                new ObjectParameter("Identificacion", typeof(string));
-    
-            var nombreParameter = nombre != null ?
-                new ObjectParameter("Nombre", nombre) :
-                new ObjectParameter("Nombre", typeof(string));
-    
             var correoElectronicoParameter = correoElectronico != null ?
                 new ObjectParameter("CorreoElectronico", correoElectronico) :
                 new ObjectParameter("CorreoElectronico", typeof(string));
@@ -48,7 +40,7 @@ namespace KN_WEB.EF
                 new ObjectParameter("Contrasenna", contrasenna) :
                 new ObjectParameter("Contrasenna", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spRegistrarUsuario", identificacionParameter, nombreParameter, correoElectronicoParameter, contrasennaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spIniciarSesion_Result>("spIniciarSesion", correoElectronicoParameter, contrasennaParameter);
         }
     
         public virtual int spRegistrarError(string mensaje, Nullable<System.DateTime> fechaHora, string lugar, Nullable<int> consecutivoUsuario)
@@ -70,6 +62,27 @@ namespace KN_WEB.EF
                 new ObjectParameter("ConsecutivoUsuario", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spRegistrarError", mensajeParameter, fechaHoraParameter, lugarParameter, consecutivoUsuarioParameter);
+        }
+    
+        public virtual int spRegistrarUsuario(string identificacion, string nombre, string correoElectronico, string contrasenna)
+        {
+            var identificacionParameter = identificacion != null ?
+                new ObjectParameter("Identificacion", identificacion) :
+                new ObjectParameter("Identificacion", typeof(string));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var correoElectronicoParameter = correoElectronico != null ?
+                new ObjectParameter("CorreoElectronico", correoElectronico) :
+                new ObjectParameter("CorreoElectronico", typeof(string));
+    
+            var contrasennaParameter = contrasenna != null ?
+                new ObjectParameter("Contrasenna", contrasenna) :
+                new ObjectParameter("Contrasenna", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spRegistrarUsuario", identificacionParameter, nombreParameter, correoElectronicoParameter, contrasennaParameter);
         }
     }
 }
