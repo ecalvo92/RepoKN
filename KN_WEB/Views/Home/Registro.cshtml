@@ -8,7 +8,7 @@
     <div class="col-lg-5 col-12">
         <div id="auth-left">
             <div class="auth-logo">
-                <a href="index.html"><img src="~/Content/images/logo.png" alt="Logo"></a>
+                <a href="@Url.Action("Index","Home")"><img src="~/Content/images/logo.png" alt="Logo"></a>
             </div>
 
             <h1 class="auth-title">Registrar Usuarios</h1>
@@ -56,7 +56,7 @@
 
             <div class="text-center mt-5 text-lg fs-4">
                 <p class='text-gray-600'>
-                    ¿Ya tiene una cuenta? <a href="auth-login.html" class="font-bold">
+                    ¿Ya tiene una cuenta? <a href="@Url.Action("Index","Home")" class="font-bold">
                         Inicie Sesión
                     </a>
                 </p>
