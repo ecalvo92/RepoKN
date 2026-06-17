@@ -42,10 +42,10 @@ namespace KN_WEB.Controllers
                 using (var context = new KN_BDEntities())
                 {
                     var response = (from U in context.tbUsuario
-                                       where U.CorreoElectronico == model.CorreoElectronico
-                                       && U.Contrasenna == model.Contrasenna
-                                       && U.Estado == true
-                                       select U).FirstOrDefault();
+                                    where U.CorreoElectronico == model.CorreoElectronico
+                                    && U.Contrasenna == model.Contrasenna
+                                    && U.Estado == true
+                                    select U).FirstOrDefault();
 
                     if (response == null)
                     {
@@ -92,9 +92,9 @@ namespace KN_WEB.Controllers
                 {
                     //Validar que la identificación o el correo no estén en uso 
                     var existeUsuario = (from U in context.tbUsuario
-                                    where U.Identificacion == model.Identificacion
-                                    || U.CorreoElectronico == model.CorreoElectronico
-                                    select U).FirstOrDefault();
+                                         where U.Identificacion == model.Identificacion
+                                         || U.CorreoElectronico == model.CorreoElectronico
+                                         select U).FirstOrDefault();
 
                     if (existeUsuario != null)
                     {
