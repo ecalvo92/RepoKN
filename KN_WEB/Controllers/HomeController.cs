@@ -16,7 +16,7 @@ namespace KN_WEB.Controllers
             Tipos de datos = Trabajar con información
         */
 
-        UtilitarioService utilitario = new UtilitarioService();
+        readonly UtilitarioService utilitario = new UtilitarioService();
 
         #region Autenticación de usuarios
 
@@ -41,14 +41,15 @@ namespace KN_WEB.Controllers
             {
                 using (var context = new KN_BDEntities())
                 {
-                    var infoUsuario = (from U in context.tbUsuario
+                    var response = (from U in context.tbUsuario
                                        where U.CorreoElectronico == model.CorreoElectronico
                                        && U.Contrasenna == model.Contrasenna
                                        && U.Estado == true
                                        select U).FirstOrDefault();
 
-                    if (infoUsuario == null)
+                    if (response == null)
                     {
+                        ViewBag.Mensaje = "La información no se ha podido autenticar";
                         return View();
                     }
 
@@ -89,6 +90,19 @@ namespace KN_WEB.Controllers
                 //Me permite programar una acción en una vista, se dispara al presionar un botón de tipo 'submit'
                 using (var context = new KN_BDEntities())
                 {
+                    //Validar que la identificación o el correo no estén en uso 
+                    var existeUsuario = (from U in context.tbUsuario
+                                    where U.Identificacion == model.Identificacion
+                                    || U.CorreoElectronico == model.CorreoElectronico
+                                    select U).FirstOrDefault();
+
+                    if (existeUsuario != null)
+                    {
+                        ViewBag.Mensaje = "La información no se ha podido registrar";
+                        return View();
+                    }
+
+                    //Insertar un usuario nuevo
                     context.tbUsuario.Add(new tbUsuario
                     {
                         Identificacion = model.Identificacion,
@@ -98,8 +112,15 @@ namespace KN_WEB.Controllers
                         Estado = true
                     });
 
-                    context.SaveChanges();
-                    return View();
+                    var response = context.SaveChanges();
+
+                    if (response <= 0)
+                    {
+                        ViewBag.Mensaje = "La información no se ha podido registrar";
+                        return View();
+                    }
+
+                    return RedirectToAction("Index", "Home");
                 }
             }
             catch (Exception ex)
