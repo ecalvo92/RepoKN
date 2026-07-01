@@ -21,9 +21,16 @@ namespace KN_WEB.Servicios
         {
             var random = new Random();
             const string caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(caracteres, 8)
+            const string especiales = "!@#$%&*";
+
+            char[] password = Enumerable.Repeat(caracteres, 8)
                 .Select(s => s[random.Next(s.Length)])
-                .ToArray());
+                .ToArray();
+
+            // Reemplaza un carácter por un especial
+            password[random.Next(password.Length)] = especiales[random.Next(especiales.Length)];
+
+            return new string(password);
         }
 
         public void EnviarCorreo(string destinatario, string asunto, string cuerpo)

@@ -55,6 +55,13 @@ namespace KN_WEB.Controllers
                         return View();
                     }
 
+                    if(response.TieneContrasennaTemp && response.VigenciaContrasennaTemp < DateTime.Now)
+                    {
+                        ViewBag.Mensaje = "Su contraseña temporal ya no es válida";
+                        return View();
+                    }
+
+
                     return RedirectToAction("Principal", "Home");
                 }
             }
