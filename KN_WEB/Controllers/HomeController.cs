@@ -182,10 +182,13 @@ namespace KN_WEB.Controllers
                         utilitario.EnviarCorreo(existeUsuario.CorreoElectronico, 
                             "Recuperación de acceso", 
                             $"Su contraseña temporal es: {temporal}. Esta contraseña es válida por 15 minutos.");
-                    }
 
-                    return View();
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
+
+                ViewBag.Mensaje = "Su acceso no se ha podido recuperar";
+                return View();
             }
             catch (Exception ex)
             {

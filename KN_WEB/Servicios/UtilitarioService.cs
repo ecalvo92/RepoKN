@@ -1,5 +1,6 @@
 ﻿using KN_WEB.EF;
 using System;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -27,20 +28,26 @@ namespace KN_WEB.Servicios
 
         public void EnviarCorreo(string destinatario, string asunto, string cuerpo)
         {
-            string servidorSmtp = "smtp.office365.com";
-            int puerto = 587;
-            string correoOrigen = "ecalvo90415@ufide.ac.cr";
-            string contraseña = "XXXXXXXXXXX";
+            var CorreoSalida = ConfigurationManager.AppSettings["CorreoSalida"];
+            var ContrasennaCorreoSalida = ConfigurationManager.AppSettings["ContrasennaCorreoSalida"];
 
-            using (var mensaje = new MailMessage(correoOrigen, destinatario, asunto, cuerpo))
+            using (MailMessage mail = new MailMessage())
             {
-                mensaje.IsBodyHtml = true;
+                mail.From = new MailAddress(CorreoSalida);
+                mail.To.Add(destinatario);
+                mail.Subject = asunto;
+                mail.Body = cuerpo;
+                mail.IsBodyHtml = true;
 
-                using (var cliente = new SmtpClient(servidorSmtp, puerto))
+                using (SmtpClient smtp = new SmtpClient("smtp.office365.com", 587))
                 {
-                    cliente.EnableSsl = true;
-                    cliente.Credentials = new NetworkCredential(correoOrigen, contraseña);
-                    cliente.Send(mensaje);
+                    smtp.Credentials = new NetworkCredential(CorreoSalida, ContrasennaCorreoSalida);
+                    smtp.EnableSsl = true;
+
+                    if (!string.IsNullOrEmpty(ContrasennaCorreoSalida))
+                    {
+                        smtp.Send(mail);
+                    }
                 }
             }
         }
