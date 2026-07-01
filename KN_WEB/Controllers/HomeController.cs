@@ -61,7 +61,7 @@ namespace KN_WEB.Controllers
                         return View();
                     }
 
-
+                    Session["NombreUsuario"] = response.Nombre;
                     return RedirectToAction("Principal", "Home");
                 }
             }
@@ -210,6 +210,13 @@ namespace KN_WEB.Controllers
         public ActionResult Principal()
         {
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult CerrarSesion()
+        {
+            Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
 
     }
