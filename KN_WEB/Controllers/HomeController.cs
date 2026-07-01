@@ -3,6 +3,8 @@ using KN_WEB.Models;
 using KN_WEB.Servicios;
 using System;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web.Mvc;
 
 namespace KN_WEB.Controllers
@@ -132,11 +134,67 @@ namespace KN_WEB.Controllers
 
         #endregion
 
+        #region Recuperar acceso al sistema
+
         [HttpGet]
         public ActionResult RecuperarAcceso()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                utilitario.RegistrarErrorBitacora(ex.Message, "RecuperarAcceso", 0);
+                return View("Error");
+            }
         }
+
+        [HttpPost]
+        public ActionResult RecuperarAcceso(UsuarioModel model)
+        {
+            try
+            {
+                using (var context = new KN_BDEntities())
+                {
+                    var existeUsuario = (from U in context.tbUsuario
+                                         where U.CorreoElectronico == model.CorreoElectronico
+                                         && U.Estado == true
+                                         select U).FirstOrDefault();
+
+                    if (existeUsuario == null)
+                    {
+                        ViewBag.Mensaje = "La información no se ha podido validar";
+                        return View();
+                    }
+
+                    var temporal = utilitario.GenerarContraseña();
+
+                    //Actualizar la información de un usuario
+                    existeUsuario.Contrasenna = temporal;
+                    existeUsuario.TieneContrasennaTemp = true;
+                    existeUsuario.VigenciaContrasennaTemp = DateTime.Now.AddMinutes(15);
+                    var response = context.SaveChanges();
+
+                    if (response > 0)
+                    {
+                        //Enviar un correo electrónico al usuario con la contraseña temporal y vigencia de 15 minutos
+                        utilitario.EnviarCorreo(existeUsuario.CorreoElectronico, 
+                            "Recuperación de acceso", 
+                            $"Su contraseña temporal es: {temporal}. Esta contraseña es válida por 15 minutos.");
+                    }
+
+                    return View();
+                }
+            }
+            catch (Exception ex)
+            {
+                utilitario.RegistrarErrorBitacora(ex.Message, "RecuperarAcceso", 0);
+                return View("Error");
+            }
+        }
+
+        #endregion
 
         [HttpGet]
         public ActionResult Principal()
