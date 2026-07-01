@@ -4,15 +4,26 @@ using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Web;
 
 namespace KN_WEB.Servicios
 {
     public class UtilitarioService
     {
-        public void RegistrarErrorBitacora(string mensaje, string lugar, int usuario)
+        public void RegistrarErrorBitacora(string mensaje, string lugar)
         {
             using (var context = new KN_BDEntities())
             {
+                var usuario = 0;
+                if(HttpContext.Current.Session["ConsecutivoUsuario"] != null)
+                    usuario = (int)HttpContext.Current.Session["ConsecutivoUsuario"];
+
+                //var usuario = HttpContext.Current.Session["ConsecutivoUsuario"] != null
+                // ? (int)HttpContext.Current.Session["ConsecutivoUsuario"]
+                // : 0;
+
+                //var usuario = (int?)HttpContext.Current.Session["ConsecutivoUsuario"] ?? 0;
+
                 context.spRegistrarError(mensaje, DateTime.Now, lugar, usuario);
             }
         }

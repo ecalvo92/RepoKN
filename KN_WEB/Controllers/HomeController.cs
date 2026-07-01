@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Reflection;
 using System.Web.Mvc;
 
 namespace KN_WEB.Controllers
@@ -31,7 +32,7 @@ namespace KN_WEB.Controllers
             }
             catch (Exception ex)
             {
-                utilitario.RegistrarErrorBitacora(ex.Message, "Registro", 0);
+                utilitario.RegistrarErrorBitacora(ex.Message, MethodBase.GetCurrentMethod().Name);
                 return View("Error");
             }
         }
@@ -62,12 +63,13 @@ namespace KN_WEB.Controllers
                     }
 
                     Session["NombreUsuario"] = response.Nombre;
+                    Session["ConsecutivoUsuario"] = response.Consecutivo;
                     return RedirectToAction("Principal", "Home");
                 }
             }
             catch (Exception ex)
             {
-                utilitario.RegistrarErrorBitacora(ex.Message, "Registro", 0);
+                utilitario.RegistrarErrorBitacora(ex.Message, MethodBase.GetCurrentMethod().Name);
                 return View("Error");
             }
         }
@@ -86,7 +88,7 @@ namespace KN_WEB.Controllers
             }
             catch (Exception ex)
             {
-                utilitario.RegistrarErrorBitacora(ex.Message, "Registro", 0);
+                utilitario.RegistrarErrorBitacora(ex.Message, MethodBase.GetCurrentMethod().Name);
                 return View("Error");
             }
         }
@@ -134,7 +136,7 @@ namespace KN_WEB.Controllers
             }
             catch (Exception ex)
             {
-                utilitario.RegistrarErrorBitacora(ex.Message, "Registro", 0);
+                utilitario.RegistrarErrorBitacora(ex.Message, MethodBase.GetCurrentMethod().Name);
                 return View("Error");
             }
         }
@@ -152,7 +154,7 @@ namespace KN_WEB.Controllers
             }
             catch (Exception ex)
             {
-                utilitario.RegistrarErrorBitacora(ex.Message, "RecuperarAcceso", 0);
+                utilitario.RegistrarErrorBitacora(ex.Message, MethodBase.GetCurrentMethod().Name);
                 return View("Error");
             }
         }
@@ -199,7 +201,7 @@ namespace KN_WEB.Controllers
             }
             catch (Exception ex)
             {
-                utilitario.RegistrarErrorBitacora(ex.Message, "RecuperarAcceso", 0);
+                utilitario.RegistrarErrorBitacora(ex.Message, MethodBase.GetCurrentMethod().Name);
                 return View("Error");
             }
         }
@@ -209,14 +211,30 @@ namespace KN_WEB.Controllers
         [HttpGet]
         public ActionResult Principal()
         {
-            return View();
+            try 
+            { 
+                return View();
+            }
+            catch (Exception ex)
+            {
+                utilitario.RegistrarErrorBitacora(ex.Message, MethodBase.GetCurrentMethod().Name);
+                return View("Error");
+            }
         }
 
         [HttpGet]
         public ActionResult CerrarSesion()
         {
-            Session.Clear();
-            return RedirectToAction("Index", "Home");
+            try
+            {
+                Session.Clear();
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                utilitario.RegistrarErrorBitacora(ex.Message, MethodBase.GetCurrentMethod().Name);
+                return View("Error");
+            }
         }
 
     }

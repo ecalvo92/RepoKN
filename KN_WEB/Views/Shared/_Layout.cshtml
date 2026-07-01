@@ -1,5 +1,5 @@
 ﻿@{
-    var nombreUsuario = Session["NombreUsuario"].ToString();
+    var nombreUsuario = HttpContext.Current.Session["NombreUsuario"] ?? string.Empty;
 }
 
 <!DOCTYPE html>
@@ -71,7 +71,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="@Url.Action("Seguridad", "Usuario")">
                                             <i class="bi bi-shield-lock me-2"></i>Seguridad
                                         </a>
                                     </li>
