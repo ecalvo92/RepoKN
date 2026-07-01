@@ -27,6 +27,8 @@ CREATE TABLE [dbo].[tbUsuario](
 	[CorreoElectronico] [varchar](100) NOT NULL,
 	[Contrasenna] [varchar](10) NOT NULL,
 	[Estado] [bit] NOT NULL,
+	[TieneContrasennaTemp] [bit] NOT NULL,
+	[VigenciaContrasennaTemp] [datetime] NULL,
  CONSTRAINT [PK_tbUsuario] PRIMARY KEY CLUSTERED 
 (
 	[Consecutivo] ASC
@@ -44,14 +46,16 @@ INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [Consecu
 GO
 INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (4, N'Validation failed for one or more entities. See ''EntityValidationErrors'' property for more details.', CAST(N'2026-06-16T19:30:58.023' AS DateTime), N'Registro', 0)
 GO
+INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (5, N'El servidor SMTP requiere una conexión segura o el cliente no se autenticó. La respuesta del servidor fue: 5.7.57 Client not authenticated to send mail. Error: 535 5.7.139 Authentication unsuccessful, the request did not meet the criteria to be authenticated successfully. Contact your administrator. [BN9PR03CA0716.namprd03.prod.outlook.com 2026-07-01T01:57:31.695Z 08DED6A3FAA75B29]', CAST(N'2026-06-30T19:57:42.030' AS DateTime), N'RecuperarAcceso', 0)
+GO
 SET IDENTITY_INSERT [dbo].[tbError] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[tbUsuario] ON 
 GO
-INSERT [dbo].[tbUsuario] ([Consecutivo], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado]) VALUES (1, N'304590415', N'EDUARDO JOSE CALVO CASTILLO', N'ecalvo90415@ufide.ac.cr', N'90415*', 1)
+INSERT [dbo].[tbUsuario] ([Consecutivo], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [TieneContrasennaTemp], [VigenciaContrasennaTemp]) VALUES (1, N'304590415', N'EDUARDO JOSE CALVO CASTILLO', N'ecalvo90415@ufide.ac.cr', N'90415*', 1, 0, NULL)
 GO
-INSERT [dbo].[tbUsuario] ([Consecutivo], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado]) VALUES (2, N'207960874', N'CORELLA SANCHEZ BRANDON JOSUE', N'bcorella60874@ufide.ac.cr', N'60874*', 1)
+INSERT [dbo].[tbUsuario] ([Consecutivo], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [TieneContrasennaTemp], [VigenciaContrasennaTemp]) VALUES (2, N'207960874', N'CORELLA SANCHEZ BRANDON JOSUE', N'bcorella60874@ufide.ac.cr', N'J@TN37RC', 1, 1, CAST(N'2026-06-30T20:34:29.173' AS DateTime))
 GO
 SET IDENTITY_INSERT [dbo].[tbUsuario] OFF
 GO
@@ -78,7 +82,9 @@ BEGIN
             Identificacion,
             Nombre,
             CorreoElectronico,
-            Estado
+            Estado,
+            TieneContrasennaTemp,
+            VigenciaContrasennaTemp
       FROM  dbo.tbUsuario
       WHERE CorreoElectronico = @CorreoElectronico
         AND Contrasenna = @Contrasenna
@@ -115,9 +121,10 @@ BEGIN
     BEGIN
 
         DECLARE @vEstado BIT = 1
+        DECLARE @vContrasennaTemp BIT = 0
 
-        INSERT INTO dbo.tbUsuario(Identificacion,Nombre,CorreoElectronico,Contrasenna,Estado)
-        VALUES (@Identificacion,@Nombre,@CorreoElectronico,@Contrasenna,@vEstado)
+        INSERT INTO dbo.tbUsuario(Identificacion,Nombre,CorreoElectronico,Contrasenna,Estado,TieneContrasennaTemp)
+        VALUES (@Identificacion,@Nombre,@CorreoElectronico,@Contrasenna,@vEstado,@vContrasennaTemp)
 
     END
 
