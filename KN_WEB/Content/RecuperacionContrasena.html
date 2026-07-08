@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Recuperación de acceso</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f4f4f4;font-family:Arial,Helvetica,sans-serif;">
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4;padding:30px 0;">
+        <tr>
+            <td align="center">
+
+                <table width="600" cellpadding="0" cellspacing="0"
+                       style="background:#ffffff;border-radius:8px;border:1px solid #dddddd;overflow:hidden;">
+
+                    <tr>
+                        <td style="background:#0d6efd;padding:25px;text-align:center;color:#ffffff;">
+                            <h2 style="margin:0;">Recuperación de Acceso</h2>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding:35px;color:#333;font-size:15px;line-height:1.6;">
+
+                            <p>Estimado(a): {{NombreUsuario}}</p>
+
+                            <p>
+                                Hemos recibido una solicitud para restablecer la contraseña de su cuenta.
+                            </p>
+
+                            <p>Su contraseña temporal es:</p>
+
+                            <div style="text-align:center;margin:30px 0;">
+                                <span style="display:inline-block;
+                                         background:#f8f9fa;
+                                         border:2px dashed #0d6efd;
+                                         padding:15px 30px;
+                                         font-size:24px;
+                                         font-weight:bold;
+                                         letter-spacing:3px;
+                                         color:#0d6efd;
+                                         border-radius:6px;">
+                                    {{PASSWORD}}
+                                </span>
+                            </div>
+
+                            <p>
+                                Esta contraseña será válida durante
+                                <strong>{{MINUTOS}} minutos</strong>.
+                            </p>
+
+                            <p>
+                                Por seguridad, cambie su contraseña inmediatamente después de iniciar sesión.
+                            </p>
+
+                            <div style="background:#fff3cd;border-left:4px solid #ffc107;padding:15px;margin-top:20px;">
+                                <strong>Importante:</strong><br>
+                                Si usted no solicitó esta recuperación, ignore este correo.
+                            </div>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="background:#f8f9fa;padding:20px;text-align:center;font-size:12px;color:#777;">
+                            Este correo fue generado automáticamente.<br>
+                            Por favor, no responda este mensaje.
+                        </td>
+                    </tr>
+
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>

@@ -57,7 +57,7 @@ namespace KN_WEB.Servicios
                 mail.Body = cuerpo;
                 mail.IsBodyHtml = true;
 
-                using (SmtpClient smtp = new SmtpClient("smtp.office365.com", 587))
+                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
                 {
                     smtp.Credentials = new NetworkCredential(CorreoSalida, ContrasennaCorreoSalida);
                     smtp.EnableSsl = true;

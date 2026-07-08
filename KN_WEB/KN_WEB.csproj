@@ -167,6 +167,7 @@
     <Content Include="Content\images\4853433.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\perfect-scrollbar.css" />
+    <Content Include="Content\RecuperacionContrasena.html" />
     <Content Include="EF\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
