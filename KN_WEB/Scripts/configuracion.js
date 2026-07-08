@@ -3,6 +3,8 @@
 }, 'Mínimo 1 carácter especial.');
 
 $(document).ready(function () {
+
+
   $('#CambiarContrasennaForm').validate({
     rules: {
       Contrasenna: {
@@ -37,4 +39,37 @@ $(document).ready(function () {
       $(element).removeClass('is-invalid');
     }
   });
+
+  $('#CambiarPerfilForm').validate({
+    rules: {
+      Nombre: {
+        required: true,
+      },
+      CorreoElectronico: {
+        required: true,
+        email: true
+      },
+    },
+    messages: {
+      Nombre: {
+        required: 'Campo obligatorio.'
+      },
+      CorreoElectronico: {
+        required: 'Campo obligatorio.',
+        email: 'Formato no válido.'
+      },
+    },
+    errorElement: 'span',
+    errorClass: 'text-danger small',
+    errorPlacement: function (error, element) {
+      error.insertAfter(element.closest('.form-group'));
+    },
+    highlight: function (element) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element) {
+      $(element).removeClass('is-invalid');
+    }
+  });
+
 });
