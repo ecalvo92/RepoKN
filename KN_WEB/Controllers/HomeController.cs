@@ -2,6 +2,7 @@
 using KN_WEB.Models;
 using KN_WEB.Servicios;
 using System;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -179,11 +180,12 @@ namespace KN_WEB.Controllers
                     }
 
                     var temporal = utilitario.GenerarContraseña();
+                    var vigenciaMinutos = int.Parse(ConfigurationManager.AppSettings["VigenciaMinutos"]);
 
                     //Actualizar la información de un usuario
                     existeUsuario.Contrasenna = temporal;
                     existeUsuario.TieneContrasennaTemp = true;
-                    existeUsuario.VigenciaContrasennaTemp = DateTime.Now.AddMinutes(15);
+                    existeUsuario.VigenciaContrasennaTemp = DateTime.Now.AddMinutes(vigenciaMinutos);
                     var response = context.SaveChanges();
 
                     if (response > 0)
@@ -191,11 +193,11 @@ namespace KN_WEB.Controllers
                         var rutaHTML = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content", "RecuperacionContrasena.html");
                         var contenido = System.IO.File.ReadAllText(rutaHTML);
 
-                        contenido = contenido.Replace("{{NombreUsuario}}", existeUsuario.Nombre);
+                        contenido = contenido.Replace("{{NOMBRE}}", existeUsuario.Nombre);
                         contenido = contenido.Replace("{{PASSWORD}}", temporal);
-                        contenido = contenido.Replace("{{MINUTOS}}", "15");
+                        contenido = contenido.Replace("{{MINUTOS}}", vigenciaMinutos.ToString());
 
-                        //Enviar un correo electrónico al usuario con la contraseña temporal y vigencia de 15 minutos
+                        //Enviar un correo electrónico al usuario con la contraseña temporal
                         utilitario.EnviarCorreo(existeUsuario.CorreoElectronico, 
                             "Recuperación de acceso", 
                             contenido);
