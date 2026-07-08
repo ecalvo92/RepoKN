@@ -1,7 +1,8 @@
-﻿using KN_WEB.Models;
+﻿using KN_WEB.EF;
+using KN_WEB.Models;
 using KN_WEB.Servicios;
-using Microsoft.Ajax.Utilities;
 using System;
+using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
 
@@ -34,9 +35,31 @@ namespace KN_WEB.Controllers
             {
                 var consecutivo = int.Parse(Session["ConsecutivoUsuario"].ToString());
 
-                //Actualizar la contraseña del usuario en la base de datos
+                using (var context = new KN_BDEntities())
+                {
+                    var existeUsuario = (from U in context.tbUsuario
+                                         where U.Consecutivo == consecutivo
+                                         select U).FirstOrDefault();
 
-                return View();
+                    if (existeUsuario == null)
+                    {
+                        ViewBag.Mensaje = "La información no se ha podido validar";
+                        return View();
+                    }
+
+                    //Actualizar la información de un usuario
+                    existeUsuario.Contrasenna = model.Contrasenna;
+                    existeUsuario.TieneContrasennaTemp = false;
+                    var response = context.SaveChanges();
+
+                    if (response <= 0)
+                    {
+                        ViewBag.Mensaje = "No se ha podido actualizar la información";
+                        return View();
+                    }
+
+                    return RedirectToAction("CerrarSesion", "Home");
+                }
             }
             catch (Exception ex)
             {

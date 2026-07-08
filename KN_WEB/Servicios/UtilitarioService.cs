@@ -15,7 +15,7 @@ namespace KN_WEB.Servicios
             using (var context = new KN_BDEntities())
             {
                 var usuario = 0;
-                if(HttpContext.Current.Session["ConsecutivoUsuario"] != null)
+                if (HttpContext.Current.Session["ConsecutivoUsuario"] != null)
                     usuario = (int)HttpContext.Current.Session["ConsecutivoUsuario"];
 
                 //var usuario = HttpContext.Current.Session["ConsecutivoUsuario"] != null

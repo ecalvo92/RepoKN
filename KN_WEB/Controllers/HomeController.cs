@@ -5,8 +5,6 @@ using System;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Mail;
 using System.Reflection;
 using System.Web.Mvc;
 
@@ -58,7 +56,7 @@ namespace KN_WEB.Controllers
                         return View();
                     }
 
-                    if(response.TieneContrasennaTemp && response.VigenciaContrasennaTemp < DateTime.Now)
+                    if (response.TieneContrasennaTemp && response.VigenciaContrasennaTemp < DateTime.Now)
                     {
                         ViewBag.Mensaje = "Su contraseña temporal ya no es válida";
                         return View();
@@ -203,8 +201,8 @@ namespace KN_WEB.Controllers
                         contenido = contenido.Replace("{{MINUTOS}}", vigenciaMinutos.ToString());
 
                         //Enviar un correo electrónico al usuario con la contraseña temporal
-                        utilitario.EnviarCorreo(existeUsuario.CorreoElectronico, 
-                            "Recuperación de acceso", 
+                        utilitario.EnviarCorreo(existeUsuario.CorreoElectronico,
+                            "Recuperación de acceso",
                             contenido);
 
                         return RedirectToAction("Index", "Home");
@@ -226,8 +224,8 @@ namespace KN_WEB.Controllers
         [HttpGet]
         public ActionResult Principal()
         {
-            try 
-            { 
+            try
+            {
                 return View();
             }
             catch (Exception ex)
