@@ -48,14 +48,18 @@ INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [Consecu
 GO
 INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (5, N'El servidor SMTP requiere una conexión segura o el cliente no se autenticó. La respuesta del servidor fue: 5.7.57 Client not authenticated to send mail. Error: 535 5.7.139 Authentication unsuccessful, the request did not meet the criteria to be authenticated successfully. Contact your administrator. [BN9PR03CA0716.namprd03.prod.outlook.com 2026-07-01T01:57:31.695Z 08DED6A3FAA75B29]', CAST(N'2026-06-30T19:57:42.030' AS DateTime), N'RecuperarAcceso', 0)
 GO
+INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (6, N'La cadena especificada no tiene la forma obligatoria para una dirección de correo electrónico.', CAST(N'2026-07-07T18:49:17.293' AS DateTime), N'RecuperarAcceso', 0)
+GO
+INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (7, N'La cadena especificada no tiene la forma obligatoria para una dirección de correo electrónico.', CAST(N'2026-07-07T18:50:12.807' AS DateTime), N'RecuperarAcceso', 0)
+GO
 SET IDENTITY_INSERT [dbo].[tbError] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[tbUsuario] ON 
 GO
-INSERT [dbo].[tbUsuario] ([Consecutivo], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [TieneContrasennaTemp], [VigenciaContrasennaTemp]) VALUES (1, N'304590415', N'EDUARDO JOSE CALVO CASTILLO', N'ecalvo90415@ufide.ac.cr', N'90415*', 1, 0, NULL)
+INSERT [dbo].[tbUsuario] ([Consecutivo], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [TieneContrasennaTemp], [VigenciaContrasennaTemp]) VALUES (1, N'304590415', N'EDUARDO JOSE CALVO CASTILLO', N'ecalvo90415@ufide.ac.cr', N'AN!L7MQG', 1, 1, CAST(N'2026-07-07T18:07:43.770' AS DateTime))
 GO
-INSERT [dbo].[tbUsuario] ([Consecutivo], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [TieneContrasennaTemp], [VigenciaContrasennaTemp]) VALUES (2, N'207960874', N'CORELLA SANCHEZ BRANDON JOSUE', N'bcorella60874@ufide.ac.cr', N'J@TN37RC', 1, 1, CAST(N'2026-06-30T20:34:29.173' AS DateTime))
+INSERT [dbo].[tbUsuario] ([Consecutivo], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [TieneContrasennaTemp], [VigenciaContrasennaTemp]) VALUES (2, N'207960874', N'BRANDON CORELLA SANCHEZ', N'bcorella60874@ufide.ac.cr', N'60874*', 1, 0, CAST(N'2026-07-07T19:43:09.890' AS DateTime))
 GO
 SET IDENTITY_INSERT [dbo].[tbUsuario] OFF
 GO
