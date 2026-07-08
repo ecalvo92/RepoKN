@@ -166,6 +166,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\images\4853433.png" />
     <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\security.png" />
     <Content Include="Content\perfect-scrollbar.css" />
     <Content Include="Content\RecuperacionContrasena.html" />
     <Content Include="EF\Model1.Context.tt">
@@ -183,6 +184,7 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Content\fonts\bootstrap-icons.woff" />
     <Content Include="Content\fonts\bootstrap-icons.woff2" />
+    <Content Include="Scripts\configuracion.js" />
     <Content Include="Scripts\index.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\perfect-scrollbar.min.js" />
@@ -217,7 +219,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
-    <Content Include="Views\Usuario\Seguridad.cshtml" />
+    <Content Include="Views\Usuario\Configuracion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

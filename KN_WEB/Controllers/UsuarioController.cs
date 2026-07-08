@@ -1,4 +1,5 @@
-﻿using KN_WEB.Servicios;
+﻿using KN_WEB.Models;
+using KN_WEB.Servicios;
 using Microsoft.Ajax.Utilities;
 using System;
 using System.Reflection;
@@ -10,11 +11,13 @@ namespace KN_WEB.Controllers
     {
         readonly UtilitarioService utilitario = new UtilitarioService();
 
+        #region Configuracion
+
         [HttpGet]
-        public ActionResult ConsultarPerfil()
+        public ActionResult Configuracion()
         {
-            try 
-            { 
+            try
+            {
                 return View();
             }
             catch (Exception ex)
@@ -24,13 +27,15 @@ namespace KN_WEB.Controllers
             }
         }
 
-        #region Cambiar Contraseña
-
-        [HttpGet]
-        public ActionResult Seguridad()
+        [HttpPost]
+        public ActionResult CambiarContrasenna(UsuarioModel model)
         {
             try
             {
+                var consecutivo = int.Parse(Session["ConsecutivoUsuario"].ToString());
+
+                //Actualizar la contraseña del usuario en la base de datos
+
                 return View();
             }
             catch (Exception ex)

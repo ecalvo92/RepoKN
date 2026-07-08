@@ -1,0 +1,62 @@
+﻿@model KN_WEB.Models.UsuarioModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var nombreUsuario = HttpContext.Current.Session["NombreUsuario"] ?? string.Empty;
+}
+
+<div class="row">
+
+    <div class="col-12 col-lg-7">
+        <div class="card">
+            <div class="card-body">
+
+                @using (Html.BeginForm("CambiarContrasenna", "Usuario", FormMethod.Post, new { @id = "CambiarContrasennaForm" }))
+                {
+
+                    if (ViewBag.Mensaje != null)
+                    {
+                        <div class="alert text-danger" role="alert">
+                            @ViewBag.Mensaje
+                        </div>
+                    }
+
+                    <div class="form-group">
+                        <label for="Contrasenna" class="form-label">Contraseña Nueva</label>
+                        @Html.TextBoxFor(m => m.Contrasenna, new { @type = "password", @class = "form-control form-control-xl", @placeholder = "Contraseña" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Contrasenna" class="form-label">Confirmar Contraseña</label>
+                        @Html.TextBoxFor(m => m.ConfirmarContrasenna, new { @type = "password", @class = "form-control form-control-xl", @placeholder = "Contraseña" })
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Procesar</button>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-lg-5">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-center align-items-center flex-column">
+                    <div class="avatar avatar-2xl">
+                        <img src="~/Content/images/security.png" alt="Security">
+                    </div>
+
+                    <h3 class="mt-3">@nombreUsuario</h3>
+                    <p class="text-small">Junior Software Engineer</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts {
+    <script src="~/Scripts/configuracion.js"></script>
+}

@@ -66,7 +66,12 @@ namespace KN_WEB.Controllers
 
                     Session["NombreUsuario"] = response.Nombre;
                     Session["ConsecutivoUsuario"] = response.Consecutivo;
-                    return RedirectToAction("Principal", "Home");
+
+
+                    if (response.TieneContrasennaTemp)
+                        return RedirectToAction("Configuracion", "Usuario");
+                    else
+                        return RedirectToAction("Principal", "Home");
                 }
             }
             catch (Exception ex)
