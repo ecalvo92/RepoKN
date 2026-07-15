@@ -30,6 +30,7 @@ namespace KN_WEB.EF
         public virtual DbSet<tbError> tbError { get; set; }
         public virtual DbSet<tbUsuario> tbUsuario { get; set; }
         public virtual DbSet<tbRol> tbRol { get; set; }
+        public virtual DbSet<tbActividad> tbActividad { get; set; }
     
         public virtual ObjectResult<spIniciarSesion_Result> spIniciarSesion(string correoElectronico, string contrasenna)
         {

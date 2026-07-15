@@ -1,5 +1,6 @@
 ﻿    @{
-        var nombreUsuario = HttpContext.Current.Session["NombreUsuario"] ?? string.Empty;
+        var nombreUsuario = HttpContext.Current.Session["NombreUsuario"].ToString() ?? string.Empty;
+        var consecutivoRol = HttpContext.Current.Session["ConsecutivoRol"].ToString() ?? string.Empty;
     }
 
 <!DOCTYPE html>
@@ -33,12 +34,17 @@
                 <div class="sidebar-menu">
                     <ul class="menu">
 
-                        <li class="sidebar-item active">
-                            <a href="form-layout.html" class='sidebar-link'>
-                                <i class="bi bi-file-earmark-medical-fill"></i>
-                                <span>Form Layout</span>
-                            </a>
-                        </li>
+                        @if (consecutivoRol == "2")
+                        {
+                            <li class="sidebar-item active">
+                                <a href="@Url.Action("VerActividades", "Actividad")" class='sidebar-link'>
+                                    <i class="bi bi-file-earmark-medical-fill"></i>
+                                    <span>Ver Actividades</span>
+                                </a>
+                            </li>
+                        }
+
+
 
                     </ul>
                 </div>

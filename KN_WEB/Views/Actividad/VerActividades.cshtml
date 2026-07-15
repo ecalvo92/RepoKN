@@ -1,0 +1,51 @@
+﻿@model List<KN_WEB.EF.tbActividad>
+
+<div class="row">
+
+    <div class="col-12 col-lg-12">
+        <div class="card">
+            <div class="card-body">
+
+                @if (ViewBag.MensajeSeguridad != null)
+                {
+                    <div class="alert text-danger" role="alert">
+                        @ViewBag.MensajeSeguridad
+                    </div>
+                }
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Título</th>
+                            <th>Registro</th>
+                            <th>Inicio</th>
+                            <th>Fin</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var item in Model)
+                        { 
+                            <tr>
+                                <td>@item.Consecutivo</td>
+                                <td>@item.Titulo</td>
+                                <td>@item.FechaRegistro.ToString("dd/MM/yyyy")</td>
+                                <td>@item.Inicio.ToString("dd/MM/yyyy hh:mm tt")</td>
+                                <td>@item.Fin.ToString("dd/MM/yyyy hh:mm tt")</td>
+                                <td>@(item.Estado == 0 ? "Pendiente" : "")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts {
+    <script src="~/Scripts/configuracion.js"></script>
+}

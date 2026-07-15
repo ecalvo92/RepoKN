@@ -65,6 +65,7 @@ namespace KN_WEB.Controllers
                     Session["NombreUsuario"] = response.Nombre;
                     Session["ConsecutivoUsuario"] = response.Consecutivo;
                     Session["NombreRol"] = response.tbRol.Nombre;
+                    Session["ConsecutivoRol"] = response.tbRol.Consecutivo;
 
 
                     if (response.TieneContrasennaTemp)
@@ -126,7 +127,8 @@ namespace KN_WEB.Controllers
                         Nombre = model.Nombre,
                         CorreoElectronico = model.CorreoElectronico,
                         Contrasenna = model.Contrasenna,
-                        Estado = true
+                        Estado = true,
+                        ConsecutivoRol = 1
                     });
 
                     var response = context.SaveChanges();

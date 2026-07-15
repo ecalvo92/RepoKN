@@ -1,7 +1,6 @@
 ﻿@model KN_WEB.Models.UsuarioModel
 
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
     var nombreUsuario = HttpContext.Current.Session["NombreUsuario"] ?? string.Empty;
     var nombreRol = HttpContext.Current.Session["NombreRol"] ?? string.Empty;
 }

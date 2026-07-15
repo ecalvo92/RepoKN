@@ -22,6 +22,28 @@ namespace KN_WEB.Models
 
             base.OnActionExecuting(filterContext);
         }
+    }
+
+    public class TutorActionFilter : ActionFilterAttribute
+    {
+        //Debe ejecutarse antes para validar que el usuario sea un tutor
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            if (filterContext.HttpContext.Session["ConsecutivoRol"].ToString() != "2")
+            {
+                filterContext.Result = new RedirectToRouteResult(
+                    new RouteValueDictionary
+                    {
+                        { "controller", "Home" },
+                        { "action", "Principal" }
+                    });
+
+                return;
+            }
+
+            base.OnActionExecuting(filterContext);
+        }
 
     }
+
 }

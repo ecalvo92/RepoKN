@@ -14,6 +14,12 @@ namespace KN_WEB.EF
     
     public partial class tbUsuario
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbUsuario()
+        {
+            this.tbActividad = new HashSet<tbActividad>();
+        }
+    
         public int Consecutivo { get; set; }
         public string Identificacion { get; set; }
         public string Nombre { get; set; }
@@ -25,5 +31,7 @@ namespace KN_WEB.EF
         public int ConsecutivoRol { get; set; }
     
         public virtual tbRol tbRol { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbActividad> tbActividad { get; set; }
     }
 }

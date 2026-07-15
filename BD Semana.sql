@@ -7,6 +7,21 @@ GO
 USE [KN_BD]
 GO
 
+CREATE TABLE [dbo].[tbActividad](
+	[Consecutivo] [int] IDENTITY(1,1) NOT NULL,
+	[Titulo] [varchar](50) NOT NULL,
+	[Inicio] [datetime] NOT NULL,
+	[Fin] [datetime] NOT NULL,
+	[FechaRegistro] [datetime] NOT NULL,
+	[ConsecutivoUsuario] [int] NOT NULL,
+	[Estado] [int] NOT NULL,
+ CONSTRAINT [PK_tbActividad] PRIMARY KEY CLUSTERED 
+(
+	[Consecutivo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 CREATE TABLE [dbo].[tbError](
 	[Consecutivo] [int] IDENTITY(1,1) NOT NULL,
 	[Mensaje] [varchar](max) NOT NULL,
@@ -20,6 +35,16 @@ CREATE TABLE [dbo].[tbError](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
+CREATE TABLE [dbo].[tbRol](
+	[Consecutivo] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [varchar](100) NOT NULL,
+ CONSTRAINT [PK_tbRol] PRIMARY KEY CLUSTERED 
+(
+	[Consecutivo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 CREATE TABLE [dbo].[tbUsuario](
 	[Consecutivo] [int] IDENTITY(1,1) NOT NULL,
 	[Identificacion] [varchar](15) NOT NULL,
@@ -29,11 +54,19 @@ CREATE TABLE [dbo].[tbUsuario](
 	[Estado] [bit] NOT NULL,
 	[TieneContrasennaTemp] [bit] NOT NULL,
 	[VigenciaContrasennaTemp] [datetime] NULL,
+	[ConsecutivoRol] [int] NOT NULL,
  CONSTRAINT [PK_tbUsuario] PRIMARY KEY CLUSTERED 
 (
 	[Consecutivo] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+
+SET IDENTITY_INSERT [dbo].[tbActividad] ON 
+GO
+INSERT [dbo].[tbActividad] ([Consecutivo], [Titulo], [Inicio], [Fin], [FechaRegistro], [ConsecutivoUsuario], [Estado]) VALUES (1, N'Tutoría de Progra', CAST(N'2026-07-15T18:00:00.000' AS DateTime), CAST(N'2026-07-15T21:00:00.000' AS DateTime), CAST(N'2026-07-14T20:48:58.863' AS DateTime), 1, 0)
+GO
+SET IDENTITY_INSERT [dbo].[tbActividad] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[tbError] ON 
@@ -52,14 +85,37 @@ INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [Consecu
 GO
 INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (7, N'La cadena especificada no tiene la forma obligatoria para una dirección de correo electrónico.', CAST(N'2026-07-07T18:50:12.807' AS DateTime), N'RecuperarAcceso', 0)
 GO
+INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (8, N'Referencia a objeto no establecida como instancia de un objeto.', CAST(N'2026-07-14T18:37:50.313' AS DateTime), N'Configuracion', 0)
+GO
+INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (9, N'Referencia a objeto no establecida como instancia de un objeto.', CAST(N'2026-07-14T18:38:11.107' AS DateTime), N'Configuracion', 0)
+GO
+INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (10, N'Referencia a objeto no establecida como instancia de un objeto.', CAST(N'2026-07-14T18:40:57.507' AS DateTime), N'Configuracion', 0)
+GO
+INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (11, N'Referencia a objeto no establecida como instancia de un objeto.', CAST(N'2026-07-14T18:41:48.037' AS DateTime), N'Configuracion', 0)
+GO
+INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (12, N'Referencia a objeto no establecida como instancia de un objeto.', CAST(N'2026-07-14T18:42:15.030' AS DateTime), N'Configuracion', 0)
+GO
+INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (13, N'Referencia a objeto no establecida como instancia de un objeto.', CAST(N'2026-07-14T18:43:06.947' AS DateTime), N'Configuracion', 0)
+GO
+INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (14, N'Referencia a objeto no establecida como instancia de un objeto.', CAST(N'2026-07-14T18:43:53.943' AS DateTime), N'Configuracion', 2)
+GO
 SET IDENTITY_INSERT [dbo].[tbError] OFF
+GO
+
+SET IDENTITY_INSERT [dbo].[tbRol] ON 
+GO
+INSERT [dbo].[tbRol] ([Consecutivo], [Nombre]) VALUES (1, N'Estudiante')
+GO
+INSERT [dbo].[tbRol] ([Consecutivo], [Nombre]) VALUES (2, N'Tutor')
+GO
+SET IDENTITY_INSERT [dbo].[tbRol] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[tbUsuario] ON 
 GO
-INSERT [dbo].[tbUsuario] ([Consecutivo], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [TieneContrasennaTemp], [VigenciaContrasennaTemp]) VALUES (1, N'304590415', N'EDUARDO JOSE CALVO CASTILLO', N'ecalvo90415@ufide.ac.cr', N'AN!L7MQG', 1, 1, CAST(N'2026-07-07T18:07:43.770' AS DateTime))
+INSERT [dbo].[tbUsuario] ([Consecutivo], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [TieneContrasennaTemp], [VigenciaContrasennaTemp], [ConsecutivoRol]) VALUES (1, N'304590415', N'EDUARDO JOSE CALVO CASTILLO', N'ecalvo90415@ufide.ac.cr', N'90415*', 1, 0, CAST(N'2026-07-14T19:53:56.767' AS DateTime), 2)
 GO
-INSERT [dbo].[tbUsuario] ([Consecutivo], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [TieneContrasennaTemp], [VigenciaContrasennaTemp]) VALUES (2, N'207960874', N'BRANDON CORELLA SANCHEZ', N'bcorella60874@ufide.ac.cr', N'60874*', 1, 0, CAST(N'2026-07-07T19:43:09.890' AS DateTime))
+INSERT [dbo].[tbUsuario] ([Consecutivo], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [TieneContrasennaTemp], [VigenciaContrasennaTemp], [ConsecutivoRol]) VALUES (2, N'207960874', N'BRANDON CORELLA SANCHEZ', N'bcorella60874@ufide.ac.cr', N'60874*', 1, 0, CAST(N'2026-07-07T19:43:09.890' AS DateTime), 1)
 GO
 SET IDENTITY_INSERT [dbo].[tbUsuario] OFF
 GO
@@ -74,6 +130,18 @@ ALTER TABLE [dbo].[tbUsuario] ADD  CONSTRAINT [UK_Identificacion] UNIQUE NONCLUS
 (
 	[Identificacion] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[tbActividad]  WITH CHECK ADD  CONSTRAINT [FK_tbActividad_tbUsuario] FOREIGN KEY([ConsecutivoUsuario])
+REFERENCES [dbo].[tbUsuario] ([Consecutivo])
+GO
+ALTER TABLE [dbo].[tbActividad] CHECK CONSTRAINT [FK_tbActividad_tbUsuario]
+GO
+
+ALTER TABLE [dbo].[tbUsuario]  WITH CHECK ADD  CONSTRAINT [FK_tbUsuario_tbRol] FOREIGN KEY([ConsecutivoRol])
+REFERENCES [dbo].[tbRol] ([Consecutivo])
+GO
+ALTER TABLE [dbo].[tbUsuario] CHECK CONSTRAINT [FK_tbUsuario_tbRol]
 GO
 
 CREATE PROCEDURE [dbo].[spIniciarSesion]

@@ -5,6 +5,18 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="KN_BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbActividad">
+          <Key>
+            <PropertyRef Name="Consecutivo" />
+          </Key>
+          <Property Name="Consecutivo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Titulo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Inicio" Type="datetime" Nullable="false" />
+          <Property Name="Fin" Type="datetime" Nullable="false" />
+          <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
+          <Property Name="ConsecutivoUsuario" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="tbError">
           <Key>
             <PropertyRef Name="Consecutivo" />
@@ -36,6 +48,18 @@
           <Property Name="VigenciaContrasennaTemp" Type="datetime" />
           <Property Name="ConsecutivoRol" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_tbActividad_tbUsuario">
+          <End Role="tbUsuario" Type="Self.tbUsuario" Multiplicity="1" />
+          <End Role="tbActividad" Type="Self.tbActividad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuario">
+              <PropertyRef Name="Consecutivo" />
+            </Principal>
+            <Dependent Role="tbActividad">
+              <PropertyRef Name="ConsecutivoUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbUsuario_tbRol">
           <End Role="tbRol" Type="Self.tbRol" Multiplicity="1" />
           <End Role="tbUsuario" Type="Self.tbUsuario" Multiplicity="*" />
@@ -65,9 +89,14 @@
           <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="KN_BDModelStoreContainer">
+          <EntitySet Name="tbActividad" EntityType="Self.tbActividad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbError" EntityType="Self.tbError" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbRol" EntityType="Self.tbRol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbUsuario" EntityType="Self.tbUsuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbActividad_tbUsuario" Association="Self.FK_tbActividad_tbUsuario">
+            <End Role="tbUsuario" EntitySet="tbUsuario" />
+            <End Role="tbActividad" EntitySet="tbActividad" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbUsuario_tbRol" Association="Self.FK_tbUsuario_tbRol">
             <End Role="tbRol" EntitySet="tbRol" />
             <End Role="tbUsuario" EntitySet="tbUsuario" />
@@ -101,6 +130,7 @@
           <Property Name="VigenciaContrasennaTemp" Type="DateTime" Precision="3" />
           <Property Name="ConsecutivoRol" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tbRol" Relationship="KN_BDModel.FK_tbUsuario_tbRol" FromRole="tbUsuario" ToRole="tbRol" />
+          <NavigationProperty Name="tbActividad" Relationship="KN_BDModel.FK_tbActividad_tbUsuario" FromRole="tbUsuario" ToRole="tbActividad" />
         </EntityType>
         <EntityContainer Name="KN_BDEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tbError" EntityType="Self.tbError" />
@@ -125,6 +155,11 @@
           <AssociationSet Name="FK_tbUsuario_tbRol" Association="KN_BDModel.FK_tbUsuario_tbRol">
             <End Role="tbRol" EntitySet="tbRol" />
             <End Role="tbUsuario" EntitySet="tbUsuario" />
+          </AssociationSet>
+          <EntitySet Name="tbActividad" EntityType="KN_BDModel.tbActividad" />
+          <AssociationSet Name="FK_tbActividad_tbUsuario" Association="KN_BDModel.FK_tbActividad_tbUsuario">
+            <End Role="tbUsuario" EntitySet="tbUsuario" />
+            <End Role="tbActividad" EntitySet="tbActividad" />
           </AssociationSet>
         </EntityContainer>
         <ComplexType Name="spIniciarSesion_Result">
@@ -151,6 +186,31 @@
             </Principal>
             <Dependent Role="tbUsuario">
               <PropertyRef Name="ConsecutivoRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tbActividad">
+          <Key>
+            <PropertyRef Name="Consecutivo" />
+          </Key>
+          <Property Name="Consecutivo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Titulo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Inicio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Fin" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ConsecutivoUsuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbUsuario" Relationship="KN_BDModel.FK_tbActividad_tbUsuario" FromRole="tbActividad" ToRole="tbUsuario" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tbActividad_tbUsuario">
+          <End Type="KN_BDModel.tbUsuario" Role="tbUsuario" Multiplicity="1" />
+          <End Type="KN_BDModel.tbActividad" Role="tbActividad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuario">
+              <PropertyRef Name="Consecutivo" />
+            </Principal>
+            <Dependent Role="tbActividad">
+              <PropertyRef Name="ConsecutivoUsuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -203,6 +263,19 @@
             <EntityTypeMapping TypeName="KN_BDModel.tbRol">
               <MappingFragment StoreEntitySet="tbRol">
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbActividad">
+            <EntityTypeMapping TypeName="KN_BDModel.tbActividad">
+              <MappingFragment StoreEntitySet="tbActividad">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="ConsecutivoUsuario" ColumnName="ConsecutivoUsuario" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="Fin" ColumnName="Fin" />
+                <ScalarProperty Name="Inicio" ColumnName="Inicio" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
                 <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
               </MappingFragment>
             </EntityTypeMapping>
