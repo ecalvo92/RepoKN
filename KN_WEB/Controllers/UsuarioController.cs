@@ -2,6 +2,7 @@
 using KN_WEB.Models;
 using KN_WEB.Servicios;
 using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
@@ -30,7 +31,7 @@ namespace KN_WEB.Controllers
                     if (existeUsuario == null)
                     {
                         ViewBag.Mensaje = "La información no se ha podido validar";
-                        return View();
+                        return View(new UsuarioModel());
                     }
 
                     return View(new UsuarioModel 
@@ -62,8 +63,8 @@ namespace KN_WEB.Controllers
 
                     if (existeUsuario == null)
                     {
-                        ViewBag.Mensaje = "La información no se ha podido validar";
-                        return View();
+                        ViewBag.MensajeSeguridad = "La información no se ha podido validar";
+                        return View("Configuracion", model);
                     }
 
                     //Actualizar la información de un usuario
@@ -73,7 +74,7 @@ namespace KN_WEB.Controllers
 
                     if (response <= 0)
                     {
-                        ViewBag.Mensaje = "No se ha podido actualizar la información";
+                        ViewBag.MensajeSeguridad = "No se ha podido actualizar la información";
                         return View("Configuracion", model);
                     }
 
@@ -102,22 +103,24 @@ namespace KN_WEB.Controllers
 
                     if (existeUsuario == null)
                     {
-                        ViewBag.Mensaje = "La información no se ha podido validar";
-                        return View();
+                        ViewBag.MensajePerfil = "La información no se ha podido validar";
+                        return View("Configuracion", model);
                     }
 
                     //Actualizar la información de un usuario
                     existeUsuario.Nombre = model.Nombre;
                     existeUsuario.CorreoElectronico = model.CorreoElectronico;
+
+                    context.Entry(existeUsuario).State = EntityState.Modified;
                     var response = context.SaveChanges();
 
                     if (response <= 0)
                     {
-                        ViewBag.Mensaje = "No se ha podido actualizar la información";
-                        return View();
+                        ViewBag.MensajePerfil = "No se ha podido actualizar la información";
+                        return View("Configuracion", model);
                     }
 
-                    ViewBag.Mensaje = "Su información se ha actualizado correctamente";
+                    ViewBag.MensajePerfil = "Su información se ha actualizado correctamente";
                     return View("Configuracion", model);
                 }
             }

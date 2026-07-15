@@ -34,10 +34,10 @@
                 @using (Html.BeginForm("CambiarContrasenna", "Usuario", FormMethod.Post, new { @id = "CambiarContrasennaForm" }))
                 {
 
-                    if (ViewBag.Mensaje != null)
+                    if (ViewBag.MensajeSeguridad != null)
                     {
                         <div class="alert text-danger" role="alert">
-                            @ViewBag.Mensaje
+                            @ViewBag.MensajeSeguridad
                         </div>
                     }
 
@@ -67,10 +67,10 @@
                 @using (Html.BeginForm("CambiarPerfil", "Usuario", FormMethod.Post, new { @id = "CambiarPerfilForm" }))
                 {
 
-                    if (ViewBag.Mensaje != null)
+                    if (ViewBag.MensajePerfil != null)
                     {
                         <div class="alert text-danger" role="alert">
-                            @ViewBag.Mensaje
+                            @ViewBag.MensajePerfil
                         </div>
                     }
 
