@@ -221,6 +221,7 @@ namespace KN_WEB.Controllers
 
         #endregion
 
+        [LogActionFilter]
         [HttpGet]
         public ActionResult Principal()
         {
@@ -235,6 +236,7 @@ namespace KN_WEB.Controllers
             }
         }
 
+        [LogActionFilter]
         [HttpGet]
         public ActionResult CerrarSesion()
         {

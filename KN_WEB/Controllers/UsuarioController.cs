@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace KN_WEB.Controllers
 {
+    [LogActionFilter]
     public class UsuarioController : Controller
     {
         readonly UtilitarioService utilitario = new UtilitarioService();
