@@ -12,18 +12,18 @@ namespace KN_WEB.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class tbUsuario
+    public partial class tbRol
     {
-        public int Consecutivo { get; set; }
-        public string Identificacion { get; set; }
-        public string Nombre { get; set; }
-        public string CorreoElectronico { get; set; }
-        public string Contrasenna { get; set; }
-        public bool Estado { get; set; }
-        public bool TieneContrasennaTemp { get; set; }
-        public Nullable<System.DateTime> VigenciaContrasennaTemp { get; set; }
-        public int ConsecutivoRol { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbRol()
+        {
+            this.tbUsuario = new HashSet<tbUsuario>();
+        }
     
-        public virtual tbRol tbRol { get; set; }
+        public int Consecutivo { get; set; }
+        public string Nombre { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbUsuario> tbUsuario { get; set; }
     }
 }

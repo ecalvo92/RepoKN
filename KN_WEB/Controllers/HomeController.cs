@@ -64,6 +64,7 @@ namespace KN_WEB.Controllers
 
                     Session["NombreUsuario"] = response.Nombre;
                     Session["ConsecutivoUsuario"] = response.Consecutivo;
+                    Session["NombreRol"] = response.tbRol.Nombre;
 
 
                     if (response.TieneContrasennaTemp)

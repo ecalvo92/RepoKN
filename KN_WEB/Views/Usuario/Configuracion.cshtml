@@ -3,6 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var nombreUsuario = HttpContext.Current.Session["NombreUsuario"] ?? string.Empty;
+    var nombreRol = HttpContext.Current.Session["NombreRol"] ?? string.Empty;
 }
 
 <div class="row">
@@ -15,8 +16,8 @@
                         <img src="~/Content/images/security.png" alt="Security">
                     </div>
 
-                    <h3 class="mt-3">@nombreUsuario</h3>
-                    <p class="text-small">Junior Software Engineer</p>
+                    <h4 class="mt-3">@nombreUsuario</h4>
+                    <h6>Rol en el sistema: @nombreRol</h6>
                 </div>
             </div>
         </div>

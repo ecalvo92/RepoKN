@@ -7,6 +7,8 @@
       <Diagram DiagramId="a471a0c6042540d6a4f287862340caa6" Name="Diagram1">
         <EntityTypeShape EntityType="KN_BDModel.tbError" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="KN_BDModel.tbUsuario" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KN_BDModel.tbRol" Width="1.5" PointX="0.75" PointY="5.375" />
+        <AssociationConnector Association="KN_BDModel.FK_tbUsuario_tbRol" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

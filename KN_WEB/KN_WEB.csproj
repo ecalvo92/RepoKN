@@ -149,6 +149,9 @@
     <Compile Include="EF\tbError.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\tbRol.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\tbUsuario.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
