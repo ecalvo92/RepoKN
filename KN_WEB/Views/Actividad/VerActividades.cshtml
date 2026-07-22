@@ -6,6 +6,11 @@
         <div class="card">
             <div class="card-body">
 
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="card-title mb-0">Actividades</h4>
+                    <a href="@Url.Action("AgregarActividad","Actividad")" class="btn btn-primary">Agregar</a>
+                </div>
+
                 @if (ViewBag.MensajeSeguridad != null)
                 {
                     <div class="alert text-danger" role="alert">
@@ -13,7 +18,7 @@
                     </div>
                 }
 
-                <table class="table table-hover">
+                <table id="TablaActividades" class="table table-hover">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -47,5 +52,5 @@
 </div>
 
 @section scripts {
-    <script src="~/Scripts/configuracion.js"></script>
+    <script src="~/Scripts/verActividades.js"></script>
 }

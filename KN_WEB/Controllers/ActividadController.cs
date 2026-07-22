@@ -37,5 +37,11 @@ namespace KN_WEB.Controllers
                 return View("Error");
             }
         }
+
+        [HttpGet]
+        public ActionResult AgregarActividad()
+        {
+            return View();
+        }
     }
 }

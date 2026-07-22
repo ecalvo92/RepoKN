@@ -198,6 +198,7 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\agregarActividad.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Content\fonts\bootstrap-icons.woff" />
     <Content Include="Content\fonts\bootstrap-icons.woff2" />
@@ -207,6 +208,7 @@
     <Content Include="Scripts\perfect-scrollbar.min.js" />
     <Content Include="Scripts\recuperarAcceso.js" />
     <Content Include="Scripts\registro.js" />
+    <Content Include="Scripts\verActividades.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -238,6 +240,7 @@
     <None Include="packages.config" />
     <Content Include="Views\Usuario\Configuracion.cshtml" />
     <Content Include="Views\Actividad\VerActividades.cshtml" />
+    <Content Include="Views\Actividad\AgregarActividad.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -1,5 +1,6 @@
 ﻿    @{
         var nombreUsuario = HttpContext.Current.Session["NombreUsuario"].ToString() ?? string.Empty;
+        var nombreRol = HttpContext.Current.Session["NombreRol"].ToString() ?? string.Empty;
         var consecutivoRol = HttpContext.Current.Session["ConsecutivoRol"].ToString() ?? string.Empty;
     }
 
@@ -15,6 +16,7 @@
     <link rel="stylesheet" href="~/Content/perfect-scrollbar.css">
     <link rel="stylesheet" href="~/Content/bootstrap-icons.css">
     <link rel="stylesheet" href="~/Content/app.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.bootstrap5.css">
 </head>
 
 <body>
@@ -61,14 +63,17 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle user-menu" href="#" id="userDropdown" role="button"
+                                <a class="nav-link dropdown-toggle user-menu d-flex align-items-center" href="#" id="userDropdown" role="button"
                                    data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="avatar bg-primary me-2">
                                         <div class="avatar-content">
                                             <i class="bi bi-person-fill"></i>
                                         </div>
                                     </div>
-                                    <span class="d-none d-sm-inline text-muted fw-semibold"> @nombreUsuario </span>
+                                    <div class="d-none d-sm-block text-start lh-sm">
+                                        <span class="d-block fw-semibold" style="color: inherit;"> @nombreUsuario </span>
+                                        <span class="d-block" style="font-size: 0.80rem; color: #6c757d; letter-spacing: 0.03em;">@nombreRol</span>
+                                    </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
 
@@ -115,6 +120,9 @@
     <script src="~/Scripts/perfect-scrollbar.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
     <script src="~/Scripts/main.js"></script>
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.bootstrap5.js"></script>
+
     @RenderSection("scripts", required: false)
 </body>
 

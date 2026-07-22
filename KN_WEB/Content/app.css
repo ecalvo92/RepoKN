@@ -931,7 +931,6 @@
     }
 
     .sidebar-wrapper .menu {
-        margin-top: 2rem;
         padding: 0 2rem;
         font-weight: 600
     }
@@ -1536,4 +1535,23 @@ a {
 
 .icon-mid:before {
     vertical-align: middle
+}
+
+/* Zona de carga de imagen */
+.zona-imagen {
+    height: 337px;
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.zona-imagen.sin-borde {
+    border: none;
+}
+
+.previa-imagen {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
