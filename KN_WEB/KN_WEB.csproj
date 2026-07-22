@@ -227,6 +227,7 @@
     <Content Include="Views\Home\Principal.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ActividadesIMG\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

@@ -21,6 +21,7 @@ namespace KN_WEB.EF
         public System.DateTime FechaRegistro { get; set; }
         public int ConsecutivoUsuario { get; set; }
         public int Estado { get; set; }
+        public string Imagen { get; set; }
     
         public virtual tbUsuario tbUsuario { get; set; }
     }

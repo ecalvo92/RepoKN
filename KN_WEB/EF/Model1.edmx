@@ -16,6 +16,7 @@
           <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
           <Property Name="ConsecutivoUsuario" Type="int" Nullable="false" />
           <Property Name="Estado" Type="int" Nullable="false" />
+          <Property Name="Imagen" Type="varchar" MaxLength="2000" />
         </EntityType>
         <EntityType Name="tbError">
           <Key>
@@ -201,6 +202,7 @@
           <Property Name="ConsecutivoUsuario" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tbUsuario" Relationship="KN_BDModel.FK_tbActividad_tbUsuario" FromRole="tbActividad" ToRole="tbUsuario" />
           <Property Name="Estado" Type="Int32" Nullable="false" />
+          <Property Name="Imagen" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_tbActividad_tbUsuario">
           <End Type="KN_BDModel.tbUsuario" Role="tbUsuario" Multiplicity="1" />
@@ -270,6 +272,7 @@
           <EntitySetMapping Name="tbActividad">
             <EntityTypeMapping TypeName="KN_BDModel.tbActividad">
               <MappingFragment StoreEntitySet="tbActividad">
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="ConsecutivoUsuario" ColumnName="ConsecutivoUsuario" />
                 <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />

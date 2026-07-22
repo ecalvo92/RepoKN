@@ -3,8 +3,10 @@ using KN_WEB.Models;
 using KN_WEB.Servicios;
 using System;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Web;
 using System.Web.Mvc;
 
 namespace KN_WEB.Controllers
@@ -38,10 +40,66 @@ namespace KN_WEB.Controllers
             }
         }
 
+        #region Agregar
+
         [HttpGet]
         public ActionResult AgregarActividad()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                utilitario.RegistrarErrorBitacora(ex.Message, MethodBase.GetCurrentMethod().Name);
+                return View("Error");
+            }
         }
+
+        [HttpPost]
+        public ActionResult AgregarActividad(tbActividad model, HttpPostedFileBase Imagen)
+        {
+            try
+            {
+                var consecutivo = int.Parse(Session["ConsecutivoUsuario"].ToString());
+
+                using (var context = new KN_BDEntities())
+                {
+                    model.Imagen = string.Empty;
+                    model.FechaRegistro = DateTime.Now;
+                    model.Estado = 0;
+                    model.ConsecutivoUsuario = consecutivo;
+
+                    context.tbActividad.Add(model);
+                    context.SaveChanges();
+
+                    if (Imagen != null && Imagen.ContentLength > 0)
+                    {
+                        var extension = Path.GetExtension(Imagen.FileName).ToLower();
+                        var carpeta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ActividadesIMG");
+
+                        if (!Directory.Exists(carpeta))
+                            Directory.CreateDirectory(carpeta);
+
+                        var nombreArchivo = $"{model.Consecutivo}{extension}";
+                        var ruta = Path.Combine(carpeta, nombreArchivo);
+                        Imagen.SaveAs(ruta);
+
+                        model.Imagen = nombreArchivo;
+                        context.SaveChanges();
+                    }
+                }
+
+                return RedirectToAction("VerActividades");
+            }
+            catch (Exception ex)
+            {
+                utilitario.RegistrarErrorBitacora(ex.Message, MethodBase.GetCurrentMethod().Name);
+                return View("Error");
+            }
+        }
+
+        #endregion
+
     }
 }

@@ -18,7 +18,7 @@
                     </div>
                 }
 
-                <table id="TablaActividades" class="table table-hover">
+                <table id="TablaActividades" class="table">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -26,6 +26,7 @@
                             <th>Registro</th>
                             <th>Inicio</th>
                             <th>Fin</th>
+                            <th>Imagen</th>
                             <th>Estado</th>
                         </tr>
                     </thead>
@@ -38,6 +39,7 @@
                                 <td>@item.FechaRegistro.ToString("dd/MM/yyyy")</td>
                                 <td>@item.Inicio.ToString("dd/MM/yyyy hh:mm tt")</td>
                                 <td>@item.Fin.ToString("dd/MM/yyyy hh:mm tt")</td>
+                                <td><img src="~/ActividadesIMG/@item.Imagen" width="125" height="100" /></td>
                                 <td>@(item.Estado == 0 ? "Pendiente" : "")</td>
                             </tr>
                         }
