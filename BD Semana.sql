@@ -15,6 +15,7 @@ CREATE TABLE [dbo].[tbActividad](
 	[FechaRegistro] [datetime] NOT NULL,
 	[ConsecutivoUsuario] [int] NOT NULL,
 	[Estado] [int] NOT NULL,
+	[Imagen] [varchar](2000) NOT NULL,
  CONSTRAINT [PK_tbActividad] PRIMARY KEY CLUSTERED 
 (
 	[Consecutivo] ASC
@@ -64,7 +65,9 @@ GO
 
 SET IDENTITY_INSERT [dbo].[tbActividad] ON 
 GO
-INSERT [dbo].[tbActividad] ([Consecutivo], [Titulo], [Inicio], [Fin], [FechaRegistro], [ConsecutivoUsuario], [Estado]) VALUES (1, N'Tutoría de Progra', CAST(N'2026-07-15T18:00:00.000' AS DateTime), CAST(N'2026-07-15T21:00:00.000' AS DateTime), CAST(N'2026-07-14T20:48:58.863' AS DateTime), 1, 0)
+INSERT [dbo].[tbActividad] ([Consecutivo], [Titulo], [Inicio], [Fin], [FechaRegistro], [ConsecutivoUsuario], [Estado], [Imagen]) VALUES (3, N'Progra Avanzada', CAST(N'2026-07-22T20:30:00.000' AS DateTime), CAST(N'2026-07-22T21:30:00.000' AS DateTime), CAST(N'2026-07-21T20:33:51.113' AS DateTime), 1, 0, N'3.png')
+GO
+INSERT [dbo].[tbActividad] ([Consecutivo], [Titulo], [Inicio], [Fin], [FechaRegistro], [ConsecutivoUsuario], [Estado], [Imagen]) VALUES (4, N'Prueba', CAST(N'2026-07-22T20:43:00.000' AS DateTime), CAST(N'2026-07-23T20:43:00.000' AS DateTime), CAST(N'2026-07-21T20:45:01.413' AS DateTime), 1, 0, N'4.png')
 GO
 SET IDENTITY_INSERT [dbo].[tbActividad] OFF
 GO
@@ -98,6 +101,10 @@ GO
 INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (13, N'Referencia a objeto no establecida como instancia de un objeto.', CAST(N'2026-07-14T18:43:06.947' AS DateTime), N'Configuracion', 0)
 GO
 INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (14, N'Referencia a objeto no establecida como instancia de un objeto.', CAST(N'2026-07-14T18:43:53.943' AS DateTime), N'Configuracion', 2)
+GO
+INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (15, N'Validation failed for one or more entities. See ''EntityValidationErrors'' property for more details.', CAST(N'2026-07-21T19:22:30.017' AS DateTime), N'CambiarContrasenna', 1)
+GO
+INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (16, N'Validation failed for one or more entities. See ''EntityValidationErrors'' property for more details.', CAST(N'2026-07-21T19:22:37.600' AS DateTime), N'CambiarContrasenna', 1)
 GO
 SET IDENTITY_INSERT [dbo].[tbError] OFF
 GO

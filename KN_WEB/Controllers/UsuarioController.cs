@@ -35,7 +35,7 @@ namespace KN_WEB.Controllers
                         return View(new UsuarioModel());
                     }
 
-                    return View(new UsuarioModel 
+                    return View(new UsuarioModel
                     {
                         Nombre = existeUsuario.Nombre,
                         CorreoElectronico = existeUsuario.CorreoElectronico
