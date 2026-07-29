@@ -32,8 +32,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach(var item in Model)
-                        { 
+                        @foreach (var item in Model)
+                        {
                             <tr>
                                 <td>@item.Consecutivo</td>
                                 <td>@item.Titulo</td>
@@ -44,13 +44,16 @@
                                 <td>@item.tbEstados.Nombre</td>
                                 <td>
 
+                                    @if(item.ConsecutivoEstado == 1)
+                                    { 
                                     <a href="@Url.Action("ActualizarActividad","Actividad", new { id = item.Consecutivo })">
                                         <i class="bi bi-pencil-square fs-4"></i>
                                     </a>
 
-                                    <a href="@Url.Action("CancelarActividad","Actividad", new { id = item.Consecutivo })" class="ms-2">
+                                    <a class="ms-2 btn-cancelar" style="cursor:pointer" data-id="@item.Consecutivo" data-titulo="@item.Titulo">
                                         <i class="bi bi-trash fs-4"></i>
                                     </a>
+                                    }
 
                                 </td>
                             </tr>
@@ -66,5 +69,6 @@
 </div>
 
 @section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/Scripts/verActividades.js"></script>
 }

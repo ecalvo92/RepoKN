@@ -210,6 +210,7 @@
     <Content Include="Scripts\index.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\perfect-scrollbar.min.js" />
+    <Content Include="Scripts\principal.js" />
     <Content Include="Scripts\recuperarAcceso.js" />
     <Content Include="Scripts\registro.js" />
     <Content Include="Scripts\verActividades.js" />

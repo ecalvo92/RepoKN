@@ -255,5 +255,45 @@ namespace KN_WEB.Controllers
             }
         }
 
+        [LogActionFilter]
+        [HttpGet]
+        public ActionResult ObtenerActividadesCalendario()
+        {
+            try
+            {
+                var consecutivo = int.Parse(Session["ConsecutivoUsuario"].ToString());
+
+                using (var context = new KN_BDEntities())
+                {
+                    var actividades = (from A in context.tbActividad.Include("tbEstados")
+                                       where A.ConsecutivoUsuario == consecutivo
+                                       select new { 
+                                        id = A.Consecutivo,
+                                        title = A.Titulo,
+                                        start = A.Inicio,
+                                        end = A.Fin,
+                                        consecutivoEstado = A.ConsecutivoEstado
+                                       }).ToList();
+
+                    var resultado = actividades.Select(x => new
+                    {
+                        x.id,
+                        x.title,
+                        start = x.start.ToString("yyyy-MM-ddTHH:mm:ss"),
+                        end = x.end.ToString("yyyy-MM-ddTHH:mm:ss"),
+                        color = x.consecutivoEstado == 1 ? "blue" :
+                                x.consecutivoEstado == 2 ? "green" : "red"
+                    });
+
+                    return Json(resultado, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                utilitario.RegistrarErrorBitacora(ex.Message, MethodBase.GetCurrentMethod().Name);
+                return View("Error");
+            }
+        }
+
     }
 }

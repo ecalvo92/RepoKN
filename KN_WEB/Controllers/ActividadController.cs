@@ -110,8 +110,8 @@ namespace KN_WEB.Controllers
                 using (var context = new KN_BDEntities())
                 {
                     var actividad = (from A in context.tbActividad.Include("tbEstados")
-                                       where A.Consecutivo == id
-                                       select A).FirstOrDefault();
+                                     where A.Consecutivo == id
+                                     select A).FirstOrDefault();
 
                     return View(actividad);
                 }
@@ -131,15 +131,15 @@ namespace KN_WEB.Controllers
                 using (var context = new KN_BDEntities())
                 {
                     var existeActividad = (from U in context.tbActividad
-                                         where U.Consecutivo == model.Consecutivo
-                                         select U).FirstOrDefault();
+                                           where U.Consecutivo == model.Consecutivo
+                                           select U).FirstOrDefault();
 
                     if (existeActividad == null)
                     {
                         ViewBag.Mensaje = "La información de la actividad no se pudo cargar";
                         return View(model);
                     }
- 
+
                     existeActividad.Titulo = model.Titulo;
                     existeActividad.Inicio = model.Inicio;
                     existeActividad.Fin = model.Fin;
@@ -172,6 +172,33 @@ namespace KN_WEB.Controllers
         }
 
         #endregion
+
+        [HttpPost]
+        public ActionResult CancelarActividad(int id)
+        {
+            try
+            {
+                using (var context = new KN_BDEntities())
+                {
+                    var actividad = (from A in context.tbActividad
+                                     where A.Consecutivo == id
+                                     select A).FirstOrDefault();
+
+                    if (actividad != null)
+                    {
+                        actividad.ConsecutivoEstado = 3;
+                        context.SaveChanges();
+                    }
+                }
+
+                return Json("Ok", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                utilitario.RegistrarErrorBitacora(ex.Message, MethodBase.GetCurrentMethod().Name);
+                return View("Error");
+            }
+        }
 
     }
 }
