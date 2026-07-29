@@ -12,18 +12,18 @@ namespace KN_WEB.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class tbActividad
+    public partial class tbEstados
     {
-        public int Consecutivo { get; set; }
-        public string Titulo { get; set; }
-        public System.DateTime Inicio { get; set; }
-        public System.DateTime Fin { get; set; }
-        public System.DateTime FechaRegistro { get; set; }
-        public int ConsecutivoUsuario { get; set; }
-        public int ConsecutivoEstado { get; set; }
-        public string Imagen { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbEstados()
+        {
+            this.tbActividad = new HashSet<tbActividad>();
+        }
     
-        public virtual tbEstados tbEstados { get; set; }
-        public virtual tbUsuario tbUsuario { get; set; }
+        public int Consecutivo { get; set; }
+        public string Nombre { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbActividad> tbActividad { get; set; }
     }
 }

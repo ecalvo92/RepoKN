@@ -18,5 +18,7 @@ namespace KN_WEB.EF
         public string Nombre { get; set; }
         public string CorreoElectronico { get; set; }
         public bool Estado { get; set; }
+        public bool TieneContrasennaTemp { get; set; }
+        public Nullable<System.DateTime> VigenciaContrasennaTemp { get; set; }
     }
 }

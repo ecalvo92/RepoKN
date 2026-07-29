@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-  $('#AgregarActividadForm').validate({
+  $('#ActulizarActividadForm').validate({
     ignore: ':hidden:not(#inputImagen)',
     rules: {
       Titulo: {
@@ -16,7 +16,9 @@
         finDespuesInicio: true
       },
       Imagen: {
-        required: true,
+        required: function () {
+          return !$('#imagenExistente').val();
+        },
         imagenFormato: true,
         imagenTamano: true
       }
@@ -55,14 +57,12 @@
 
 });
 
-function previsualizarImagen(input)
-{
+function previsualizarImagen(input) {
   if (!input.files || !input.files[0])
     return;
 
   var reader = new FileReader();
-  reader.onload = function (e)
-  {
+  reader.onload = function (e) {
     document.getElementById('previstaImagen').src = e.target.result;
     document.getElementById('previstaImagen').classList.remove('d-none');
     document.getElementById('textoImagen').classList.add('d-none');

@@ -49,3 +49,37 @@ if(typeof PerfectScrollbar == 'function') {
 
 // Scroll into active sidebar
 document.querySelector('.sidebar-item.active').scrollIntoView(false)
+
+
+
+//Funciones en común
+
+$.validator.addMethod('specialChar', function (value) {
+  return /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(value);
+}, 'Mínimo 1 carácter especial.');
+
+
+$.validator.addMethod('fechaMenorHoy', function (value) {
+  if (!value) return false;
+  return new Date(value) >= new Date();
+}, 'La fecha de inicio no puede ser menor a la fecha y hora actual.');
+
+
+$.validator.addMethod('finDespuesInicio', function (value) {
+  var inicio = new Date($('#Inicio').val());
+  var fin = new Date(value);
+  if (!$('#Inicio').val() || !value) return true;
+  return fin > inicio;
+}, 'La fecha de finalización debe ser posterior a la fecha de inicio.');
+
+
+$.validator.addMethod('imagenFormato', function (value, element) {
+  if (!element.files || !element.files[0]) return true;
+  return /\.(jpg|jpeg|png)$/i.test(element.files[0].name);
+}, 'Solo se permiten imágenes JPG, JPEG o PNG.');
+
+
+$.validator.addMethod('imagenTamano', function (value, element) {
+  if (!element.files || !element.files[0]) return true;
+  return element.files[0].size <= 1 * 1024 * 1024;
+}, 'La imagen no debe superar 1 MB.');

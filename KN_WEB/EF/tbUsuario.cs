@@ -30,8 +30,8 @@ namespace KN_WEB.EF
         public Nullable<System.DateTime> VigenciaContrasennaTemp { get; set; }
         public int ConsecutivoRol { get; set; }
     
-        public virtual tbRol tbRol { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbActividad> tbActividad { get; set; }
+        public virtual tbRol tbRol { get; set; }
     }
 }

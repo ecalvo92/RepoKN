@@ -162,6 +162,9 @@
     <Compile Include="EF\tbError.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\tbEstados.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\tbRol.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -198,6 +201,7 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\actualizarActividad.js" />
     <Content Include="Scripts\agregarActividad.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Content\fonts\bootstrap-icons.woff" />
@@ -242,6 +246,7 @@
     <Content Include="Views\Usuario\Configuracion.cshtml" />
     <Content Include="Views\Actividad\VerActividades.cshtml" />
     <Content Include="Views\Actividad\AgregarActividad.cshtml" />
+    <Content Include="Views\Actividad\ActualizarActividad.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

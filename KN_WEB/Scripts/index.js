@@ -1,7 +1,3 @@
-$.validator.addMethod('specialChar', function (value) {
-    return /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(value);
-}, 'Mínimo 1 carácter especial.');
-
 $(document).ready(function () {
     $('#IndexForm').validate({
         rules: {

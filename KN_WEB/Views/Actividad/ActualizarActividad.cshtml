@@ -1,14 +1,12 @@
 ﻿@model KN_WEB.EF.tbActividad
 
-@using (Html.BeginForm("AgregarActividad", "Actividad", FormMethod.Post, new { @id = "AgregarActividadForm", @enctype = "multipart/form-data" }))
+@using (Html.BeginForm("ActualizarActividad", "Actividad", FormMethod.Post, new { @id = "ActulizarActividadForm", @enctype = "multipart/form-data" }))
 {
     <div class="row">
 
         <div class="col-12 col-lg-6">
             <div class="card">
                 <div class="card-body">
-
-                    <h4 class="card-title mb-0">Nueva Actividad</h4>
 
                     @if (ViewBag.Mensaje != null)
                     {
@@ -17,6 +15,8 @@
                         </div>
                     }
 
+                    @Html.HiddenFor(m => m.Consecutivo)
+
                     <div class="form-group">
                         <label for="Titulo" class="form-label">Título</label>
                         @Html.TextBoxFor(m => m.Titulo, new { @type = "text", @class = "form-control form-control-xl" })
@@ -24,12 +24,12 @@
 
                     <div class="form-group">
                         <label for="Inicio" class="form-label">Inicio</label>
-                        @Html.TextBoxFor(m => m.Inicio, new { type = "datetime-local", @class = "form-control form-control-xl", onkeydown = "return false" })
+                        @Html.TextBoxFor(m => m.Inicio, "{0:yyyy-MM-ddTHH:mm}", new { type = "datetime-local", @class = "form-control form-control-xl", onkeydown = "return false" })
                     </div>
 
                     <div class="form-group">
                         <label for="Fin" class="form-label">Finalización</label>
-                        @Html.TextBoxFor(m => m.Fin, new { type = "datetime-local", @class = "form-control form-control-xl", onkeydown = "return false" })
+                        @Html.TextBoxFor(m => m.Fin, "{0:yyyy-MM-ddTHH:mm}", new { type = "datetime-local", @class = "form-control form-control-xl", onkeydown = "return false" })
                     </div>
 
                     <div class="form-group">
@@ -46,14 +46,18 @@
 
                     <h5 class="card-title mb-3">Imagen de la actividad</h5>
 
-                    <div id="zonaImagen" class="zona-imagen d-flex flex-column align-items-center justify-content-center"
+                    <div id="zonaImagen" class="zona-imagen @(string.IsNullOrEmpty(Model.Imagen) ? "" : "sin-borde") d-flex flex-column align-items-center justify-content-center"
                          onclick="document.getElementById('inputImagen').click()">
-                        <span id="textoImagen" class="text-muted mt-2">Haga clic para seleccionar una imagen</span>
-                        <img id="previstaImagen" src="#" alt="Vista previa" class="previa-imagen d-none" />
+                        <span id="textoImagen" class="text-muted mt-2 @(string.IsNullOrEmpty(Model.Imagen) ? "" : "d-none")">Haga clic para seleccionar una imagen</span>
+                        <img id="previstaImagen"
+                             src="@(string.IsNullOrEmpty(Model.Imagen) ? "#" : Url.Content("~/ActividadesIMG/" + Model.Imagen))"
+                             alt="Vista previa"
+                             class="previa-imagen @(string.IsNullOrEmpty(Model.Imagen) ? "d-none" : "")" />
                     </div>
 
                     <input type="file" id="inputImagen" name="Imagen" accept="image/*" class="d-none"
                            onchange="previsualizarImagen(this)" />
+                    <input type="hidden" id="imagenExistente" value="@Model.Imagen" />
 
                 </div>
             </div>
@@ -63,5 +67,5 @@
 }
 
 @section scripts {
-    <script src="~/Scripts/agregarActividad.js"></script>
+    <script src="~/Scripts/actualizarActividad.js"></script>
 }
