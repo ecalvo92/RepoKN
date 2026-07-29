@@ -1,5 +1,11 @@
 ﻿$(document).ready(function () {
 
+  if ($('#yaInicio').val() === 'true') {
+    $('#ActulizarActividadForm :input').prop('disabled', true);
+    $('#zonaImagen').off('click').css('pointer-events', 'none').css('opacity', '0.6');
+    return;
+  }
+
   $('#ActulizarActividadForm').validate({
     ignore: ':hidden:not(#inputImagen)',
     rules: {

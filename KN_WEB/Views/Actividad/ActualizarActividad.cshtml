@@ -58,6 +58,7 @@
                     <input type="file" id="inputImagen" name="Imagen" accept="image/*" class="d-none"
                            onchange="previsualizarImagen(this)" />
                     <input type="hidden" id="imagenExistente" value="@Model.Imagen" />
+                    <input type="hidden" id="yaInicio" value="@(Model.Inicio <= DateTime.Now ? "true" : "false")" />
 
                 </div>
             </div>
