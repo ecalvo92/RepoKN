@@ -14,7 +14,7 @@ CREATE TABLE [dbo].[tbActividad](
 	[Fin] [datetime] NOT NULL,
 	[FechaRegistro] [datetime] NOT NULL,
 	[ConsecutivoUsuario] [int] NOT NULL,
-	[Estado] [int] NOT NULL,
+	[ConsecutivoEstado] [int] NOT NULL,
 	[Imagen] [varchar](2000) NOT NULL,
  CONSTRAINT [PK_tbActividad] PRIMARY KEY CLUSTERED 
 (
@@ -34,6 +34,16 @@ CREATE TABLE [dbo].[tbError](
 	[Consecutivo] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[tbEstados](
+	[Consecutivo] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_tbEstados] PRIMARY KEY CLUSTERED 
+(
+	[Consecutivo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
 CREATE TABLE [dbo].[tbRol](
@@ -65,48 +75,29 @@ GO
 
 SET IDENTITY_INSERT [dbo].[tbActividad] ON 
 GO
-INSERT [dbo].[tbActividad] ([Consecutivo], [Titulo], [Inicio], [Fin], [FechaRegistro], [ConsecutivoUsuario], [Estado], [Imagen]) VALUES (3, N'Progra Avanzada', CAST(N'2026-07-22T20:30:00.000' AS DateTime), CAST(N'2026-07-22T21:30:00.000' AS DateTime), CAST(N'2026-07-21T20:33:51.113' AS DateTime), 1, 0, N'3.png')
+INSERT [dbo].[tbActividad] ([Consecutivo], [Titulo], [Inicio], [Fin], [FechaRegistro], [ConsecutivoUsuario], [ConsecutivoEstado], [Imagen]) VALUES (7, N'Curso de SQL Server', CAST(N'2026-07-28T19:45:00.000' AS DateTime), CAST(N'2026-07-28T21:34:00.000' AS DateTime), CAST(N'2026-07-28T19:32:59.480' AS DateTime), 1, 3, N'7.png')
 GO
-INSERT [dbo].[tbActividad] ([Consecutivo], [Titulo], [Inicio], [Fin], [FechaRegistro], [ConsecutivoUsuario], [Estado], [Imagen]) VALUES (4, N'Prueba', CAST(N'2026-07-22T20:43:00.000' AS DateTime), CAST(N'2026-07-23T20:43:00.000' AS DateTime), CAST(N'2026-07-21T20:45:01.413' AS DateTime), 1, 0, N'4.png')
+INSERT [dbo].[tbActividad] ([Consecutivo], [Titulo], [Inicio], [Fin], [FechaRegistro], [ConsecutivoUsuario], [ConsecutivoEstado], [Imagen]) VALUES (8, N'Prueba', CAST(N'2026-07-28T23:00:00.000' AS DateTime), CAST(N'2026-07-28T23:59:00.000' AS DateTime), CAST(N'2026-07-28T20:59:46.493' AS DateTime), 1, 1, N'8.png')
 GO
 SET IDENTITY_INSERT [dbo].[tbActividad] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[tbError] ON 
 GO
-INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (1, N'Intento de dividir por cero.', CAST(N'2026-06-09T20:33:06.433' AS DateTime), N'Registro', 0)
-GO
-INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (2, N'An error occurred while updating the entries. See the inner exception for details.', CAST(N'2026-06-16T19:04:52.330' AS DateTime), N'Registro', 0)
-GO
-INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (3, N'An error occurred while updating the entries. See the inner exception for details.', CAST(N'2026-06-16T19:07:16.473' AS DateTime), N'Registro', 0)
-GO
-INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (4, N'Validation failed for one or more entities. See ''EntityValidationErrors'' property for more details.', CAST(N'2026-06-16T19:30:58.023' AS DateTime), N'Registro', 0)
-GO
-INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (5, N'El servidor SMTP requiere una conexión segura o el cliente no se autenticó. La respuesta del servidor fue: 5.7.57 Client not authenticated to send mail. Error: 535 5.7.139 Authentication unsuccessful, the request did not meet the criteria to be authenticated successfully. Contact your administrator. [BN9PR03CA0716.namprd03.prod.outlook.com 2026-07-01T01:57:31.695Z 08DED6A3FAA75B29]', CAST(N'2026-06-30T19:57:42.030' AS DateTime), N'RecuperarAcceso', 0)
-GO
-INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (6, N'La cadena especificada no tiene la forma obligatoria para una dirección de correo electrónico.', CAST(N'2026-07-07T18:49:17.293' AS DateTime), N'RecuperarAcceso', 0)
-GO
-INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (7, N'La cadena especificada no tiene la forma obligatoria para una dirección de correo electrónico.', CAST(N'2026-07-07T18:50:12.807' AS DateTime), N'RecuperarAcceso', 0)
-GO
-INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (8, N'Referencia a objeto no establecida como instancia de un objeto.', CAST(N'2026-07-14T18:37:50.313' AS DateTime), N'Configuracion', 0)
-GO
-INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (9, N'Referencia a objeto no establecida como instancia de un objeto.', CAST(N'2026-07-14T18:38:11.107' AS DateTime), N'Configuracion', 0)
-GO
-INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (10, N'Referencia a objeto no establecida como instancia de un objeto.', CAST(N'2026-07-14T18:40:57.507' AS DateTime), N'Configuracion', 0)
-GO
-INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (11, N'Referencia a objeto no establecida como instancia de un objeto.', CAST(N'2026-07-14T18:41:48.037' AS DateTime), N'Configuracion', 0)
-GO
-INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (12, N'Referencia a objeto no establecida como instancia de un objeto.', CAST(N'2026-07-14T18:42:15.030' AS DateTime), N'Configuracion', 0)
-GO
-INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (13, N'Referencia a objeto no establecida como instancia de un objeto.', CAST(N'2026-07-14T18:43:06.947' AS DateTime), N'Configuracion', 0)
-GO
-INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (14, N'Referencia a objeto no establecida como instancia de un objeto.', CAST(N'2026-07-14T18:43:53.943' AS DateTime), N'Configuracion', 2)
-GO
-INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (15, N'Validation failed for one or more entities. See ''EntityValidationErrors'' property for more details.', CAST(N'2026-07-21T19:22:30.017' AS DateTime), N'CambiarContrasenna', 1)
-GO
-INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (16, N'Validation failed for one or more entities. See ''EntityValidationErrors'' property for more details.', CAST(N'2026-07-21T19:22:37.600' AS DateTime), N'CambiarContrasenna', 1)
+INSERT [dbo].[tbError] ([Consecutivo], [Mensaje], [FechaHora], [Lugar], [ConsecutivoUsuario]) VALUES (17, N'An error occurred while preparing the command definition. See the inner exception for details.', CAST(N'2026-07-28T18:39:13.957' AS DateTime), N'Index', 0)
 GO
 SET IDENTITY_INSERT [dbo].[tbError] OFF
+GO
+
+SET IDENTITY_INSERT [dbo].[tbEstados] ON 
+GO
+INSERT [dbo].[tbEstados] ([Consecutivo], [Nombre]) VALUES (1, N'Pendiente')
+GO
+INSERT [dbo].[tbEstados] ([Consecutivo], [Nombre]) VALUES (2, N'Finalizada')
+GO
+INSERT [dbo].[tbEstados] ([Consecutivo], [Nombre]) VALUES (3, N'Cancelada')
+GO
+SET IDENTITY_INSERT [dbo].[tbEstados] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[tbRol] ON 
@@ -137,6 +128,12 @@ ALTER TABLE [dbo].[tbUsuario] ADD  CONSTRAINT [UK_Identificacion] UNIQUE NONCLUS
 (
 	[Identificacion] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[tbActividad]  WITH CHECK ADD  CONSTRAINT [FK_tbActividad_tbEstados] FOREIGN KEY([ConsecutivoEstado])
+REFERENCES [dbo].[tbEstados] ([Consecutivo])
+GO
+ALTER TABLE [dbo].[tbActividad] CHECK CONSTRAINT [FK_tbActividad_tbEstados]
 GO
 
 ALTER TABLE [dbo].[tbActividad]  WITH CHECK ADD  CONSTRAINT [FK_tbActividad_tbUsuario] FOREIGN KEY([ConsecutivoUsuario])
