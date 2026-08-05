@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="~/Content/bootstrap-icons.css">
     <link rel="stylesheet" href="~/Content/app.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.bootstrap5.css">
+    @RenderSection("styles", required: false)
 </head>
 
 <body>
@@ -40,6 +41,15 @@
                         {
                             <li class="sidebar-item active">
                                 <a href="@Url.Action("VerActividades", "Actividad")" class='sidebar-link'>
+                                    <i class="bi bi-file-earmark-medical-fill"></i>
+                                    <span>Ver Actividades</span>
+                                </a>
+                            </li>
+                        }
+                        else
+                        { 
+                            <li class="sidebar-item active">
+                                <a href="@Url.Action("VerActividadesDisponibles", "CatalogoActividades")" class='sidebar-link'>
                                     <i class="bi bi-file-earmark-medical-fill"></i>
                                     <span>Ver Actividades</span>
                                 </a>

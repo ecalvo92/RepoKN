@@ -14,6 +14,12 @@ namespace KN_WEB.EF
     
     public partial class tbActividad
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbActividad()
+        {
+            this.EstudiantesActividades = new HashSet<EstudiantesActividades>();
+        }
+    
         public int Consecutivo { get; set; }
         public string Titulo { get; set; }
         public System.DateTime Inicio { get; set; }
@@ -25,5 +31,7 @@ namespace KN_WEB.EF
     
         public virtual tbEstados tbEstados { get; set; }
         public virtual tbUsuario tbUsuario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EstudiantesActividades> EstudiantesActividades { get; set; }
     }
 }

@@ -4,7 +4,16 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="KN_BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="KN_BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EstudiantesActividades">
+          <Key>
+            <PropertyRef Name="Consecutivo" />
+          </Key>
+          <Property Name="Consecutivo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ConsecutivoActividad" Type="int" Nullable="false" />
+          <Property Name="ConsecutivoUsuario" Type="int" Nullable="false" />
+          <Property Name="FechaInscripcion" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="tbActividad">
           <Key>
             <PropertyRef Name="Consecutivo" />
@@ -56,6 +65,30 @@
           <Property Name="VigenciaContrasennaTemp" Type="datetime" />
           <Property Name="ConsecutivoRol" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_EstudiantesCursos_tbActividad">
+          <End Role="tbActividad" Type="Self.tbActividad" Multiplicity="1" />
+          <End Role="EstudiantesActividades" Type="Self.EstudiantesActividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbActividad">
+              <PropertyRef Name="Consecutivo" />
+            </Principal>
+            <Dependent Role="EstudiantesActividades">
+              <PropertyRef Name="ConsecutivoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EstudiantesCursos_tbUsuario">
+          <End Role="tbUsuario" Type="Self.tbUsuario" Multiplicity="1" />
+          <End Role="EstudiantesActividades" Type="Self.EstudiantesActividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuario">
+              <PropertyRef Name="Consecutivo" />
+            </Principal>
+            <Dependent Role="EstudiantesActividades">
+              <PropertyRef Name="ConsecutivoUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbActividad_tbEstados">
           <End Role="tbEstados" Type="Self.tbEstados" Multiplicity="1" />
           <End Role="tbActividad" Type="Self.tbActividad" Multiplicity="*" />
@@ -109,11 +142,20 @@
           <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="KN_BDModelStoreContainer">
+          <EntitySet Name="EstudiantesActividades" EntityType="Self.EstudiantesActividades" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbActividad" EntityType="Self.tbActividad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbError" EntityType="Self.tbError" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbEstados" EntityType="Self.tbEstados" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbRol" EntityType="Self.tbRol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbUsuario" EntityType="Self.tbUsuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_EstudiantesCursos_tbActividad" Association="Self.FK_EstudiantesCursos_tbActividad">
+            <End Role="tbActividad" EntitySet="tbActividad" />
+            <End Role="EstudiantesActividades" EntitySet="EstudiantesActividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EstudiantesCursos_tbUsuario" Association="Self.FK_EstudiantesCursos_tbUsuario">
+            <End Role="tbUsuario" EntitySet="tbUsuario" />
+            <End Role="EstudiantesActividades" EntitySet="EstudiantesActividades" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbActividad_tbEstados" Association="Self.FK_tbActividad_tbEstados">
             <End Role="tbEstados" EntitySet="tbEstados" />
             <End Role="tbActividad" EntitySet="tbActividad" />
@@ -127,8 +169,7 @@
             <End Role="tbUsuario" EntitySet="tbUsuario" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="KN_BDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -146,6 +187,7 @@
           <Property Name="Imagen" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="tbEstados" Relationship="Self.FK_tbActividad_tbEstados" FromRole="tbActividad" ToRole="tbEstados" />
           <NavigationProperty Name="tbUsuario" Relationship="Self.FK_tbActividad_tbUsuario" FromRole="tbActividad" ToRole="tbUsuario" />
+          <NavigationProperty Name="EstudiantesActividades" Relationship="KN_BDModel.FK_EstudiantesCursos_tbActividad" FromRole="tbActividad" ToRole="EstudiantesActividades" />
         </EntityType>
         <EntityType Name="tbError">
           <Key>
@@ -188,6 +230,7 @@
           <Property Name="ConsecutivoRol" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tbActividad" Relationship="Self.FK_tbActividad_tbUsuario" FromRole="tbUsuario" ToRole="tbActividad" />
           <NavigationProperty Name="tbRol" Relationship="Self.FK_tbUsuario_tbRol" FromRole="tbUsuario" ToRole="tbRol" />
+          <NavigationProperty Name="EstudiantesActividades" Relationship="KN_BDModel.FK_EstudiantesCursos_tbUsuario" FromRole="tbUsuario" ToRole="EstudiantesActividades" />
         </EntityType>
         <Association Name="FK_tbActividad_tbEstados">
           <End Role="tbEstados" Type="Self.tbEstados" Multiplicity="1" />
@@ -259,6 +302,15 @@
             <Parameter Name="CorreoElectronico" Mode="In" Type="String" />
             <Parameter Name="Contrasenna" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="EstudiantesActividades" EntityType="KN_BDModel.EstudiantesActividades" />
+          <AssociationSet Name="FK_EstudiantesCursos_tbActividad" Association="KN_BDModel.FK_EstudiantesCursos_tbActividad">
+            <End Role="tbActividad" EntitySet="tbActividad" />
+            <End Role="EstudiantesActividades" EntitySet="EstudiantesActividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EstudiantesCursos_tbUsuario" Association="KN_BDModel.FK_EstudiantesCursos_tbUsuario">
+            <End Role="tbUsuario" EntitySet="tbUsuario" />
+            <End Role="EstudiantesActividades" EntitySet="EstudiantesActividades" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="spIniciarSesion_Result">
           <Property Type="Int32" Name="Consecutivo" Nullable="false" />
@@ -269,6 +321,41 @@
           <Property Type="Boolean" Name="TieneContrasennaTemp" Nullable="false" />
           <Property Type="DateTime" Name="VigenciaContrasennaTemp" Nullable="true" Precision="23" />
         </ComplexType>
+        <EntityType Name="EstudiantesActividades">
+          <Key>
+            <PropertyRef Name="Consecutivo" />
+          </Key>
+          <Property Name="Consecutivo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConsecutivoActividad" Type="Int32" Nullable="false" />
+          <Property Name="ConsecutivoUsuario" Type="Int32" Nullable="false" />
+          <Property Name="FechaInscripcion" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tbActividad" Relationship="KN_BDModel.FK_EstudiantesCursos_tbActividad" FromRole="EstudiantesActividades" ToRole="tbActividad" />
+          <NavigationProperty Name="tbUsuario" Relationship="KN_BDModel.FK_EstudiantesCursos_tbUsuario" FromRole="EstudiantesActividades" ToRole="tbUsuario" />
+        </EntityType>
+        <Association Name="FK_EstudiantesCursos_tbActividad">
+          <End Type="KN_BDModel.tbActividad" Role="tbActividad" Multiplicity="1" />
+          <End Type="KN_BDModel.EstudiantesActividades" Role="EstudiantesActividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbActividad">
+              <PropertyRef Name="Consecutivo" />
+            </Principal>
+            <Dependent Role="EstudiantesActividades">
+              <PropertyRef Name="ConsecutivoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EstudiantesCursos_tbUsuario">
+          <End Type="KN_BDModel.tbUsuario" Role="tbUsuario" Multiplicity="1" />
+          <End Type="KN_BDModel.EstudiantesActividades" Role="EstudiantesActividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuario">
+              <PropertyRef Name="Consecutivo" />
+            </Principal>
+            <Dependent Role="EstudiantesActividades">
+              <PropertyRef Name="ConsecutivoUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -346,6 +433,16 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spRegistrarError" FunctionName="KN_BDModel.Store.spRegistrarError" />
           <FunctionImportMapping FunctionImportName="spRegistrarUsuario" FunctionName="KN_BDModel.Store.spRegistrarUsuario" />
+          <EntitySetMapping Name="EstudiantesActividades">
+            <EntityTypeMapping TypeName="KN_BDModel.EstudiantesActividades">
+              <MappingFragment StoreEntitySet="EstudiantesActividades">
+                <ScalarProperty Name="FechaInscripcion" ColumnName="FechaInscripcion" />
+                <ScalarProperty Name="ConsecutivoUsuario" ColumnName="ConsecutivoUsuario" />
+                <ScalarProperty Name="ConsecutivoActividad" ColumnName="ConsecutivoActividad" />
+                <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -1,0 +1,76 @@
+﻿@model List<KN_WEB.EF.tbActividad>
+
+@section styles {
+    <link rel="stylesheet" href="~/Content/catalogoActividades.css">
+}
+
+<div class="row mb-4 align-items-center">
+    <div class="col">
+        <h4 class="mb-0 fw-bold">Actividades Disponibles</h4>
+        <p class="text-muted mb-0 small">Inscríbete en las actividades que sean de tu interés</p>
+    </div>
+    <div class="col-auto">
+        <input type="text" id="buscarActividad" class="form-control search-actividades" placeholder="Buscar actividad...">
+    </div>
+</div>
+
+@if (ViewBag.MensajeSeguridad != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-circle me-2"></i>@ViewBag.MensajeSeguridad
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+@if (!Model.Any())
+{
+    <div class="text-center empty-state">
+        <i class="bi bi-calendar-x"></i>
+        <h5>No hay actividades disponibles en este momento</h5>
+        <p class="small">Vuelve a consultar más tarde.</p>
+    </div>
+}
+else
+{
+    <div class="row g-4" id="contenedorActividades">
+        @foreach (var item in Model)
+        {
+            <div class="col-12 col-sm-6 col-lg-3 tarjeta-actividad">
+                <div class="card actividad-card h-100">
+                    <img src="@Url.Content("~/ActividadesIMG/" + item.Imagen)"
+                         class="card-img-top"
+                         alt="@item.Titulo"
+                         onerror="this.src='@Url.Content("~/Content/images/no-image.png")'">
+                    <div class="card-body d-flex flex-column gap-2">
+
+                        <div class="d-flex justify-content-between align-items-start">
+                            <h6 class="card-title mb-0 titulo-actividad">@item.Titulo</h6>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-start">
+                            <h6 class="card-title mb-0 titulo-actividad">@item.tbUsuario.Nombre</h6>
+                        </div>               
+
+                        <div class="mt-1">
+                            <div class="fecha-item"><i class="bi bi-calendar-event me-1"></i> Inicio: @item.Inicio.ToString("dd/MM/yyyy hh:mm tt")</div>
+                            <div class="fecha-item"><i class="bi bi-calendar-check me-1"></i> Fin: &nbsp;&nbsp;&nbsp;@item.Fin.ToString("dd/MM/yyyy hh:mm tt")</div>
+                        </div>
+
+                        <div class="mt-auto pt-2">
+                            <button class="btn btn-inscribir w-100 btn-inscribirse"
+                                    data-id="@item.Consecutivo"
+                                    data-titulo="@item.Titulo">
+                                <i class="bi bi-person-plus-fill me-1"></i> Inscribirme
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/Scripts/verActividadesDisponibles.js"></script>
+}

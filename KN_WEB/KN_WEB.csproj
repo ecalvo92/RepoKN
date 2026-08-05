@@ -135,9 +135,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CatalogoActividadesController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ActividadController.cs" />
+    <Compile Include="EF\EstudiantesActividades.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -184,6 +188,7 @@
     <Content Include="Content\auth.css" />
     <Content Include="Content\bootstrap-icons.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\catalogoActividades.css" />
     <Content Include="Content\images\4853433.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\security.png" />
@@ -214,6 +219,7 @@
     <Content Include="Scripts\recuperarAcceso.js" />
     <Content Include="Scripts\registro.js" />
     <Content Include="Scripts\verActividades.js" />
+    <Content Include="Scripts\verActividadesDisponibles.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -248,6 +254,7 @@
     <Content Include="Views\Actividad\VerActividades.cshtml" />
     <Content Include="Views\Actividad\AgregarActividad.cshtml" />
     <Content Include="Views\Actividad\ActualizarActividad.cshtml" />
+    <Content Include="Views\CatalogoActividades\VerActividadesDisponibles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

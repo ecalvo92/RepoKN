@@ -1,0 +1,65 @@
+.actividad-card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,.08);
+    transition: transform .25s ease, box-shadow .25s ease;
+    overflow: hidden;
+}
+
+.actividad-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.14);
+}
+
+.actividad-card .card-img-top {
+    height: 190px;
+    object-fit: contain;
+    margin-top: 20px;
+}
+
+.actividad-card .badge-estado {
+    font-size: .72rem;
+    letter-spacing: .04em;
+}
+
+.actividad-card .fecha-item {
+    font-size: .95rem;
+    color: #6c757d;
+}
+
+.actividad-card .fecha-item i {
+    width: 16px;
+}
+
+.btn-inscribir {
+    background: linear-gradient(135deg, #435ebe 0%, #6a82fb 100%);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: .03em;
+    transition: opacity .2s;
+}
+
+.btn-inscribir:hover {
+    opacity: .88;
+    color: #fff;
+}
+
+.search-actividades {
+    width: 365px;
+    border-radius: 10px;
+    border: 1px solid #dee2e6;
+    padding: .55rem 1rem;
+}
+
+.empty-state {
+    padding: 4rem 1rem;
+    color: #adb5bd;
+}
+
+.empty-state i {
+    font-size: 3.5rem;
+    display: block;
+    margin-bottom: 1rem;
+}
