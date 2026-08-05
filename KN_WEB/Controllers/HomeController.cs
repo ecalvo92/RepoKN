@@ -2,6 +2,7 @@
 using KN_WEB.Models;
 using KN_WEB.Servicios;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -262,27 +263,24 @@ namespace KN_WEB.Controllers
             try
             {
                 var consecutivo = int.Parse(Session["ConsecutivoUsuario"].ToString());
+                var consecutivoRol = int.Parse(Session["ConsecutivoRol"].ToString());
 
                 using (var context = new KN_BDEntities())
                 {
-                    var actividades = (from A in context.tbActividad.Include("tbEstados")
-                                       where A.ConsecutivoUsuario == consecutivo
-                                       select new { 
-                                        id = A.Consecutivo,
-                                        title = A.Titulo,
-                                        start = A.Inicio,
-                                        end = A.Fin,
-                                        consecutivoEstado = A.ConsecutivoEstado
-                                       }).ToList();
+                    IQueryable<tbActividad> query = context.tbActividad.Include("tbEstados");
 
-                    var resultado = actividades.Select(x => new
+                    query = consecutivoRol == 2
+                        ? query.Where(A => A.ConsecutivoUsuario == consecutivo)
+                        : query.Where(A => A.EstudiantesActividades.Any(e => e.ConsecutivoUsuario == consecutivo));
+
+                    var resultado = query.ToList().Select(A => new
                     {
-                        x.id,
-                        x.title,
-                        start = x.start.ToString("yyyy-MM-ddTHH:mm:ss"),
-                        end = x.end.ToString("yyyy-MM-ddTHH:mm:ss"),
-                        color = x.consecutivoEstado == 1 ? "blue" :
-                                x.consecutivoEstado == 2 ? "green" : "red"
+                        id    = A.Consecutivo,
+                        title = A.Titulo,
+                        start = A.Inicio.ToString("yyyy-MM-ddTHH:mm:ss"),
+                        end   = A.Fin.ToString("yyyy-MM-ddTHH:mm:ss"),
+                        color = A.ConsecutivoEstado == 1 ? "blue" :
+                                A.ConsecutivoEstado == 2 ? "green" : "red"
                     });
 
                     return Json(resultado, JsonRequestBehavior.AllowGet);
