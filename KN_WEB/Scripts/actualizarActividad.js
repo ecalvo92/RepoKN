@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
 
+  InicializarCalendarios();
+
   if ($('#yaInicio').val() === 'true') {
     $('#ActulizarActividadForm :input').prop('disabled', true);
     $('#zonaImagen').off('click').css('pointer-events', 'none').css('opacity', '0.6');
@@ -62,18 +64,3 @@
   });
 
 });
-
-function previsualizarImagen(input) {
-  if (!input.files || !input.files[0])
-    return;
-
-  var reader = new FileReader();
-  reader.onload = function (e) {
-    document.getElementById('previstaImagen').src = e.target.result;
-    document.getElementById('previstaImagen').classList.remove('d-none');
-    document.getElementById('textoImagen').classList.add('d-none');
-    document.getElementById('zonaImagen').classList.add('sin-borde');
-  };
-
-  reader.readAsDataURL(input.files[0]);
-}

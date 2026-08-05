@@ -83,3 +83,33 @@ $.validator.addMethod('imagenTamano', function (value, element) {
   if (!element.files || !element.files[0]) return true;
   return element.files[0].size <= 1 * 1024 * 1024;
 }, 'La imagen no debe superar 1 MB.');
+
+function InicializarCalendarios() {
+
+  flatpickr(".flatpickr-datetime", {
+    locale: "es",
+    enableTime: true,
+    dateFormat: "Y-m-d\\TH:i",
+    altInput: true,
+    altFormat: "d/m/Y h:i K",
+    time_24hr: false,
+    minuteIncrement: 5,
+    allowInput: false
+  });
+
+}
+
+function previsualizarImagen(input) {
+  if (!input.files || !input.files[0])
+    return;
+
+  var reader = new FileReader();
+  reader.onload = function (e) {
+    document.getElementById('previstaImagen').src = e.target.result;
+    document.getElementById('previstaImagen').classList.remove('d-none');
+    document.getElementById('textoImagen').classList.add('d-none');
+    document.getElementById('zonaImagen').classList.add('sin-borde');
+  };
+
+  reader.readAsDataURL(input.files[0]);
+}
