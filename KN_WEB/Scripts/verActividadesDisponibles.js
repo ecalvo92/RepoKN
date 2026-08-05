@@ -34,7 +34,16 @@ $(document).on('click', '.btn-inscribirse', function () {
       },
       dataType: 'json',
       success: function (data) {
-        location.reload();
+
+        Swal.fire({
+          title: "Información",
+          text: data,
+          icon: "info",
+          confirmButtonText: "Aceptar"
+        }).then(() => {
+          location.reload();
+        });
+        
       }
     });
 

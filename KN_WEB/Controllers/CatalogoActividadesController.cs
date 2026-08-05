@@ -61,7 +61,7 @@ namespace KN_WEB.Controllers
                     context.SaveChanges();
                 }
 
-                return Json("Ok", JsonRequestBehavior.AllowGet);
+                return Json("Inscripción Completada", JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

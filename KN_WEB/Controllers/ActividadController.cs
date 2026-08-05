@@ -191,7 +191,7 @@ namespace KN_WEB.Controllers
                     }
                 }
 
-                return Json("Ok", JsonRequestBehavior.AllowGet);
+                return Json("Cancelación Completada", JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
