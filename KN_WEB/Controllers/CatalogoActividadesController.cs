@@ -22,9 +22,13 @@ namespace KN_WEB.Controllers
             {
                 using (var context = new KN_BDEntities())
                 {
-                    var actividades = (from A in context.tbActividad.Include("tbEstados").Include("tbUsuario")
+                    var consecutivo = int.Parse(Session["ConsecutivoUsuario"].ToString());
+
+                    var actividades = (from A in context.tbActividad
+                                       .Include("tbUsuario")
                                        where A.ConsecutivoEstado == 1
                                           && A.Inicio >= DateTime.Now
+                                          && !A.EstudiantesActividades.Any(e => e.ConsecutivoUsuario == consecutivo)
                                        select A).ToList();
 
                     return View(actividades);
