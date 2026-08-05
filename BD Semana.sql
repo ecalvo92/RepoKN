@@ -7,6 +7,18 @@ GO
 USE [KN_BD]
 GO
 
+CREATE TABLE [dbo].[EstudiantesActividades](
+	[Consecutivo] [int] IDENTITY(1,1) NOT NULL,
+	[ConsecutivoActividad] [int] NOT NULL,
+	[ConsecutivoUsuario] [int] NOT NULL,
+	[FechaInscripcion] [datetime] NOT NULL,
+ CONSTRAINT [PK_EstudiantesCursos] PRIMARY KEY CLUSTERED 
+(
+	[Consecutivo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 CREATE TABLE [dbo].[tbActividad](
 	[Consecutivo] [int] IDENTITY(1,1) NOT NULL,
 	[Titulo] [varchar](50) NOT NULL,
@@ -73,11 +85,28 @@ CREATE TABLE [dbo].[tbUsuario](
 ) ON [PRIMARY]
 GO
 
+SET IDENTITY_INSERT [dbo].[EstudiantesActividades] ON 
+GO
+INSERT [dbo].[EstudiantesActividades] ([Consecutivo], [ConsecutivoActividad], [ConsecutivoUsuario], [FechaInscripcion]) VALUES (5, 7, 2, CAST(N'2026-08-04T20:24:56.930' AS DateTime))
+GO
+INSERT [dbo].[EstudiantesActividades] ([Consecutivo], [ConsecutivoActividad], [ConsecutivoUsuario], [FechaInscripcion]) VALUES (6, 9, 2, CAST(N'2026-08-04T20:48:19.770' AS DateTime))
+GO
+INSERT [dbo].[EstudiantesActividades] ([Consecutivo], [ConsecutivoActividad], [ConsecutivoUsuario], [FechaInscripcion]) VALUES (7, 10, 2, CAST(N'2026-08-04T20:48:48.823' AS DateTime))
+GO
+SET IDENTITY_INSERT [dbo].[EstudiantesActividades] OFF
+GO
+
 SET IDENTITY_INSERT [dbo].[tbActividad] ON 
 GO
-INSERT [dbo].[tbActividad] ([Consecutivo], [Titulo], [Inicio], [Fin], [FechaRegistro], [ConsecutivoUsuario], [ConsecutivoEstado], [Imagen]) VALUES (7, N'Curso de SQL Server', CAST(N'2026-07-28T19:45:00.000' AS DateTime), CAST(N'2026-07-28T21:34:00.000' AS DateTime), CAST(N'2026-07-28T19:32:59.480' AS DateTime), 1, 3, N'7.png')
+INSERT [dbo].[tbActividad] ([Consecutivo], [Titulo], [Inicio], [Fin], [FechaRegistro], [ConsecutivoUsuario], [ConsecutivoEstado], [Imagen]) VALUES (7, N'Curso de SQL Server', CAST(N'2026-08-06T18:00:00.000' AS DateTime), CAST(N'2026-08-06T21:00:00.000' AS DateTime), CAST(N'2026-07-28T19:32:59.480' AS DateTime), 1, 1, N'7.png')
 GO
-INSERT [dbo].[tbActividad] ([Consecutivo], [Titulo], [Inicio], [Fin], [FechaRegistro], [ConsecutivoUsuario], [ConsecutivoEstado], [Imagen]) VALUES (8, N'Prueba', CAST(N'2026-07-28T23:00:00.000' AS DateTime), CAST(N'2026-07-28T23:59:00.000' AS DateTime), CAST(N'2026-07-28T20:59:46.493' AS DateTime), 1, 1, N'8.png')
+INSERT [dbo].[tbActividad] ([Consecutivo], [Titulo], [Inicio], [Fin], [FechaRegistro], [ConsecutivoUsuario], [ConsecutivoEstado], [Imagen]) VALUES (8, N'Prueba', CAST(N'2026-08-05T18:00:00.000' AS DateTime), CAST(N'2026-08-05T21:00:00.000' AS DateTime), CAST(N'2026-07-28T20:59:46.493' AS DateTime), 1, 3, N'8.png')
+GO
+INSERT [dbo].[tbActividad] ([Consecutivo], [Titulo], [Inicio], [Fin], [FechaRegistro], [ConsecutivoUsuario], [ConsecutivoEstado], [Imagen]) VALUES (9, N'Charla de Base de Datos Relacionales', CAST(N'2026-08-07T15:00:00.000' AS DateTime), CAST(N'2026-08-07T18:00:00.000' AS DateTime), CAST(N'2026-08-04T18:36:37.323' AS DateTime), 3, 1, N'9.png')
+GO
+INSERT [dbo].[tbActividad] ([Consecutivo], [Titulo], [Inicio], [Fin], [FechaRegistro], [ConsecutivoUsuario], [ConsecutivoEstado], [Imagen]) VALUES (10, N'Curso de SQL Server', CAST(N'2026-08-31T19:30:00.000' AS DateTime), CAST(N'2026-08-31T20:30:00.000' AS DateTime), CAST(N'2026-08-04T18:51:30.263' AS DateTime), 1, 1, N'10.png')
+GO
+INSERT [dbo].[tbActividad] ([Consecutivo], [Titulo], [Inicio], [Fin], [FechaRegistro], [ConsecutivoUsuario], [ConsecutivoEstado], [Imagen]) VALUES (11, N'Prueba10', CAST(N'2026-08-04T18:00:00.000' AS DateTime), CAST(N'2026-08-04T18:30:00.000' AS DateTime), CAST(N'2026-08-04T19:57:55.610' AS DateTime), 1, 2, N'11.png')
 GO
 SET IDENTITY_INSERT [dbo].[tbActividad] OFF
 GO
@@ -115,7 +144,16 @@ INSERT [dbo].[tbUsuario] ([Consecutivo], [Identificacion], [Nombre], [CorreoElec
 GO
 INSERT [dbo].[tbUsuario] ([Consecutivo], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [TieneContrasennaTemp], [VigenciaContrasennaTemp], [ConsecutivoRol]) VALUES (2, N'207960874', N'BRANDON CORELLA SANCHEZ', N'bcorella60874@ufide.ac.cr', N'60874*', 1, 0, CAST(N'2026-07-07T19:43:09.890' AS DateTime), 1)
 GO
+INSERT [dbo].[tbUsuario] ([Consecutivo], [Identificacion], [Nombre], [CorreoElectronico], [Contrasenna], [Estado], [TieneContrasennaTemp], [VigenciaContrasennaTemp], [ConsecutivoRol]) VALUES (3, N'305440788', N'FABIAN ARAYA BALLESTERO', N'faraya40788@ufide.ac.cr', N'40788*', 1, 0, NULL, 2)
+GO
 SET IDENTITY_INSERT [dbo].[tbUsuario] OFF
+GO
+
+ALTER TABLE [dbo].[EstudiantesActividades] ADD  CONSTRAINT [UK_EstudiantesActividades] UNIQUE NONCLUSTERED 
+(
+	[ConsecutivoActividad] ASC,
+	[ConsecutivoUsuario] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
 
 ALTER TABLE [dbo].[tbUsuario] ADD  CONSTRAINT [UK_CorreoElectronico] UNIQUE NONCLUSTERED 
@@ -128,6 +166,18 @@ ALTER TABLE [dbo].[tbUsuario] ADD  CONSTRAINT [UK_Identificacion] UNIQUE NONCLUS
 (
 	[Identificacion] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[EstudiantesActividades]  WITH CHECK ADD  CONSTRAINT [FK_EstudiantesCursos_tbActividad] FOREIGN KEY([ConsecutivoActividad])
+REFERENCES [dbo].[tbActividad] ([Consecutivo])
+GO
+ALTER TABLE [dbo].[EstudiantesActividades] CHECK CONSTRAINT [FK_EstudiantesCursos_tbActividad]
+GO
+
+ALTER TABLE [dbo].[EstudiantesActividades]  WITH CHECK ADD  CONSTRAINT [FK_EstudiantesCursos_tbUsuario] FOREIGN KEY([ConsecutivoUsuario])
+REFERENCES [dbo].[tbUsuario] ([Consecutivo])
+GO
+ALTER TABLE [dbo].[EstudiantesActividades] CHECK CONSTRAINT [FK_EstudiantesCursos_tbUsuario]
 GO
 
 ALTER TABLE [dbo].[tbActividad]  WITH CHECK ADD  CONSTRAINT [FK_tbActividad_tbEstados] FOREIGN KEY([ConsecutivoEstado])
