@@ -2,6 +2,7 @@
 using KN_WEB.Models;
 using KN_WEB.Servicios;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -192,6 +193,39 @@ namespace KN_WEB.Controllers
                 }
 
                 return Json("Cancelación Completada", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                utilitario.RegistrarErrorBitacora(ex.Message, MethodBase.GetCurrentMethod().Name);
+                return View("Error");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult VerEstudiantesInscritos(int id)
+        {
+            try
+            {
+                int consecutivoTutor = int.Parse(Session["ConsecutivoUsuario"].ToString());
+
+                using (KN_BDEntities context = new KN_BDEntities())
+                {
+                    var actividad = context.tbActividad
+                        .FirstOrDefault(a => a.Consecutivo == id && a.ConsecutivoUsuario == consecutivoTutor);
+
+                    // Evita que un tutor vea inscritos de actividades ajenas
+                    if (actividad == null)
+                        return RedirectToAction("VerActividades");
+
+                    ViewBag.TituloActividad = actividad.Titulo;
+
+                    List<EstudiantesActividades> inscritos = context.EstudiantesActividades
+                        .Include("tbUsuario")
+                        .Where(e => e.ConsecutivoActividad == id)
+                        .ToList();
+
+                    return View(inscritos);
+                }
             }
             catch (Exception ex)
             {

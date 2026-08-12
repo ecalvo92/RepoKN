@@ -220,6 +220,7 @@
     <Content Include="Scripts\registro.js" />
     <Content Include="Scripts\verActividades.js" />
     <Content Include="Scripts\verActividadesDisponibles.js" />
+    <Content Include="Scripts\verEstudiantesInscritos.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -257,6 +258,7 @@
     <Content Include="Views\CatalogoActividades\VerActividadesDisponibles.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\KNWEB - Web Deploy.pubxml" />
+    <Content Include="Views\Actividad\VerEstudiantesInscritos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
