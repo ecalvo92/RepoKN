@@ -87,22 +87,18 @@ GO
 
 SET IDENTITY_INSERT [dbo].[EstudiantesActividades] ON 
 GO
-INSERT [dbo].[EstudiantesActividades] ([Consecutivo], [ConsecutivoActividad], [ConsecutivoUsuario], [FechaInscripcion]) VALUES (5, 7, 2, CAST(N'2026-08-04T20:24:56.930' AS DateTime))
-GO
-INSERT [dbo].[EstudiantesActividades] ([Consecutivo], [ConsecutivoActividad], [ConsecutivoUsuario], [FechaInscripcion]) VALUES (6, 9, 2, CAST(N'2026-08-04T20:48:19.770' AS DateTime))
-GO
-INSERT [dbo].[EstudiantesActividades] ([Consecutivo], [ConsecutivoActividad], [ConsecutivoUsuario], [FechaInscripcion]) VALUES (7, 10, 2, CAST(N'2026-08-04T20:48:48.823' AS DateTime))
+INSERT [dbo].[EstudiantesActividades] ([Consecutivo], [ConsecutivoActividad], [ConsecutivoUsuario], [FechaInscripcion]) VALUES (8, 10, 2, CAST(N'2026-08-11T18:39:15.333' AS DateTime))
 GO
 SET IDENTITY_INSERT [dbo].[EstudiantesActividades] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[tbActividad] ON 
 GO
-INSERT [dbo].[tbActividad] ([Consecutivo], [Titulo], [Inicio], [Fin], [FechaRegistro], [ConsecutivoUsuario], [ConsecutivoEstado], [Imagen]) VALUES (7, N'Curso de SQL Server', CAST(N'2026-08-06T18:00:00.000' AS DateTime), CAST(N'2026-08-06T21:00:00.000' AS DateTime), CAST(N'2026-07-28T19:32:59.480' AS DateTime), 1, 1, N'7.png')
+INSERT [dbo].[tbActividad] ([Consecutivo], [Titulo], [Inicio], [Fin], [FechaRegistro], [ConsecutivoUsuario], [ConsecutivoEstado], [Imagen]) VALUES (7, N'Curso de SQL Server', CAST(N'2026-08-06T18:00:00.000' AS DateTime), CAST(N'2026-08-06T21:00:00.000' AS DateTime), CAST(N'2026-07-28T19:32:59.480' AS DateTime), 1, 2, N'7.png')
 GO
 INSERT [dbo].[tbActividad] ([Consecutivo], [Titulo], [Inicio], [Fin], [FechaRegistro], [ConsecutivoUsuario], [ConsecutivoEstado], [Imagen]) VALUES (8, N'Prueba', CAST(N'2026-08-05T18:00:00.000' AS DateTime), CAST(N'2026-08-05T21:00:00.000' AS DateTime), CAST(N'2026-07-28T20:59:46.493' AS DateTime), 1, 3, N'8.png')
 GO
-INSERT [dbo].[tbActividad] ([Consecutivo], [Titulo], [Inicio], [Fin], [FechaRegistro], [ConsecutivoUsuario], [ConsecutivoEstado], [Imagen]) VALUES (9, N'Charla de Base de Datos Relacionales', CAST(N'2026-08-07T15:00:00.000' AS DateTime), CAST(N'2026-08-07T18:00:00.000' AS DateTime), CAST(N'2026-08-04T18:36:37.323' AS DateTime), 3, 1, N'9.png')
+INSERT [dbo].[tbActividad] ([Consecutivo], [Titulo], [Inicio], [Fin], [FechaRegistro], [ConsecutivoUsuario], [ConsecutivoEstado], [Imagen]) VALUES (9, N'Charla de Base de Datos Relacionales', CAST(N'2026-08-07T15:00:00.000' AS DateTime), CAST(N'2026-08-07T18:00:00.000' AS DateTime), CAST(N'2026-08-04T18:36:37.323' AS DateTime), 3, 2, N'9.png')
 GO
 INSERT [dbo].[tbActividad] ([Consecutivo], [Titulo], [Inicio], [Fin], [FechaRegistro], [ConsecutivoUsuario], [ConsecutivoEstado], [Imagen]) VALUES (10, N'Curso de SQL Server', CAST(N'2026-08-31T19:30:00.000' AS DateTime), CAST(N'2026-08-31T20:30:00.000' AS DateTime), CAST(N'2026-08-04T18:51:30.263' AS DateTime), 1, 1, N'10.png')
 GO
