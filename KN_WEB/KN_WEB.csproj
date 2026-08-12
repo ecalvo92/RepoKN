@@ -255,6 +255,8 @@
     <Content Include="Views\Actividad\AgregarActividad.cshtml" />
     <Content Include="Views\Actividad\ActualizarActividad.cshtml" />
     <Content Include="Views\CatalogoActividades\VerActividadesDisponibles.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\KNWEB - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
