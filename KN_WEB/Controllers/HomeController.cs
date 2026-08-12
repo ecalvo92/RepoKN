@@ -231,6 +231,26 @@ namespace KN_WEB.Controllers
         {
             try
             {
+                int consecutivo = int.Parse(Session["ConsecutivoUsuario"].ToString());
+                int consecutivoRol = int.Parse(Session["ConsecutivoRol"].ToString());
+
+                using (KN_BDEntities context = new KN_BDEntities())
+                {
+                    if (consecutivoRol == 2)
+                    {
+                        ViewBag.TotalActividades = context.tbActividad.Count(a => a.ConsecutivoUsuario == consecutivo);
+                        ViewBag.ActividadesActivas = context.tbActividad.Count(a => a.ConsecutivoUsuario == consecutivo && a.ConsecutivoEstado == 1);
+                        ViewBag.ActividadesCanceladas = context.tbActividad.Count(a => a.ConsecutivoUsuario == consecutivo && a.ConsecutivoEstado == 3);
+                        ViewBag.TotalInscritos = context.EstudiantesActividades.Count(e => e.tbActividad.ConsecutivoUsuario == consecutivo);
+                    }
+                    else
+                    {
+                        ViewBag.TotalInscritas = context.EstudiantesActividades.Count(e => e.ConsecutivoUsuario == consecutivo);
+                        ViewBag.Proximas = context.EstudiantesActividades.Count(e => e.ConsecutivoUsuario == consecutivo && e.tbActividad.Inicio > DateTime.Now);
+                        ViewBag.Finalizadas = context.EstudiantesActividades.Count(e => e.ConsecutivoUsuario == consecutivo && e.tbActividad.Fin < DateTime.Now);
+                    }
+                }
+
                 return View();
             }
             catch (Exception ex)

@@ -69,5 +69,64 @@ namespace KN_WEB.Controllers
                 return View("Error");
             }
         }
+
+        [HttpGet]
+        public ActionResult MisActividades()
+        {
+            try
+            {
+                int consecutivo = int.Parse(Session["ConsecutivoUsuario"].ToString());
+
+                using (KN_BDEntities context = new KN_BDEntities())
+                {
+                    List<EstudiantesActividades> misActividades = context.EstudiantesActividades
+                        .Include("tbActividad")
+                        .Include("tbActividad.tbUsuario")
+                        .Include("tbActividad.tbEstados")
+                        .Where(e => e.ConsecutivoUsuario == consecutivo)
+                        .OrderByDescending(e => e.tbActividad.Inicio)
+                        .ToList();
+
+                    return View(misActividades);
+                }
+            }
+            catch (Exception ex)
+            {
+                utilitario.RegistrarErrorBitacora(ex.Message, MethodBase.GetCurrentMethod().Name);
+                return View("Error");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Desinscribirse(int id)
+        {
+            try
+            {
+                int consecutivo = int.Parse(Session["ConsecutivoUsuario"].ToString());
+
+                using (KN_BDEntities context = new KN_BDEntities())
+                {
+                    EstudiantesActividades inscripcion = context.EstudiantesActividades
+                        .Include("tbActividad")
+                        .FirstOrDefault(e => e.ConsecutivoActividad == id && e.ConsecutivoUsuario == consecutivo);
+
+                    if (inscripcion == null)
+                        return Json("Inscripción no encontrada", JsonRequestBehavior.AllowGet);
+
+                    if (inscripcion.tbActividad.Inicio <= DateTime.Now)
+                        return Json("No es posible desinscribirse de una actividad que ya inició", JsonRequestBehavior.AllowGet);
+
+                    context.EstudiantesActividades.Remove(inscripcion);
+                    context.SaveChanges();
+                }
+
+                return Json("Desinscripción completada", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                utilitario.RegistrarErrorBitacora(ex.Message, MethodBase.GetCurrentMethod().Name);
+                return Json("Error al procesar la solicitud", JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

@@ -1,4 +1,111 @@
-﻿<section class="section">
+﻿@{
+    string rolActual = HttpContext.Current.Session["ConsecutivoRol"]?.ToString() ?? string.Empty;
+}
+
+<section class="section">
+
+    @if (rolActual == "2")
+    {
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-lg-3">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="p-3 rounded" style="background-color: rgba(67,94,190,.1);">
+                            <i class="bi bi-calendar2-week fs-4" style="color: #435ebe;"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted small">Total Actividades</div>
+                            <div class="fw-bold fs-4">@ViewBag.TotalActividades</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="p-3 rounded" style="background-color: rgba(79,190,135,.1);">
+                            <i class="bi bi-calendar-check fs-4" style="color: #4fbe87;"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted small">Activas</div>
+                            <div class="fw-bold fs-4">@ViewBag.ActividadesActivas</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="p-3 rounded" style="background-color: rgba(220,53,69,.1);">
+                            <i class="bi bi-calendar-x fs-4" style="color: #dc3545;"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted small">Canceladas</div>
+                            <div class="fw-bold fs-4">@ViewBag.ActividadesCanceladas</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="p-3 rounded bg-opacity-10" style="background-color: rgba(111,66,193,.1);">
+                            <i class="bi bi-people-fill fs-4" style="color: #6f42c1;"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted small">Total Inscritos</div>
+                            <div class="fw-bold fs-4">@ViewBag.TotalInscritos</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="p-3 rounded" style="background-color: rgba(67,94,190,.1);">
+                            <i class="bi bi-bookmark-check-fill fs-4" style="color: #435ebe;"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted small">Actividades Inscritas</div>
+                            <div class="fw-bold fs-4">@ViewBag.TotalInscritas</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="p-3 rounded" style="background-color: rgba(79,190,135,.1);">
+                            <i class="bi bi-calendar-event fs-4" style="color: #4fbe87;"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted small">Próximas</div>
+                            <div class="fw-bold fs-4">@ViewBag.Proximas</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="p-3 rounded" style="background-color: rgba(108,117,125,.1);">
+                            <i class="bi bi-calendar2-check fs-4" style="color: #6c757d;"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted small">Finalizadas</div>
+                            <div class="fw-bold fs-4">@ViewBag.Finalizadas</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
     <div class="card">
         <div class="card-header">
             <h4 class="card-title">Actividades</h4>

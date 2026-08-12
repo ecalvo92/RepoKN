@@ -1,0 +1,79 @@
+@model List<KN_WEB.EF.EstudiantesActividades>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h4 class="card-title mb-0">Mis Actividades</h4>
+                        <p class="text-muted mb-0 small">Actividades en las que estás inscrito</p>
+                    </div>
+                    <a href="@Url.Action("VerActividadesDisponibles", "CatalogoActividades")" class="btn btn-primary">
+                        <i class="bi bi-plus-circle me-1"></i> Explorar Catálogo
+                    </a>
+                </div>
+
+                @if (!Model.Any())
+                {
+                    <div class="text-center py-5">
+                        <i class="bi bi-bookmark-x fs-1 text-muted"></i>
+                        <h5 class="mt-3 text-muted">No estás inscrito en ninguna actividad</h5>
+                        <a href="@Url.Action("VerActividadesDisponibles", "CatalogoActividades")" class="btn btn-outline-primary mt-2">
+                            Ver actividades disponibles
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <table id="TablaMisActividades" class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Actividad</th>
+                                <th>Tutor</th>
+                                <th>Inicio</th>
+                                <th>Fin</th>
+                                <th>Estado</th>
+                                <th>Inscripci&oacute;n</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Consecutivo</td>
+                                    <td>@item.tbActividad.Titulo</td>
+                                    <td>@item.tbActividad.tbUsuario.Nombre</td>
+                                    <td>@item.tbActividad.Inicio.ToString("dd/MM/yyyy hh:mm tt")</td>
+                                    <td>@item.tbActividad.Fin.ToString("dd/MM/yyyy hh:mm tt")</td>
+                                    <td>@item.tbActividad.tbEstados.Nombre</td>
+                                    <td>@item.FechaInscripcion.ToString("dd/MM/yyyy")</td>
+                                    <td>
+                                        @if (item.tbActividad.Inicio > DateTime.Now && item.tbActividad.ConsecutivoEstado == 1)
+                                        {
+                                            <a class="btn-desinscribirse" style="cursor:pointer"
+                                               data-id="@item.ConsecutivoActividad"
+                                               data-titulo="@item.tbActividad.Titulo"
+                                               title="Desinscribirse">
+                                                <i class="bi bi-person-dash-fill fs-4 text-danger"></i>
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/Scripts/misActividades.js"></script>
+}

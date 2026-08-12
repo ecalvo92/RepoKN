@@ -214,6 +214,7 @@
     <Content Include="Scripts\configuracion.js" />
     <Content Include="Scripts\index.js" />
     <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\misActividades.js" />
     <Content Include="Scripts\perfect-scrollbar.min.js" />
     <Content Include="Scripts\principal.js" />
     <Content Include="Scripts\recuperarAcceso.js" />
@@ -259,6 +260,7 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\KNWEB - Web Deploy.pubxml" />
     <Content Include="Views\Actividad\VerEstudiantesInscritos.cshtml" />
+    <Content Include="Views\CatalogoActividades\MisActividades.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
